@@ -1,0 +1,616 @@
+{
+  "adminCredentials": {
+    "username": "superadmin",
+    "passwordHash": "superadmin123"
+  },
+  "siteSettings": {
+    "brandName": "Codes4U",
+    "topBadge": "RETAILMENOT APP WEEK:",
+    "topText": "Up to 50% OFF + 15% Cash Back at Top Brands Today!",
+    "pillTag": "✨ Introducing 100 Merchants Ranking",
+    "heroTitle": "Codes that actually work.",
+    "heroSub": "The only platform powered by real shoppers testing codes live at checkout. No expired junk, no fake deals.",
+    "stat1Val": "647,966",
+    "stat1Lbl": "active codes",
+    "stat2Val": "98%",
+    "stat2Lbl": "verification health",
+    "stat3Val": "2.9M+",
+    "stat3Lbl": "shoppers testing",
+    "stat4Val": "$10+",
+    "stat4Lbl": "average savings per checkout",
+    "whyTag": "WHY CODES4U",
+    "whyTitle": "We test 1M+ codes. Every. Single. Month.",
+    "whyDesc": "Our engine tests codes against real cart checkouts 24/7. When a code works, we issue a Proof Packet with an auditable evidence chain.",
+    "feat1Title": "1. AI Automated Testing",
+    "feat1Badge": "LIVE 24/7",
+    "feat1Desc": "Continuous checkout cart simulation testing 100k+ codes per hour across major online retailers.",
+    "feat2Title": "2. Shopper Consensus",
+    "feat2Badge": "VERIFIED",
+    "feat2Desc": "Real community members confirming working codes and uploading receipt proofs in real-time.",
+    "feat3Title": "3. Code Health Score",
+    "feat3Badge": "0-100% SCORE",
+    "feat3Desc": "Live reliability rating calculated from recent verification history, usage frequency, and success rates.",
+    "extTitle": "Try Codes4U",
+    "extDesc": "The lightest, privacy-first browser extension for Chrome, Safari, and mobile.",
+    "floatingTitle": "Never pay full price again.",
+    "floatingSub": "Install the official Codes4U extension.",
+    "appStoreUrl": "https://apple.com",
+    "googlePlayUrl": "https://google.com",
+    "chromeExtUrl": "https://chrome.google.com"
+  },
+  "stores": [
+    {
+      "id": "nike",
+      "name": "Nike",
+      "category": "fashion",
+      "domain": "nike.com",
+      "health": "98% Health",
+      "discountTitle": "30% OFF + 10% Cash Back",
+      "discountDesc": "Extra 30% Off Clearance & Footwear at Nike",
+      "logo": "https://cdn.svgporn.com/logos/nike.svg",
+      "targetUrl": "https://www.nike.com",
+      "cashback": "10% Cash Back",
+      "codes": [
+        { "title": "30% OFF Clearance Sneakers", "code": "SWISH30", "desc": "Extra 30% off footwear & activewear" },
+        { "title": "Free Shipping No Min", "code": "NIKEPASS", "desc": "Free express shipping for Nike members" },
+        { "title": "20% OFF Member Exclusive", "code": "JUSTDOIT20", "desc": "Valid on select new releases" }
+      ]
+    },
+    {
+      "id": "macys",
+      "name": "Macy's",
+      "category": "fashion",
+      "domain": "macys.com",
+      "health": "97% Health",
+      "discountTitle": "25% OFF + 8% Cash Back",
+      "discountDesc": "Extra 25% Off Storewide & VIP Sale at Macy's",
+      "logo": "https://cdn.svgporn.com/logos/macys.svg",
+      "targetUrl": "https://www.macys.com",
+      "cashback": "8% Cash Back",
+      "codes": [
+        { "title": "25% OFF Storewide VIP Sale", "code": "MACYS25", "desc": "Extra 25% off fashion, shoes & home" },
+        { "title": "$10 OFF $25 Purchase", "code": "FIFTY10", "desc": "Valid on select apparel categories" }
+      ]
+    },
+    {
+      "id": "kohls",
+      "name": "Kohl's",
+      "category": "fashion",
+      "domain": "kohls.com",
+      "health": "96% Health",
+      "discountTitle": "15% OFF + $10 Kohl's Cash",
+      "discountDesc": "Extra 15% Off Your Order at Kohl's",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Kohl%27s_logo.svg/1024px-Kohl%27s_logo.svg.png",
+      "targetUrl": "https://www.kohls.com",
+      "cashback": "5% Cash Back",
+      "codes": [
+        { "title": "15% OFF Sitewide", "code": "TAKE15", "desc": "Take 15% off any order online" },
+        { "title": "$10 OFF $50 Home Goods", "code": "HOME10", "desc": "Bedding, kitchen & bath products" }
+      ]
+    },
+    {
+      "id": "homedepot",
+      "name": "The Home Depot",
+      "category": "home",
+      "domain": "homedepot.com",
+      "health": "99% Health",
+      "discountTitle": "Up to 30% OFF",
+      "discountDesc": "30% Off Power Tools & Major Appliances",
+      "logo": "https://cdn.svgporn.com/logos/home-depot.svg",
+      "targetUrl": "https://www.homedepot.com",
+      "cashback": "6% Cash Back",
+      "codes": [
+        { "title": "$10 OFF $50 Hardware", "code": "HOMEDEPOT10", "desc": "Valid on tools, hardware & garden" },
+        { "title": "Free Delivery on Appliances", "code": "APPLIANCEFREE", "desc": "Free home delivery over $396" }
+      ]
+    },
+    {
+      "id": "dominos",
+      "name": "Domino's Pizza",
+      "category": "food",
+      "domain": "dominos.com",
+      "health": "99% Health",
+      "discountTitle": "50% OFF Pizza",
+      "discountDesc": "50% Off Any Menu Price Pizza at Domino's",
+      "logo": "https://cdn.svgporn.com/logos/dominos-pizza.svg",
+      "targetUrl": "https://www.dominos.com",
+      "cashback": "4% Cash Back",
+      "codes": [
+        { "title": "50% OFF Any Menu Price Pizza", "code": "50OFFPIZZA", "desc": "Valid on online carryout orders" },
+        { "title": "$7.99 Carryout Deal", "code": "9193", "desc": "2-topping large pizzas or wings" }
+      ]
+    },
+    {
+      "id": "walgreens",
+      "name": "Walgreens",
+      "category": "top",
+      "domain": "walgreens.com",
+      "health": "95% Health",
+      "discountTitle": "70% OFF Photo Prints",
+      "discountDesc": "70% Off Canvas Prints & Custom Photo Gifts",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Walgreens_logo.svg/1024px-Walgreens_logo.svg.png",
+      "targetUrl": "https://www.walgreens.com",
+      "cashback": "12% Cash Back",
+      "codes": [
+        { "title": "70% OFF Photo Canvas & Books", "code": "PHOTO70", "desc": "Create custom gifts & wall decor" },
+        { "title": "20% OFF Beauty & Personal Care", "code": "BEAUTY20", "desc": "Skincare, makeup & vitamins" }
+      ]
+    },
+    {
+      "id": "sephora",
+      "name": "Sephora",
+      "category": "fashion",
+      "domain": "sephora.com",
+      "health": "97% Health",
+      "discountTitle": "25% OFF + Free Gift",
+      "discountDesc": "25% Off Beauty Insider Pass & Skincare at Sephora",
+      "logo": "https://cdn.svgporn.com/logos/sephora.svg",
+      "targetUrl": "https://www.sephora.com",
+      "cashback": "10% Cash Back",
+      "codes": [
+        { "title": "25% OFF Beauty VIP Pass", "code": "BEAUTYVIP25", "desc": "Skincare, makeup palettes & fragrances" },
+        { "title": "Free Deluxe Sample Kit", "code": "FREESAMPLE", "desc": "Free mini sample on orders over $35" }
+      ]
+    },
+    {
+      "id": "target",
+      "name": "Target",
+      "category": "top",
+      "domain": "target.com",
+      "health": "95% Health",
+      "discountTitle": "15% OFF + $10 Gift Card",
+      "discountDesc": "15% Off Home & Essentials at Target",
+      "logo": "https://cdn.svgporn.com/logos/target.svg",
+      "targetUrl": "https://www.target.com",
+      "cashback": "5% Cash Back",
+      "codes": [
+        { "title": "15% OFF Target Circle", "code": "TARGETCIRCLE15", "desc": "Home decor, apparel & kitchen items" },
+        { "title": "$10 Gift Card on $50 Household", "code": "CLEAN10", "desc": "Laundry & home cleaning essentials" }
+      ]
+    },
+    {
+      "id": "amazon",
+      "name": "Amazon",
+      "category": "tech",
+      "domain": "amazon.com",
+      "health": "94% Health",
+      "discountTitle": "$20 OFF Tech",
+      "discountDesc": "$20 Off $50 Prime Electronics at Amazon",
+      "logo": "https://cdn.svgporn.com/logos/amazon-icon.svg",
+      "targetUrl": "https://www.amazon.com",
+      "cashback": "3% Cash Back",
+      "codes": [
+        { "title": "$20 OFF $50 Electronics", "code": "PRIME20DEAL", "desc": "Valid on smart home & tech accessories" },
+        { "title": "15% OFF Pantry Essentials", "code": "AMAZON15", "desc": "Subscribe & Save additional discount" }
+      ]
+    },
+    {
+      "id": "walmart",
+      "name": "Walmart",
+      "category": "top",
+      "domain": "walmart.com",
+      "health": "96% Health",
+      "discountTitle": "$10 OFF Grocery",
+      "discountDesc": "$10 Off First 3 Grocery Pickup Orders",
+      "logo": "https://cdn.svgporn.com/logos/walmart.svg",
+      "targetUrl": "https://www.walmart.com",
+      "cashback": "5% Cash Back",
+      "codes": [
+        { "title": "$10 OFF $50 First Order", "code": "SAVEMORE", "desc": "Valid for online pickup & delivery" },
+        { "title": "20% OFF Electronics Rollback", "code": "WALMART20", "desc": "TVs, laptops & audio equipment" }
+      ]
+    },
+    {
+      "id": "bestbuy",
+      "name": "Best Buy",
+      "category": "tech",
+      "domain": "bestbuy.com",
+      "health": "95% Health",
+      "discountTitle": "15% OFF Laptops",
+      "discountDesc": "15% Off Select Laptops, Gaming & Audio",
+      "logo": "https://cdn.svgporn.com/logos/bestbuy.svg",
+      "targetUrl": "https://www.bestbuy.com",
+      "cashback": "4% Cash Back",
+      "codes": [
+        { "title": "15% OFF Student Laptop Deals", "code": "BESTBUY15", "desc": "MacBooks, Windows PCs & gaming gear" }
+      ]
+    },
+    {
+      "id": "wayfair",
+      "name": "Wayfair",
+      "category": "home",
+      "domain": "wayfair.com",
+      "health": "94% Health",
+      "discountTitle": "20% OFF Furniture",
+      "discountDesc": "20% Off Furniture, Rugs & Lighting",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Wayfair_logo.svg/1024px-Wayfair_logo.svg.png",
+      "targetUrl": "https://www.wayfair.com",
+      "cashback": "7% Cash Back",
+      "codes": [
+        { "title": "20% OFF Living Room Refresh", "code": "HOME20", "desc": "Sofas, coffee tables & lighting" }
+      ]
+    },
+    {
+      "id": "ubereats",
+      "name": "Uber Eats",
+      "category": "food",
+      "domain": "ubereats.com",
+      "health": "98% Health",
+      "discountTitle": "$20 OFF Orders",
+      "discountDesc": "$20 Off First 2 Orders of $25+",
+      "logo": "https://cdn.svgporn.com/logos/uber-eats.svg",
+      "targetUrl": "https://www.ubereats.com",
+      "cashback": "8% Cash Back",
+      "codes": [
+        { "title": "$20 OFF First 2 Delivery Orders", "code": "EATS20", "desc": "Valid on participating restaurants" }
+      ]
+    },
+    {
+      "id": "nordstrom",
+      "name": "Nordstrom",
+      "category": "fashion",
+      "domain": "nordstrom.com",
+      "health": "95% Health",
+      "discountTitle": "Up to 40% OFF",
+      "discountDesc": "Up to 40% Off Designer Apparel & Shoes",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Nordstrom_logo.svg/1024px-Nordstrom_logo.svg.png",
+      "targetUrl": "https://www.nordstrom.com",
+      "cashback": "6% Cash Back",
+      "codes": [
+        { "title": "40% OFF Designer Sale", "code": "ANNIVERSARY", "desc": "Free shipping & returns on all orders" }
+      ]
+    },
+    {
+      "id": "ebay",
+      "name": "eBay",
+      "category": "tech",
+      "domain": "ebay.com",
+      "health": "93% Health",
+      "discountTitle": "15% OFF Refurbished",
+      "discountDesc": "15% Off Certified Refurbished Tech & Tools",
+      "logo": "https://cdn.svgporn.com/logos/ebay.svg",
+      "targetUrl": "https://www.ebay.com",
+      "cashback": "5% Cash Back",
+      "codes": [
+        { "title": "15% OFF Certified Refurbished", "code": "EBAYSAVE15", "desc": "Phones, laptops, consoles & tools" }
+      ]
+    },
+    {
+      "id": "harborfreight",
+      "name": "Harbor Freight",
+      "category": "home",
+      "domain": "harborfreight.com",
+      "health": "100% Health",
+      "discountTitle": "10% OFF Storewide",
+      "discountDesc": "10% Off Storewide at Harbor Freight",
+      "logo": "https://images.simplycodes.com/brand/harborfreight.com/logo.png?v=1",
+      "targetUrl": "https://www.harborfreight.com",
+      "cashback": "5% Cash Back",
+      "codes": [
+        { "title": "10% OFF Storewide", "code": "66380583", "desc": "10% Off any purchase storewide" },
+        { "title": "Free Express Shipping", "code": "FREESHIP2026", "desc": "Free delivery on orders over $50" },
+        { "title": "20% OFF Single Item", "code": "HFVIP20", "desc": "Valid on tools & power equipment" }
+      ]
+    },
+    {
+      "id": "shein",
+      "name": "SHEIN",
+      "category": "fashion",
+      "domain": "shein.com",
+      "health": "98% Health",
+      "discountTitle": "20% OFF Sitewide",
+      "discountDesc": "20% Off Entire Order No Minimum at SHEIN",
+      "logo": "https://cdn.svgporn.com/logos/shein.svg",
+      "targetUrl": "https://www.shein.com",
+      "cashback": "10% Cash Back",
+      "codes": [
+        { "title": "20% OFF Sitewide", "code": "SPRING20", "desc": "20% Off entire fashion cart" },
+        { "title": "$15 OFF $79 Order", "code": "SHEIN15", "desc": "Applicable to new collection items" }
+      ]
+    },
+    {
+      "id": "apple",
+      "name": "Apple",
+      "category": "tech",
+      "domain": "apple.com",
+      "health": "99% Health",
+      "discountTitle": "Free $150 Gift Card",
+      "discountDesc": "Get up to $150 Gift Card on Mac & iPad for Education",
+      "logo": "https://cdn.svgporn.com/logos/apple.svg",
+      "targetUrl": "https://www.apple.com",
+      "cashback": "3% Cash Back",
+      "codes": [
+        { "title": "Education Discount + Gift Card", "code": "EDUAPPLE2026", "desc": "Valid on MacBooks, iPad Pro & Apple Care" }
+      ]
+    },
+    {
+      "id": "adidas",
+      "name": "Adidas",
+      "category": "fashion",
+      "domain": "adidas.com",
+      "health": "97% Health",
+      "discountTitle": "25% OFF + Free Delivery",
+      "discountDesc": "25% Off adiClub Member Exclusive & Clearance",
+      "logo": "https://cdn.svgporn.com/logos/adidas.svg",
+      "targetUrl": "https://www.adidas.com",
+      "cashback": "8% Cash Back",
+      "codes": [
+        { "title": "25% OFF adiClub Members", "code": "ADI25OFF", "desc": "Valid on Ultraboost, Samba & NMD" }
+      ]
+    },
+    {
+      "id": "samsung",
+      "name": "Samsung",
+      "category": "tech",
+      "domain": "samsung.com",
+      "health": "96% Health",
+      "discountTitle": "Up to $300 OFF Galaxy",
+      "discountDesc": "Instant Trade-in Savings on Galaxy S24 & Fold",
+      "logo": "https://cdn.svgporn.com/logos/samsung.svg",
+      "targetUrl": "https://www.samsung.com",
+      "cashback": "6% Cash Back",
+      "codes": [
+        { "title": "Extra $100 OFF Galaxy S24", "code": "GALAXY100", "desc": "Stackable with trade-in discount" }
+      ]
+    },
+    {
+      "id": "temu",
+      "name": "Temu",
+      "category": "top",
+      "domain": "temu.com",
+      "health": "98% Health",
+      "discountTitle": "30% OFF App Coupon Bundle",
+      "discountDesc": "$100 Coupon Bundle + 30% Off First Order",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Temu_logo.svg/1024px-Temu_logo.svg.png",
+      "targetUrl": "https://www.temu.com",
+      "cashback": "15% Cash Back",
+      "codes": [
+        { "title": "30% OFF $39 Order", "code": "TEMU30", "desc": "Valid for new app users" }
+      ]
+    },
+    {
+      "id": "aliexpress",
+      "name": "AliExpress",
+      "category": "tech",
+      "domain": "aliexpress.com",
+      "health": "95% Health",
+      "discountTitle": "$12 OFF $80 Sitewide",
+      "discountDesc": "Choice Day Super Deals & Fast Express Shipping",
+      "logo": "https://cdn.svgporn.com/logos/aliexpress.svg",
+      "targetUrl": "https://www.aliexpress.com",
+      "cashback": "7% Cash Back",
+      "codes": [
+        { "title": "$12 OFF $80 Order", "code": "CHOICE12", "desc": "Global Choice Day promo code" }
+      ]
+    },
+    {
+      "id": "ulta",
+      "name": "Ulta Beauty",
+      "category": "fashion",
+      "domain": "ulta.com",
+      "health": "97% Health",
+      "discountTitle": "$3.50 OFF $15 Order",
+      "discountDesc": "$3.50 Off Qualifying Cosmetics & Fragrances",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Ulta_Beauty_logo.svg/1024px-Ulta_Beauty_logo.svg.png",
+      "targetUrl": "https://www.ulta.com",
+      "cashback": "8% Cash Back",
+      "codes": [
+        { "title": "$3.50 OFF $15 Purchase", "code": "ULTA350", "desc": "Valid on drugstore makeup & hair products" }
+      ]
+    },
+    {
+      "id": "doordash",
+      "name": "DoorDash",
+      "category": "food",
+      "domain": "doordash.com",
+      "health": "99% Health",
+      "discountTitle": "50% OFF First 2 Orders",
+      "discountDesc": "50% Off Restaurant & Grocery Delivery",
+      "logo": "https://cdn.svgporn.com/logos/doordash.svg",
+      "targetUrl": "https://www.doordash.com",
+      "cashback": "5% Cash Back",
+      "codes": [
+        { "title": "50% OFF First Order", "code": "DASH50", "desc": "Save up to $15 on delivery" }
+      ]
+    },
+    {
+      "id": "lululemon",
+      "name": "Lululemon",
+      "category": "fashion",
+      "domain": "lululemon.com",
+      "health": "96% Health",
+      "discountTitle": "We Made Too Much Sale",
+      "discountDesc": "Up to 50% Off Leggings, Sports Bras & Accessories",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Lululemon_Athletica_logo.svg/1024px-Lululemon_Athletica_logo.svg.png",
+      "targetUrl": "https://www.lululemon.com",
+      "cashback": "4% Cash Back",
+      "codes": [
+        { "title": "Free Express Shipping & Returns", "code": "LULUFREE", "desc": "No minimum order required" }
+      ]
+    },
+    {
+      "id": "puma",
+      "name": "Puma",
+      "category": "fashion",
+      "domain": "puma.com",
+      "health": "95% Health",
+      "discountTitle": "20% OFF Extra Sale",
+      "discountDesc": "Extra 20% Off Sneakers & Streetwear",
+      "logo": "https://cdn.svgporn.com/logos/puma.svg",
+      "targetUrl": "https://www.puma.com",
+      "cashback": "9% Cash Back",
+      "codes": [
+        { "title": "20% OFF Footwear", "code": "PUMA20", "desc": "Valid on classic Suede & RS-X" }
+      ]
+    },
+    {
+      "id": "etsy",
+      "name": "Etsy",
+      "category": "top",
+      "domain": "etsy.com",
+      "health": "98% Health",
+      "discountTitle": "15% OFF Handmade Gifts",
+      "discountDesc": "15% Off Custom Jewelry, Home & Vintage Goods",
+      "logo": "https://cdn.svgporn.com/logos/etsy-icon.svg",
+      "targetUrl": "https://www.etsy.com",
+      "cashback": "6% Cash Back",
+      "codes": [
+        { "title": "15% OFF Select Sellers", "code": "ETSYCREATIVE", "desc": "Handmade crafts & personalized gifts" }
+      ]
+    },
+    {
+      "id": "hm",
+      "name": "H&M",
+      "category": "fashion",
+      "domain": "hm.com",
+      "health": "94% Health",
+      "discountTitle": "20% OFF Member First Order",
+      "discountDesc": "20% Off Fashion & Home Decor for H&M Members",
+      "logo": "https://cdn.svgporn.com/logos/hm-icon.svg",
+      "targetUrl": "https://www.hm.com",
+      "cashback": "7% Cash Back",
+      "codes": [
+        { "title": "20% OFF H&M Member Pass", "code": "HMMEMBER20", "desc": "Free delivery on orders over $40" }
+      ]
+    },
+    {
+      "id": "oldnavy",
+      "name": "Old Navy",
+      "category": "fashion",
+      "domain": "oldnavy.com",
+      "health": "95% Health",
+      "discountTitle": "30% OFF Entire Purchase",
+      "discountDesc": "30% Off Jeans, Tees & Super Cash Rewards",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Old_Navy_logo.svg/1024px-Old_Navy_logo.svg.png",
+      "targetUrl": "https://www.oldnavy.com",
+      "cashback": "6% Cash Back",
+      "codes": [
+        { "title": "30% OFF Sitewide", "code": "HURRY", desc: "Take 30% off all apparel categories" }
+      ]
+    },
+    {
+      "id": "dell",
+      "name": "Dell",
+      "category": "tech",
+      "domain": "dell.com",
+      "health": "96% Health",
+      "discountTitle": "10% OFF XPS & Alienware",
+      "discountDesc": "Extra 10% Off Laptops, Gaming PCs & Monitors",
+      "logo": "https://cdn.svgporn.com/logos/dell.svg",
+      "targetUrl": "https://www.dell.com",
+      "cashback": "5% Cash Back",
+      "codes": [
+        { "title": "10% OFF Dell Laptops", "code": "SAVE10DELL", "desc": "Valid on XPS 13 & Alienware desktops" }
+      ]
+    },
+    {
+      "id": "hp",
+      "name": "HP",
+      "category": "tech",
+      "domain": "hp.com",
+      "health": "95% Health",
+      "discountTitle": "$50 OFF $200 Laptop",
+      "discountDesc": "$50 Off Spectre & ENVY Laptops + Free Shipping",
+      "logo": "https://cdn.svgporn.com/logos/hp.svg",
+      "targetUrl": "https://www.hp.com",
+      "cashback": "6% Cash Back",
+      "codes": [
+        { "title": "$50 OFF $200 HP Order", "code": "HPSAVE50", "desc": "Valid on PCs, printers & ink" }
+      ]
+    },
+    {
+      "id": "asos",
+      "name": "ASOS",
+      "category": "fashion",
+      "domain": "asos.com",
+      "health": "96% Health",
+      "discountTitle": "20% OFF App Exclusive",
+      "discountDesc": "20% Off Everything in the ASOS App",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/ASOS_logo.svg/1024px-ASOS_logo.svg.png",
+      "targetUrl": "https://www.asos.com",
+      "cashback": "8% Cash Back",
+      "codes": [
+        { "title": "20% OFF Everything", "code": "ASOSAPP20", "desc": "Valid on 850+ fashion brands" }
+      ]
+    },
+    {
+      "id": "booking",
+      "name": "Booking.com",
+      "category": "top",
+      "domain": "booking.com",
+      "health": "98% Health",
+      "discountTitle": "15% OFF Genius Travel",
+      "discountDesc": "Save 15% or more on Hotels & Vacation Rentals",
+      "logo": "https://cdn.svgporn.com/logos/booking.svg",
+      "targetUrl": "https://www.booking.com",
+      "cashback": "10% Cash Back",
+      "codes": [
+        { "title": "15% OFF Genius Member Deals", "code": "GENIUS15", "desc": "Worldwide hotel & resort bookings" }
+      ]
+    },
+    {
+      "id": "expedia",
+      "name": "Expedia",
+      "category": "top",
+      "domain": "expedia.com",
+      "health": "97% Health",
+      "discountTitle": "8% OFF Hotels",
+      "discountDesc": "Extra 8% Off Member Hotel Reservations",
+      "logo": "https://cdn.svgporn.com/logos/expedia.svg",
+      "targetUrl": "https://www.expedia.com",
+      "cashback": "7% Cash Back",
+      "codes": [
+        { "title": "8% OFF Hotel Package", "code": "EXPEDIA8", "desc": "Save on flights + hotel bundles" }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": "USR-8901",
+      "name": "sarah_shopper@gmail.com",
+      "fullName": "Sarah Shopper",
+      "passwordHash": "sarah123",
+      "ip": "192.168.1.42",
+      "loginTime": "2026-09-28 14:05:12",
+      "codesUsed": 14,
+      "status": "🟢 Active",
+      "lastActive": "1 min ago",
+      "device": "Windows 11 / Chrome 128",
+      "shoppingVisits": [
+        { "storeName": "Harbor Freight", "targetUrl": "https://www.harborfreight.com", "time": "21:10:45" },
+        { "storeName": "Nike", "targetUrl": "https://www.nike.com", "time": "21:22:15" }
+      ],
+      "copiedCodes": ["SWISH30", "SPRING20", "HFVIP20"],
+      "orders": [
+        {
+          "id": "ORD-7821",
+          "storeName": "Nike",
+          "logo": "https://cdn.svgporn.com/logos/nike.svg",
+          "targetUrl": "https://www.nike.com",
+          "code": "SWISH30",
+          "discount": "30% OFF Clearance Sneakers",
+          "savedAmount": "$45.00",
+          "status": "🟢 Verified & Completed",
+          "date": "2026-09-28 12:30"
+        },
+        {
+          "id": "ORD-6519",
+          "storeName": "Harbor Freight",
+          "logo": "https://images.simplycodes.com/brand/harborfreight.com/logo.png?v=1",
+          "targetUrl": "https://www.harborfreight.com",
+          "code": "HFVIP20",
+          "discount": "20% OFF Single Item",
+          "savedAmount": "$28.50",
+          "status": "🟢 Verified & Completed",
+          "date": "2026-09-27 18:45"
+        }
+      ]
+    }
+  ],
+  "analytics": {
+    "liveVisitors": 1284,
+    "userLogins": 452,
+    "codeCopies": 8940,
+    "shopRedirects": 3120
+  }
+}

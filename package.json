@@ -1,0 +1,18 @@
+{
+  "name": "codes4u-superadmin",
+  "version": "1.0.0",
+  "description": "Codes4U Coupon & Super Admin Management Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "echo 'Build ready for Vercel deployment'"
+  },
+  "keywords": [
+    "codes4u",
+    "coupons",
+    "superadmin",
+    "vercel"
+  ],
+  "author": "Codes4U Team",
+  "license": "MIT"
+}

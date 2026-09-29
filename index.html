@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codes4U | Codes That Actually Work</title>
+  <meta name="description" content="The only platform powered by real shoppers testing codes live at checkout. No expired junk, no fake deals.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+  <script src="security.js"></script>
+</head>
+<body>
+
+  <!-- RetailMeNot Style Top Announcement Banner -->
+  <div class="sc-top-banner" id="hpTopBanner">
+    🔥 <strong id="hpTopBadge">RETAILMENOT APP WEEK:</strong> <span id="hpTopText">Up to 50% OFF + 15% Cash Back at Top Brands Today!</span>
+  </div>
+
+  <!-- Codes4U Top Navigation Header -->
+  <header class="sc-header">
+    <div class="sc-container sc-header-content">
+      <a href="#" class="sc-logo-badge" id="hpLogoBadge">
+        Codes4U
+      </a>
+
+      <!-- Desktop Nav Bar Page Links -->
+      <nav class="sc-desktop-nav" style="display: flex; align-items: center; gap: 0.6rem;">
+        <button class="sc-quick-tag" style="background: rgba(0,242,254,0.1); color: var(--sc-neon-cyan); border-color: rgba(0,242,254,0.3); font-weight: 800; padding: 0.45rem 0.9rem; border-radius: 99px; font-size: 0.85rem;" onclick="openStoresDirectory()">
+          🏬 Stores Directory
+        </button>
+        <button class="sc-quick-tag" style="background: rgba(0,230,118,0.1); color: var(--sc-neon-green); border-color: rgba(0,230,118,0.3); font-weight: 800; padding: 0.45rem 0.9rem; border-radius: 99px; font-size: 0.85rem;" onclick="openProofLabModal()">
+          ⚡ Proof Lab
+        </button>
+        <button class="sc-quick-tag" style="background: rgba(245,158,11,0.1); color: var(--sc-gold); border-color: rgba(245,158,11,0.3); font-weight: 800; padding: 0.45rem 0.9rem; border-radius: 99px; font-size: 0.85rem;" onclick="openRewardsHubModal()">
+          💰 Rewards & Cash Back
+        </button>
+        <button class="sc-quick-tag" style="background: rgba(168,85,247,0.1); color: var(--sc-neon-purple); border-color: rgba(168,85,247,0.3); font-weight: 800; padding: 0.45rem 0.9rem; border-radius: 99px; font-size: 0.85rem;" onclick="openToolsHubModal()">
+          🛠️ Extension & Tools
+        </button>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: 0.8rem;">
+        <!-- User Login / Sign Up Navigation Button -->
+        <button class="sc-auth-nav-btn" onclick="openAuthModal()" id="userAuthNavBtn">
+          👤 Log In / Sign Up
+        </button>
+        <button class="sc-header-menu-btn" title="Menu" onclick="toggleNavMenu()">
+          ≡
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN HOMEPAGE CONTAINER -->
+  <main class="sc-container">
+    
+    <!-- SECTION 1: HERO & STATS -->
+    <section class="sc-hero">
+      <div class="sc-pill-tag" id="hpPillTag">
+        ✨ Introducing 100 Merchants Ranking
+      </div>
+
+      <h1 class="sc-hero-title" id="hpHeroTitle">
+        Codes that<br>
+        actually work.
+      </h1>
+
+      <p class="sc-hero-sub" id="hpHeroSub">
+        The only platform powered by real shoppers testing codes live at checkout. No expired junk, no fake deals.
+      </p>
+
+      <!-- Search Input Box -->
+      <div class="sc-search-wrap">
+        <div class="sc-search-input-box">
+          <svg width="18" height="18" fill="none" stroke="var(--sc-text-muted)" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <input type="text" id="heroSearchInput" placeholder="Search 600k+ stores or brands (e.g. Nike, Macy's, Domino's)..." autocomplete="off">
+        </div>
+        <div class="sc-search-hint">Search by store name, domain, or product</div>
+
+        <!-- Quick Store Search Chips (RetailMeNot Style) -->
+        <div class="sc-quick-tags-wrap">
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--sc-text-sub);">Popular Stores:</span>
+          <button class="sc-quick-tag" onclick="quickSearch('nike')">Nike</button>
+          <button class="sc-quick-tag" onclick="quickSearch('macys')">Macy's</button>
+          <button class="sc-quick-tag" onclick="quickSearch('kohls')">Kohl's</button>
+          <button class="sc-quick-tag" onclick="quickSearch('homedepot')">Home Depot</button>
+          <button class="sc-quick-tag" onclick="quickSearch('dominos')">Domino's</button>
+          <button class="sc-quick-tag" onclick="quickSearch('sephora')">Sephora</button>
+          <button class="sc-quick-tag" onclick="quickSearch('target')">Target</button>
+          <button class="sc-quick-tag" onclick="quickSearch('walmart')">Walmart</button>
+          <button class="sc-quick-tag" onclick="quickSearch('bestbuy')">Best Buy</button>
+        </div>
+      </div>
+
+      <!-- 4 Stat Metrics Grid -->
+      <div class="sc-stats-grid">
+        <div>
+          <div class="sc-stat-val" id="hpStat1Val">647,966</div>
+          <div class="sc-stat-lbl" id="hpStat1Lbl">active codes</div>
+        </div>
+        <div>
+          <div class="sc-stat-val green" id="hpStat2Val">98%</div>
+          <div class="sc-stat-lbl" id="hpStat2Lbl">verification health</div>
+        </div>
+        <div>
+          <div class="sc-stat-val" id="hpStat3Val">2.9M+</div>
+          <div class="sc-stat-lbl" id="hpStat3Lbl">shoppers testing</div>
+        </div>
+        <div>
+          <div class="sc-stat-val" id="hpStat4Val">$10+</div>
+          <div class="sc-stat-lbl" id="hpStat4Lbl">average savings per checkout</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: WHY CODES4U (3-LAYER ENGINE) -->
+    <section class="sc-section-wrap">
+      <div class="sc-section-tag" id="hpWhyTag">WHY CODES4U</div>
+      <h2 class="sc-section-title" id="hpWhyTitle">
+        We test 1M+ codes.<br>
+        Every. Single. Month.
+      </h2>
+      <p class="sc-section-desc" id="hpWhyDesc">
+        Our engine tests codes against real cart checkouts 24/7. When a code works, we issue a Proof Packet with an auditable evidence chain.
+      </p>
+
+      <!-- Feature Item 1 -->
+      <div class="sc-feature-item">
+        <div class="sc-feature-icon-box">🤖</div>
+        <div style="flex: 1;">
+          <div class="sc-feature-head">
+            <h4 id="hpFeat1Title">1. AI Automated Testing</h4>
+            <span class="sc-feature-badge" id="hpFeat1Badge">LIVE 24/7</span>
+          </div>
+          <div class="sc-feature-text" id="hpFeat1Desc">
+            Continuous checkout cart simulation testing 100k+ codes per hour across major online retailers.
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature Item 2 -->
+      <div class="sc-feature-item">
+        <div class="sc-feature-icon-box">👥</div>
+        <div style="flex: 1;">
+          <div class="sc-feature-head">
+            <h4 id="hpFeat2Title">2. Shopper Consensus</h4>
+            <span class="sc-feature-badge" id="hpFeat2Badge">VERIFIED</span>
+          </div>
+          <div class="sc-feature-text" id="hpFeat2Desc">
+            Real community members confirming working codes and uploading receipt proofs in real-time.
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature Item 3 -->
+      <div class="sc-feature-item">
+        <div class="sc-feature-icon-box">🛡️</div>
+        <div style="flex: 1;">
+          <div class="sc-feature-head">
+            <h4 id="hpFeat3Title">3. Code Health Score</h4>
+            <span class="sc-feature-badge" id="hpFeat3Badge">0-100% SCORE</span>
+          </div>
+          <div class="sc-feature-text" id="hpFeat3Desc">
+            Live reliability rating calculated from recent verification history, usage frequency, and success rates.
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Feed Card Box -->
+      <div class="sc-live-feed-card">
+        <div class="sc-live-feed-header">
+          <div style="font-size: 0.95rem; font-weight: 800; color: #0F172A;">Recent Proof Packets</div>
+          <span class="sc-feature-badge">LIVE FEED</span>
+        </div>
+
+        <div class="sc-feed-row" onclick="openCouponModal('nike')" style="cursor:pointer;">
+          <div class="sc-feed-store">● Nike</div>
+          <span class="sc-feed-code">SWISH30</span>
+          <span style="color:var(--sc-text-sub);">Verified 1 min ago</span>
+        </div>
+        <div class="sc-feed-row" onclick="openCouponModal('macys')" style="cursor:pointer;">
+          <div class="sc-feed-store">● Macy's</div>
+          <span class="sc-feed-code">MACYS25</span>
+          <span style="color:var(--sc-text-sub);">Verified 3 mins ago</span>
+        </div>
+        <div class="sc-feed-row" onclick="openCouponModal('sephora')" style="cursor:pointer;">
+          <div class="sc-feed-store">● Sephora</div>
+          <span class="sc-feed-code">BEAUTYVIP</span>
+          <span style="color:var(--sc-text-sub);">Verified 5 mins ago</span>
+        </div>
+
+        <div style="text-align: center; margin-top: 1rem; font-size: 0.85rem; font-weight: 700; color: var(--sc-neon-green); cursor: pointer;" onclick="openCouponModal('nike')">
+          + 1,420 more verified today →
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: FEATURED STORES GRID -->
+    <section class="sc-section-wrap">
+      <div class="sc-section-tag">600,000+ STORES & COUPONS</div>
+      <h2 class="sc-section-title">
+        RetailMeNot Top Deals.<br>
+        Tested & Verified Live.
+      </h2>
+      <p class="sc-section-desc">Browse top merchants, promo codes, and cash back rewards.</p>
+
+      <!-- Filter Tabs -->
+      <div class="sc-filter-tabs">
+        <button class="sc-tab-btn active" onclick="filterStores('all')">🔥 Trending Today</button>
+        <button class="sc-tab-btn" onclick="filterStores('top')">🛍️ Top Retailers</button>
+        <button class="sc-tab-btn" onclick="filterStores('cashback')">💵 Cash Back</button>
+      </div>
+
+      <!-- Store Cards Grid -->
+      <div class="sc-cards-2col" id="storeGrid"></div>
+    </section>
+
+    <!-- SECTION 4: MOBILE EXTENSION & FOOTER -->
+    <section class="sc-footer-section">
+      <h2 style="font-size: 1.8rem; font-weight: 900; margin-bottom: 0.5rem;" id="hpExtTitle">Try Codes4U</h2>
+      <p style="font-size: 0.95rem; color: var(--sc-text-sub);" id="hpExtDesc">
+        The lightest, privacy-first browser extension for Chrome, Safari, and mobile.
+      </p>
+
+      <div class="sc-store-btns-row">
+        <button class="sc-store-btn" onclick="openExtLink('appstore')" id="hpAppStoreBtn">
+           App Store
+        </button>
+        <button class="sc-store-btn" onclick="openExtLink('googleplay')" id="hpGooglePlayBtn">
+          ► Google Play
+        </button>
+      </div>
+
+      <!-- Floating Extension Banner -->
+      <div class="sc-floating-ext-card">
+        <div>
+          <div style="font-size: 1rem; font-weight: 800; color: #0F172A; margin-bottom: 0.2rem;" id="hpFloatingTitle">Never pay full price again.</div>
+          <div style="font-size: 0.85rem; color: var(--sc-text-sub);" id="hpFloatingSub">Install the official Codes4U extension.</div>
+        </div>
+        <button class="sc-modal-shop-btn" style="width: auto; padding: 0.55rem 1.2rem; font-size: 0.85rem;" onclick="openExtLink('chrome')">
+          Get Extension →
+        </button>
+      </div>
+
+      <!-- Footer Links & Copyright -->
+      <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--sc-text-muted); border-top: 1px solid var(--sc-border); padding-top: 1.5rem;">
+        <div id="hpFooterCopy">&copy; 2026 Codes4U</div>
+        <div style="display: flex; gap: 1rem;">
+          <a href="#">Terms</a>
+          <a href="#">Privacy</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- STORE DETAIL MODAL (SUPPORTS MULTIPLE CODES PER COMPANY) -->
+  <div class="sc-modal-overlay" id="couponModal">
+    <div class="sc-modal-card">
+      <button class="sc-modal-close" onclick="closeCouponModal()">&times;</button>
+
+      <!-- Store White Circular Logo Badge -->
+      <div class="sc-modal-logo-circle">
+        <img id="modalLogoImg" src="https://images.simplycodes.com/brand/harborfreight.com/logo.png?v=1" alt="Store Logo">
+      </div>
+
+      <!-- Store Name & Primary Discount Title -->
+      <div class="sc-modal-discount" id="modalDiscountText">10% off</div>
+      <div class="sc-modal-desc" id="modalDescText">10% Off Storewide at Harbor Freight</div>
+
+      <div style="font-size: 0.78rem; font-weight: 800; color: var(--sc-neon-green); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.8rem;">
+        Available Verified Codes (<span id="modalCodeCount">1</span>)
+      </div>
+
+      <!-- Multiple Promo Codes List Container -->
+      <div class="sc-modal-codes-list" id="modalCodesList">
+        <!-- Rendered by app.js -->
+      </div>
+
+      <!-- ENHANCED BIGGER & MORE ATTRACTIVE PRIMARY SHOP BUTTON -->
+      <button class="sc-modal-shop-btn" id="modalShopBtn">
+        Shop at Harbor Freight 🚀
+      </button>
+    </div>
+  </div>
+
+  <!-- UNIFIED USER & ADMIN AUTHENTICATION MODAL (LOGIN, SIGN UP, FORGOT PASSWORD) -->
+  <div class="sc-modal-overlay" id="authModal">
+    <div class="sc-modal-card" style="max-width: 420px; padding: 2.2rem 1.8rem;">
+      <button class="sc-modal-close" onclick="closeAuthModal()">&times;</button>
+
+      <!-- Auth Navigation Tabs: Log In / Sign Up -->
+      <div id="authNavTabsRow" style="display: flex; border-bottom: 1px solid var(--sc-border); margin-bottom: 1.5rem;">
+        <button id="authTabLoginBtn" class="sc-auth-tab active" onclick="switchAuthTab('login')">
+          🔑 Log In
+        </button>
+        <button id="authTabSignupBtn" class="sc-auth-tab" onclick="switchAuthTab('signup')">
+          ✨ Sign Up / Register
+        </button>
+      </div>
+
+      <!-- VIEW 1: LOG IN FORM (REGULAR USERS & SUPER ADMIN) -->
+      <div id="authLoginForm">
+        <div style="font-size: 1.35rem; font-weight: 900; margin-bottom: 0.3rem; color: #0F172A;">Welcome Back 👋</div>
+        <p style="font-size: 0.82rem; color: var(--sc-text-sub); margin-bottom: 1.2rem;">Log in with your user email or admin credentials.</p>
+
+        <form onsubmit="handleUserLogin(event)">
+          <div class="sc-admin-form-group">
+            <label>Username / Email</label>
+            <input type="text" id="loginUsername" class="sc-admin-input" placeholder="e.g. sarah_shopper@gmail.com or superadmin" required autocomplete="off">
+          </div>
+
+          <div class="sc-admin-form-group">
+            <label>Password</label>
+            <input type="password" id="loginPassword" class="sc-admin-input" placeholder="••••••••" required>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.9rem; flex-wrap: wrap; gap: 0.4rem;">
+            <label style="font-size: 0.8rem; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 0.45rem; cursor: pointer;">
+              <input type="checkbox" id="rememberPasswordCheck" checked style="accent-color: #059669; width: 16px; height: 16px; cursor: pointer;">
+              💾 Save Password & Auto-Fill
+            </label>
+            <a href="#" onclick="showForgotPasswordView(); return false;" style="font-size: 0.78rem; color: var(--sc-neon-green); font-weight: 700;">🔑 Forgot Password?</a>
+          </div>
+
+          <div id="loginErrorMsg" style="color: #EF4444; font-size: 0.82rem; margin-bottom: 1rem; display: none;">Invalid username or password!</div>
+          <div id="loginBlockedMsg" style="color: #EF4444; font-size: 0.82rem; margin-bottom: 1rem; display: none;">🔴 Account is blocked by Super Admin!</div>
+
+          <button type="submit" class="sc-modal-shop-btn" style="border-radius: 8px; width: 100%;">
+            Log In Now 🚀
+          </button>
+        </form>
+        <div style="font-size: 0.78rem; color: var(--sc-text-muted); margin-top: 1.2rem; text-align: center;">
+          Don't have an account? <a href="#" onclick="switchAuthTab('signup'); return false;" style="color: var(--sc-neon-green); font-weight: 800;">Sign Up Here</a>
+        </div>
+      </div>
+
+      <!-- VIEW 2: SIGN UP FORM -->
+      <div id="authSignupForm" style="display: none;">
+        <div style="font-size: 1.35rem; font-weight: 900; margin-bottom: 0.3rem; color: #0F172A;">Create New Account ✨</div>
+        <p style="font-size: 0.82rem; color: var(--sc-text-sub); margin-bottom: 1.2rem;">Sign up in seconds to test codes & save on every checkout.</p>
+
+        <form onsubmit="handleUserSignup(event)">
+          <div class="sc-admin-form-group">
+            <label>Full Name / Username</label>
+            <input type="text" id="signupName" class="sc-admin-input" placeholder="e.g. Rahul Sharma" required autocomplete="off">
+          </div>
+
+          <div class="sc-admin-form-group">
+            <label>Email Address</label>
+            <input type="email" id="signupEmail" class="sc-admin-input" placeholder="e.g. rahul@gmail.com" required autocomplete="off">
+          </div>
+
+          <div class="sc-admin-form-group">
+            <label>Create Password</label>
+            <input type="password" id="signupPassword" class="sc-admin-input" placeholder="••••••••" required>
+          </div>
+
+          <div id="signupErrorMsg" style="color: #EF4444; font-size: 0.82rem; margin-bottom: 1rem; display: none;">Please fill all fields!</div>
+
+          <button type="submit" class="sc-modal-shop-btn" style="border-radius: 8px; width: 100%;">
+            Sign Up & Create Account 🚀
+          </button>
+        </form>
+
+        <div style="font-size: 0.78rem; color: var(--sc-text-muted); margin-top: 1.2rem; text-align: center;">
+          Already registered? <a href="#" onclick="switchAuthTab('login'); return false;" style="color: var(--sc-neon-green); font-weight: 800;">Log In Here</a>
+        </div>
+      </div>
+
+      <!-- VIEW 3: FORGOT / RESET PASSWORD FORM -->
+      <div id="authForgotForm" style="display: none;">
+        <div style="font-size: 1.35rem; font-weight: 900; margin-bottom: 0.3rem; color: #F59E0B;">🔑 Reset Password</div>
+        <p style="font-size: 0.82rem; color: var(--sc-text-sub); margin-bottom: 1.2rem;">Enter your Admin username or user email to set a new password.</p>
+
+        <form onsubmit="handleForgotPassword(event)">
+          <div class="sc-admin-form-group">
+            <label>Username / Email</label>
+            <input type="text" id="forgotUsernameInput" class="sc-admin-input" placeholder="e.g. superadmin or user@gmail.com" required autocomplete="off">
+          </div>
+
+          <div class="sc-admin-form-group">
+            <label>New Password</label>
+            <input type="password" id="forgotNewPassInput" class="sc-admin-input" placeholder="Enter new password" required>
+          </div>
+
+          <div class="sc-admin-form-group">
+            <label>Confirm New Password</label>
+            <input type="password" id="forgotConfirmPassInput" class="sc-admin-input" placeholder="Confirm new password" required>
+          </div>
+
+          <div id="forgotErrorMsg" style="color: #EF4444; font-size: 0.82rem; margin-bottom: 1rem; display: none;">Passwords do not match!</div>
+
+          <button type="submit" class="sc-modal-shop-btn" style="border-radius: 8px; width: 100%; background: linear-gradient(135deg, #00E676, #00C853); color: #000000;">
+            Reset Password Now 🔑
+          </button>
+        </form>
+
+        <div style="font-size: 0.78rem; color: var(--sc-text-muted); margin-top: 1.2rem; text-align: center;">
+          <a href="#" onclick="showLoginView(); return false;" style="color: var(--sc-neon-green); font-weight: 800;">← Back to Log In</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DEDICATED LOGGED-IN USER DASHBOARD & HISTORY MODAL -->
+  <div class="sc-modal-overlay" id="userDashboardModal">
+    <div class="sc-dashboard-wrapper">
+      
+      <!-- LEFT SIDEBAR NAV (VERTICAL ORDER 1, 2, 3, 4) -->
+      <aside class="sc-dashboard-sidebar">
+        <div class="sc-sidebar-brand">
+          <div style="font-size: 1.2rem; font-weight: 900; color: #0F172A; display: flex; align-items: center; gap: 0.5rem;">
+            👤 Account Center
+          </div>
+          <div style="font-size: 0.75rem; color: var(--sc-neon-green); font-weight: 800; margin-top: 0.2rem;" id="userDashBadge">🟢 Verified Shopper</div>
+        </div>
+
+        <nav class="sc-sidebar-nav">
+          <button class="sc-sidebar-item active" id="userTabBtnOrders" onclick="switchUserTab('orders')">
+            <span class="sc-sidebar-num">1</span>
+            <span>🛒 My Orders & History</span>
+          </button>
+          <button class="sc-sidebar-item" id="userTabBtnCodes" onclick="switchUserTab('codes')">
+            <span class="sc-sidebar-num">2</span>
+            <span>💎 Copied Promo Codes</span>
+          </button>
+          <button class="sc-sidebar-item" id="userTabBtnVisits" onclick="switchUserTab('visits')">
+            <span class="sc-sidebar-num">3</span>
+            <span>🛍️ Visited Stores</span>
+          </button>
+          <button class="sc-sidebar-item" id="userTabBtnAccount" onclick="switchUserTab('account')">
+            <span class="sc-sidebar-num">4</span>
+            <span>🔒 Account & Security</span>
+          </button>
+        </nav>
+
+        <div class="sc-sidebar-footer">
+          <button class="sc-admin-btn-delete" style="width: 100%; margin-bottom: 0.6rem; padding: 0.55rem;" onclick="logoutUserFromDashboard()">
+            🚪 Log Out
+          </button>
+          <button class="sc-quick-tag" style="width: 100%; text-align: center; padding: 0.55rem;" onclick="closeUserDashboardModal()">
+            Close Dashboard
+          </button>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT VIEWPORT -->
+      <main class="sc-dashboard-content">
+        <div class="sc-superadmin-header" style="margin-bottom: 1.2rem;">
+          <div>
+            <h2 style="font-size: 1.4rem; font-weight: 900; color: #0F172A; margin: 0;" id="userDashName">My Account Dashboard</h2>
+            <p style="font-size: 0.82rem; color: var(--sc-text-sub);" id="userDashEmail">Welcome to your personal shopping history & savings center</p>
+          </div>
+          <button class="sc-modal-close" style="position: static;" onclick="closeUserDashboardModal()">&times;</button>
+        </div>
+
+        <!-- 3 Metrics Stat Cards Row -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+          <div style="background: #FFFFFF; border: 1px solid #E2E8F0; padding: 1rem; border-radius: 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+            <div style="font-size: 1.6rem; font-weight: 900; color: var(--sc-neon-green);" id="userDashTotalOrders">0</div>
+            <div style="font-size: 0.78rem; font-weight: 700; color: var(--sc-text-muted); margin-top: 0.2rem;">🛒 Total Orders & Checkouts</div>
+          </div>
+          <div style="background: #FFFFFF; border: 1px solid #E2E8F0; padding: 1rem; border-radius: 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+            <div style="font-size: 1.6rem; font-weight: 900; color: #F59E0B;" id="userDashTotalCodes">0</div>
+            <div style="font-size: 0.78rem; font-weight: 700; color: var(--sc-text-muted); margin-top: 0.2rem;">💎 Copied Promo Codes</div>
+          </div>
+          <div style="background: #FFFFFF; border: 1px solid #E2E8F0; padding: 1rem; border-radius: 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+            <div style="font-size: 1.6rem; font-weight: 900; color: #3B82F6;" id="userDashTotalSaved">$0.00</div>
+            <div style="font-size: 0.78rem; font-weight: 700; color: var(--sc-text-muted); margin-top: 0.2rem;">💵 Estimated Savings</div>
+          </div>
+        </div>
+
+      <!-- TAB 1: MY ORDERS & CHECKOUT HISTORY -->
+      <div id="userTabOrders">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.6rem;">
+          <h3 style="font-size: 1.05rem; font-weight: 800; color: #0F172A; margin: 0;">Your Orders & Checkout History</h3>
+          <div style="display: flex; gap: 0.4rem;">
+            <input type="text" id="userOrderSearchInput" class="sc-admin-input" placeholder="Search orders..." style="width: 180px; padding: 0.35rem 0.7rem; font-size: 0.8rem;" oninput="renderUserDashboard(this.value)">
+            <button class="sc-admin-btn-save" style="padding: 0.35rem 0.7rem; font-size: 0.8rem;" onclick="renderUserDashboard(document.getElementById('userOrderSearchInput').value)">🔍 Search</button>
+          </div>
+        </div>
+        <div id="userOrdersList" style="display: flex; flex-direction: column; gap: 0.8rem; max-height: 380px; overflow-y: auto; padding-right: 0.3rem;">
+          <!-- Populated by app.js -->
+        </div>
+      </div>
+
+      <!-- TAB 2: COPIED PROMO CODES -->
+      <div id="userTabCodes" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.6rem;">
+          <h3 style="font-size: 1.05rem; font-weight: 800; color: #0F172A; margin: 0;">Your Saved & Copied Promo Codes</h3>
+          <div style="display: flex; gap: 0.4rem;">
+            <input type="text" id="userCodeSearchInput" class="sc-admin-input" placeholder="Search copied codes..." style="width: 180px; padding: 0.35rem 0.7rem; font-size: 0.8rem;" oninput="renderUserDashboard(this.value)">
+            <button class="sc-admin-btn-save" style="padding: 0.35rem 0.7rem; font-size: 0.8rem;" onclick="renderUserDashboard(document.getElementById('userCodeSearchInput').value)">🔍 Search</button>
+          </div>
+        </div>
+        <div id="userCodesList" style="display: flex; flex-direction: column; gap: 0.6rem; max-height: 380px; overflow-y: auto;">
+          <!-- Populated by app.js -->
+        </div>
+      </div>
+
+      <!-- TAB 3: VISITED STORES -->
+      <div id="userTabVisits" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.6rem;">
+          <h3 style="font-size: 1.05rem; font-weight: 800; color: #0F172A; margin: 0;">Stores You Visited Via Codes4U</h3>
+          <div style="display: flex; gap: 0.4rem;">
+            <input type="text" id="userVisitSearchInput" class="sc-admin-input" placeholder="Search visited stores..." style="width: 180px; padding: 0.35rem 0.7rem; font-size: 0.8rem;" oninput="renderUserDashboard(this.value)">
+            <button class="sc-admin-btn-save" style="padding: 0.35rem 0.7rem; font-size: 0.8rem;" onclick="renderUserDashboard(document.getElementById('userVisitSearchInput').value)">🔍 Search</button>
+          </div>
+        </div>
+        <div id="userVisitsList" style="display: flex; flex-direction: column; gap: 0.6rem; max-height: 380px; overflow-y: auto;">
+          <!-- Populated by app.js -->
+        </div>
+      </div>
+
+      <!-- TAB 4: ACCOUNT DETAILS & SECURITY -->
+      <div id="userTabAccount" style="display: none;">
+        <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.5rem; margin-bottom: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+          <h4 style="font-size: 1rem; font-weight: 800; color: var(--sc-neon-green); margin-bottom: 1rem;">👤 User Profile Information</h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+            <div class="sc-admin-form-group">
+              <label>Full Name / Username</label>
+              <input type="text" id="userProfileNameInput" class="sc-admin-input" placeholder="Your Name">
+            </div>
+            <div class="sc-admin-form-group">
+              <label>Email Address</label>
+              <input type="email" id="userProfileEmailInput" class="sc-admin-input" placeholder="Your Email" readonly style="opacity: 0.7;">
+            </div>
+          </div>
+          <button class="sc-admin-btn-save" style="margin-top: 0.8rem;" onclick="saveUserProfileDetails()">💾 Save Profile Updates</button>
+        </div>
+
+        <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.5rem; margin-bottom: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+          <h4 style="font-size: 1rem; font-weight: 800; color: #F59E0B; margin-bottom: 1rem;">🔒 Password & Security</h4>
+          <form onsubmit="handleUserPasswordChange(event)">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
+              <div class="sc-admin-form-group">
+                <label>New Password</label>
+                <input type="password" id="userNewPassInput" class="sc-admin-input" placeholder="••••••••" required>
+              </div>
+              <div class="sc-admin-form-group">
+                <label>Confirm New Password</label>
+                <input type="password" id="userConfirmPassInput" class="sc-admin-input" placeholder="••••••••" required>
+              </div>
+            </div>
+            <button type="submit" class="sc-admin-btn-save" style="background: linear-gradient(135deg, #F59E0B, #D97706); color: #FFF; margin-top: 0.8rem;">Update Password</button>
+          </form>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--sc-border); padding-top: 1rem;">
+          <button class="sc-admin-btn-delete" style="padding: 0.6rem 1.4rem;" onclick="logoutUserFromDashboard()">🚪 Log Out of Account</button>
+          <button class="sc-tab-btn active" style="padding: 0.5rem 1.2rem;" onclick="closeUserDashboardModal()">Close Dashboard</button>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <!-- ALL MERCHANT STORES & COUPONS DIRECTORY MODAL (simplycodes.com/stores) -->
+  <div class="sc-modal-overlay" id="allStoresModal">
+    <div class="sc-superadmin-dashboard">
+      <div class="sc-superadmin-header">
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.3rem;">
+            <span style="font-size: 1.5rem;">🏬</span>
+            <h2 style="font-size: 1.4rem; font-weight: 900; color: #0F172A; margin: 0;">Stores Directory & All Verified Coupons</h2>
+            <span style="font-size: 0.75rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 99px; background: rgba(0,230,118,0.15); color: var(--sc-neon-green);">600,000+ Brands</span>
+          </div>
+          <p style="font-size: 0.82rem; color: var(--sc-text-sub);">All merchant store links, active promo codes, and checkout deals in one place.</p>
+        </div>
+        <button class="sc-modal-close" style="position: static;" onclick="closeStoresDirectory()">&times;</button>
+      </div>
+
+      <!-- Filter Controls: Search & A-Z Quick Bar -->
+      <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.2rem; margin-bottom: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+        <div class="sc-search-input-box" style="margin-bottom: 1rem; max-width: 100%;">
+          <svg width="18" height="18" fill="none" stroke="var(--sc-text-muted)" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <input type="text" id="directorySearchInput" placeholder="Filter 600k+ stores by name or domain (e.g. Nike, Sephora, Amazon)..." oninput="filterStoresDirectory()">
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center;">
+          <span style="font-size: 0.78rem; font-weight: 800; color: var(--sc-text-sub); margin-right: 0.4rem;">A-Z Index:</span>
+          <button class="sc-quick-tag active" id="alpha-ALL" onclick="filterStoresByAlpha('ALL')">ALL</button>
+          <button class="sc-quick-tag" id="alpha-A" onclick="filterStoresByAlpha('A')">A</button>
+          <button class="sc-quick-tag" id="alpha-B" onclick="filterStoresByAlpha('B')">B</button>
+          <button class="sc-quick-tag" id="alpha-D" onclick="filterStoresByAlpha('D')">D</button>
+          <button class="sc-quick-tag" id="alpha-E" onclick="filterStoresByAlpha('E')">E</button>
+          <button class="sc-quick-tag" id="alpha-H" onclick="filterStoresByAlpha('H')">H</button>
+          <button class="sc-quick-tag" id="alpha-K" onclick="filterStoresByAlpha('K')">K</button>
+          <button class="sc-quick-tag" id="alpha-M" onclick="filterStoresByAlpha('M')">M</button>
+          <button class="sc-quick-tag" id="alpha-N" onclick="filterStoresByAlpha('N')">N</button>
+          <button class="sc-quick-tag" id="alpha-S" onclick="filterStoresByAlpha('S')">S</button>
+          <button class="sc-quick-tag" id="alpha-T" onclick="filterStoresByAlpha('T')">T</button>
+          <button class="sc-quick-tag" id="alpha-U" onclick="filterStoresByAlpha('U')">U</button>
+          <button class="sc-quick-tag" id="alpha-W" onclick="filterStoresByAlpha('W')">W</button>
+        </div>
+      </div>
+
+      <!-- Stores & All Coupons Grid Container (Fills Full Screen Width) -->
+      <div id="directoryStoresGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; max-height: calc(100vh - 220px); overflow-y: auto; padding-right: 0.4rem;">
+        <!-- Populated by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 2: LIVE VERIFICATION LAB & PROOF PACKETS MODAL -->
+  <div class="sc-modal-overlay" id="proofLabModal">
+    <div class="sc-superadmin-dashboard">
+      <div class="sc-superadmin-header">
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.3rem;">
+            <span style="font-size: 1.5rem;">⚡</span>
+            <h2 style="font-size: 1.4rem; font-weight: 900; color: #0F172A; margin: 0;">Live Verification Lab & Proof Packets</h2>
+            <span style="font-size: 0.75rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 99px; background: rgba(5,150,105,0.12); color: var(--sc-neon-green);">AUDITABLE PROOF ENGINE</span>
+          </div>
+          <p style="font-size: 0.82rem; color: var(--sc-text-sub);">Every promo code is tested against real checkout carts 24/7 with timestamped verification hashes.</p>
+        </div>
+        <button class="sc-modal-close" style="position: static;" onclick="closeProofLabModal()">&times;</button>
+      </div>
+
+      <!-- Live Interactive Checkout Simulator Box -->
+      <div style="background: #FFFFFF; border: 1px solid var(--sc-border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+        <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--sc-neon-cyan); margin-bottom: 0.8rem;">🤖 Run Live AI Cart Checkout Simulation</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+          <div class="sc-admin-form-group">
+            <label style="color: var(--sc-text-sub);">Select Merchant Store</label>
+            <select id="simStoreSelect" class="sc-admin-input" style="border-color: var(--sc-neon-cyan); font-weight: 700; background: #FFFFFF; color: #0F172A;">
+              <option value="Nike">Nike (nike.com)</option>
+              <option value="Amazon">Amazon (amazon.com)</option>
+              <option value="Sephora">Sephora (sephora.com)</option>
+              <option value="Target">Target (target.com)</option>
+              <option value="Harbor Freight">Harbor Freight (harborfreight.com)</option>
+            </select>
+          </div>
+          <div class="sc-admin-form-group">
+            <label style="color: var(--sc-text-sub);">Promo Code to Test</label>
+            <input type="text" id="simCodeInput" class="sc-admin-input" value="SWISH30" style="font-family: monospace; color: var(--sc-neon-green); font-weight: 800; background: #FFFFFF;">
+          </div>
+          <div class="sc-admin-form-group">
+            <label style="color: var(--sc-text-sub);">Simulated Cart Value</label>
+            <input type="text" id="simCartValue" class="sc-admin-input" value="$150.00" style="background: #FFFFFF; color: #0F172A;">
+          </div>
+        </div>
+        <button class="sc-admin-btn-save" style="background: var(--sc-gradient-accent); color: #FFFFFF; font-weight: 900; padding: 0.65rem 1.4rem; font-size: 0.9rem;" onclick="runLiveCheckoutSimulation()">
+          ⚡ Run AI Checkout Simulation Test
+        </button>
+
+        <!-- Console Log Output Box (Dark Console Contrast) -->
+        <div id="simConsoleOutput" style="display: none; background: #0F172A; border: 1px solid rgba(2,132,199,0.3); border-radius: 12px; padding: 1rem; margin-top: 1rem; font-family: monospace; font-size: 0.82rem; color: #38BDF8; line-height: 1.6;">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Real-Time Proof Packets Chain -->
+      <h3 style="font-size: 1.1rem; font-weight: 800; color: #0F172A; margin-bottom: 1rem;">📜 Recent Verified Proof Packet Hash Stream</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; max-height: 300px; overflow-y: auto;">
+        <div style="background: #FFFFFF; border: 1px solid var(--sc-border); padding: 1rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+            <strong style="color: #0F172A;">Nike — SWISH30</strong>
+            <span style="font-size: 0.72rem; color: var(--sc-neon-green); font-weight: 800; background: rgba(5,150,105,0.12); padding: 0.1rem 0.4rem; border-radius: 4px;">98% HEALTH</span>
+          </div>
+          <div style="font-size: 0.78rem; color: var(--sc-text-sub);">Proof Hash: <span style="font-family: monospace; color: var(--sc-neon-cyan);">0x8f2a...7c91</span></div>
+          <div style="font-size: 0.75rem; color: var(--sc-text-muted); margin-top: 0.4rem;">Verified 1 min ago • Saved $45.00 on cart</div>
+        </div>
+        <div style="background: #FFFFFF; border: 1px solid var(--sc-border); padding: 1rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+            <strong style="color: #0F172A;">Sephora — BEAUTYVIP25</strong>
+            <span style="font-size: 0.72rem; color: var(--sc-neon-green); font-weight: 800; background: rgba(5,150,105,0.12); padding: 0.1rem 0.4rem; border-radius: 4px;">97% HEALTH</span>
+          </div>
+          <div style="font-size: 0.78rem; color: var(--sc-text-sub);">Proof Hash: <span style="font-family: monospace; color: var(--sc-neon-cyan);">0x3b11...9a42</span></div>
+          <div style="font-size: 0.75rem; color: var(--sc-text-muted); margin-top: 0.4rem;">Verified 3 mins ago • Saved $32.40 on cart</div>
+        </div>
+        <div style="background: #FFFFFF; border: 1px solid var(--sc-border); padding: 1rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+            <strong style="color: #0F172A;">Harbor Freight — HFVIP20</strong>
+            <span style="font-size: 0.72rem; color: var(--sc-neon-green); font-weight: 800; background: rgba(5,150,105,0.12); padding: 0.1rem 0.4rem; border-radius: 4px;">100% HEALTH</span>
+          </div>
+          <div style="font-size: 0.78rem; color: var(--sc-text-sub);">Proof Hash: <span style="font-family: monospace; color: var(--sc-neon-cyan);">0x7e52...11d8</span></div>
+          <div style="font-size: 0.75rem; color: var(--sc-text-muted); margin-top: 0.4rem;">Verified 5 mins ago • Saved $28.50 on cart</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 3: REWARDS & CASH BACK HUB MODAL -->
+  <div class="sc-modal-overlay" id="rewardsHubModal">
+    <div class="sc-superadmin-dashboard">
+      <div class="sc-superadmin-header">
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.3rem;">
+            <span style="font-size: 1.5rem;">💰</span>
+            <h2 style="font-size: 1.4rem; font-weight: 900; color: #0F172A; margin: 0;">Community Rewards & Cash Back Portal</h2>
+            <span style="font-size: 0.75rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 99px; background: rgba(217,119,6,0.12); color: var(--sc-gold);">VIP REWARDS</span>
+          </div>
+          <p style="font-size: 0.82rem; color: var(--sc-text-sub);">Earn cash back on checkouts, daily streak coins, and redeem instant gift cards.</p>
+        </div>
+        <button class="sc-modal-close" style="position: static;" onclick="closeRewardsHubModal()">&times;</button>
+      </div>
+
+      <!-- VIP Tier & Daily Bonus Header Bar -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; margin-bottom: 1.5rem;">
+        <div style="background: linear-gradient(135deg, rgba(245,158,11,0.12), rgba(217,119,6,0.06)); border: 1px solid rgba(245,158,11,0.3); border-radius: 16px; padding: 1.2rem;">
+          <div style="font-size: 0.8rem; font-weight: 800; color: var(--sc-gold);">🥇 YOUR VIP SHOPPER TIER</div>
+          <div style="font-size: 1.4rem; font-weight: 900; color: #0F172A; margin-top: 0.3rem;">Platinum Saver Tier</div>
+          <div style="font-size: 0.78rem; color: var(--sc-text-sub); margin-top: 0.4rem;">Unlock 1.5x Cash Back Bonus on Nike & Sephora!</div>
+        </div>
+
+        <div style="background: #FFFFFF; border: 1px solid var(--sc-border); border-radius: 16px; padding: 1.2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
+          <div style="font-size: 0.8rem; font-weight: 800; color: var(--sc-neon-green);">💎 TOTAL COIN BALANCE</div>
+          <div style="font-size: 1.4rem; font-weight: 900; color: #0F172A; margin-top: 0.3rem;" id="userRewardCoins">2,450 Coins ($24.50)</div>
+          <button class="sc-admin-btn-save" style="margin-top: 0.6rem; font-size: 0.78rem; padding: 0.3rem 0.8rem;" onclick="claimDailyStreakBonus()">
+            🎁 Claim 50 Daily Coins Bonus
+          </button>
+        </div>
+      </div>
+
+      <!-- Interactive Cash Back Calculator -->
+      <div style="background: #FFFFFF; border: 1px solid var(--sc-border); border-radius: 16px; padding: 1.2rem; margin-bottom: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
+        <h3 style="font-size: 1rem; font-weight: 800; color: #0F172A; margin-bottom: 0.8rem;">💵 Estimated Annual Cash Back Savings Calculator</h3>
+        <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 200px;">
+            <label style="font-size: 0.8rem; color: var(--sc-text-sub);">Your Monthly Shopping Spend ($)</label>
+            <input type="number" id="calcSpendInput" class="sc-admin-input" value="400" oninput="calculateAnnualSavings()" style="background: #FFFFFF; color: #0F172A;">
+          </div>
+          <div style="background: #F8FAFC; border: 1px solid var(--sc-border); padding: 0.8rem 1.2rem; border-radius: 10px;">
+            <div style="font-size: 0.75rem; color: var(--sc-text-sub);">Est. Annual Savings</div>
+            <div style="font-size: 1.2rem; font-weight: 900; color: var(--sc-neon-green);" id="calcResultDisplay">$384.00 / year</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gift Cards Catalog -->
+      <h3 style="font-size: 1.05rem; font-weight: 800; color: #0F172A; margin-bottom: 1rem;">🎁 Redeem Reward Coins for Instant Gift Cards</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem;">
+        <div style="background: #FFFFFF; border: 1px solid var(--sc-border); border-radius: 12px; padding: 1rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+          <div style="font-size: 1.5rem; margin-bottom: 0.3rem;">📦</div>
+          <strong style="color: #0F172A; display: block; font-size: 0.95rem;">$10 Amazon Gift Card</strong>
+          <span style="font-size: 0.8rem; color: var(--sc-gold); font-weight: 800; display: block; margin: 0.3rem 0;">1,000 Coins</span>
+          <button class="sc-admin-btn-save" style="font-size: 0.78rem; width: 100%;" onclick="alert('🎉 $10 Amazon Gift Card Code claimed! Sent to your registered email.')">Redeem Now</button>
+        </div>
+        <div style="background: #FFFFFF; border: 1px solid var(--sc-border); border-radius: 12px; padding: 1rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+          <div style="font-size: 1.5rem; margin-bottom: 0.3rem;">👟</div>
+          <strong style="color: #0F172A; display: block; font-size: 0.95rem;">$25 Nike Gift Card</strong>
+          <span style="font-size: 0.8rem; color: var(--sc-gold); font-weight: 800; display: block; margin: 0.3rem 0;">2,500 Coins</span>
+          <button class="sc-admin-btn-save" style="font-size: 0.78rem; width: 100%;" onclick="alert('🎉 $25 Nike Gift Card Code claimed!')">Redeem Now</button>
+        </div>
+        <div style="background: #FFFFFF; border: 1px solid var(--sc-border); border-radius: 12px; padding: 1rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+          <div style="font-size: 1.5rem; margin-bottom: 0.3rem;">🎯</div>
+          <strong style="color: #0F172A; display: block; font-size: 0.95rem;">$15 Target Gift Card</strong>
+          <span style="font-size: 0.8rem; color: var(--sc-gold); font-weight: 800; display: block; margin: 0.3rem 0;">1,500 Coins</span>
+          <button class="sc-admin-btn-save" style="font-size: 0.78rem; width: 100%;" onclick="alert('🎉 $15 Target Gift Card Code claimed!')">Redeem Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 4: SHOPPER EXTENSION & TOOLS PORTAL MODAL -->
+  <div class="sc-modal-overlay" id="toolsHubModal">
+    <div class="sc-superadmin-dashboard">
+      <div class="sc-superadmin-header">
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.3rem;">
+            <span style="font-size: 1.5rem;">🛠️</span>
+            <h2 style="font-size: 1.4rem; font-weight: 900; color: #0F172A; margin: 0;">Shopper Extension & Smart Tools Hub</h2>
+            <span style="font-size: 0.75rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 99px; background: rgba(147,51,234,0.12); color: var(--sc-neon-purple);">AUTO-APPLY ENGINE</span>
+          </div>
+          <p style="font-size: 0.82rem; color: var(--sc-text-sub);">Install the extension, simulate auto-apply checkout, and submit working codes for reward coins.</p>
+        </div>
+        <button class="sc-modal-close" style="position: static;" onclick="closeToolsHubModal()">&times;</button>
+      </div>
+
+      <!-- Extension Download Cards Grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+        <div style="background: #FFFFFF; border: 1px solid var(--sc-border); padding: 1.2rem; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);" onclick="openExtLink('chrome')">
+          <strong style="font-size: 1.05rem; color: #0F172A; display: block; margin-bottom: 0.3rem;">🌐 Chrome Web Store</strong>
+          <p style="font-size: 0.78rem; color: var(--sc-text-sub);">Lightweight 1-click extension for Google Chrome & Brave.</p>
+          <button class="sc-admin-btn-save" style="margin-top: 0.8rem; font-size: 0.8rem;">Install Chrome Extension ↗</button>
+        </div>
+        <div style="background: #FFFFFF; border: 1px solid var(--sc-border); padding: 1.2rem; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);" onclick="openExtLink('appstore')">
+          <strong style="font-size: 1.05rem; color: #0F172A; display: block; margin-bottom: 0.3rem;">🍎 Safari iOS & macOS</strong>
+          <p style="font-size: 0.78rem; color: var(--sc-text-sub);">Native extension for iPhone, iPad, and Safari Mac.</p>
+          <button class="sc-admin-btn-save" style="margin-top: 0.8rem; font-size: 0.8rem;">Install Safari Extension ↗</button>
+        </div>
+      </div>
+
+      <!-- Submit Community Code Box -->
+      <div style="background: #FFFFFF; border: 1px solid var(--sc-border); border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
+        <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--sc-neon-green); margin-bottom: 0.6rem;">💡 Found a Working Code? Submit & Earn 100 Reward Coins!</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 0.8rem;">
+          <input type="text" id="subStoreName" class="sc-admin-input" placeholder="Store Name (e.g. Nike)" style="background: #FFFFFF; color: #0F172A;">
+          <input type="text" id="subCodeString" class="sc-admin-input" placeholder="Promo Code String (e.g. SAVE20)" style="font-family: monospace; background: #FFFFFF; color: #0F172A;">
+        </div>
+        <button class="sc-admin-btn-save" style="background: var(--sc-gradient-accent); color: #FFFFFF; font-weight: 900;" onclick="submitCommunityCode()">🚀 Submit Code & Claim Coins</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUPER ADMIN DASHBOARD MODAL WITH LEFT VERTICAL SIDEBAR -->
+  <div class="sc-modal-overlay" id="adminDashboardModal">
+    <div class="sc-dashboard-wrapper">
+      
+      <!-- LEFT SIDEBAR NAV (VERTICAL ORDER 1, 2, 3, 4) -->
+      <aside class="sc-dashboard-sidebar">
+        <div class="sc-sidebar-brand" style="margin-bottom: 1.2rem; position: relative;">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.4rem;">
+            <div>
+              <div style="font-size: 1.3rem; font-weight: 900; color: #FFFFFF; display: flex; align-items: center; gap: 0.4rem;">
+                👑 Codes4U
+              </div>
+              <div style="font-size: 0.75rem; color: #38BDF8; font-weight: 800; margin-top: 0.1rem;">Super Admin Panel</div>
+            </div>
+
+            <!-- Single Dedicated Top Notification & Admin Profile Badge -->
+            <div style="position: relative; display: flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22); padding: 0.35rem 0.7rem; border-radius: 99px;">
+              <!-- Bell Notification Trigger -->
+              <span style="position: relative; cursor: pointer; padding: 2px; font-size: 1.05rem;" onclick="toggleAdminNotificationsMenu(event)" title="Notifications & System Alerts">
+                🔔<span style="position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background: #EF4444; border-radius: 50%; box-shadow: 0 0 0 2px #0F172A;" id="adminBellDot"></span>
+              </span>
+
+              <span style="color: rgba(255,255,255,0.3); font-weight: 300; font-size: 0.8rem;">|</span>
+
+              <!-- Admin Profile Trigger -->
+              <span style="font-weight: 800; font-size: 0.82rem; color: #38BDF8; cursor: pointer; display: flex; align-items: center; gap: 0.2rem;" onclick="toggleAdminProfileMenu(event)" title="Admin Account Settings">
+                👤 Admin ▾
+              </span>
+            </div>
+          </div>
+
+          <!-- Notifications Dropdown Menu (Positioned at top of dashboard) -->
+          <div id="adminNotificationsMenu" style="display: none; position: absolute; top: calc(100% + 5px); left: 0; width: 290px; background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 14px; box-shadow: 0 10px 30px rgba(15,23,42,0.25); z-index: 10000; padding: 1rem; color: #0F172A;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #E2E8F0; padding-bottom: 0.6rem; margin-bottom: 0.8rem;">
+              <strong style="font-size: 0.95rem; color: #0F172A; display: flex; align-items: center; gap: 0.4rem;">🔔 System Notifications</strong>
+              <span style="font-size: 0.72rem; color: #059669; background: #DCFCE7; font-weight: 800; padding: 1px 6px; border-radius: 99px;" id="adminNotifCount">4 New</span>
+            </div>
+            <div id="adminNotifList" style="display: flex; flex-direction: column; gap: 0.6rem; max-height: 220px; overflow-y: auto;">
+              <div style="font-size: 0.8rem; background: #F8FAFC; border: 1px solid #E2E8F0; padding: 0.5rem 0.7rem; border-radius: 8px;">
+                <div style="font-weight: 800; color: #E11D48;">🚨 Expiry Warning</div>
+                <div style="color: #475569; margin-top: 2px;">3 promo codes for Sephora expire in 24 hours.</div>
+              </div>
+              <div style="font-size: 0.8rem; background: #F8FAFC; border: 1px solid #E2E8F0; padding: 0.5rem 0.7rem; border-radius: 8px;">
+                <div style="font-weight: 800; color: #1D61E7;">👑 New Sub-Admin</div>
+                <div style="color: #475569; margin-top: 2px;">Sub-admin 'rahul_editor' was assigned Editor role.</div>
+              </div>
+              <div style="font-size: 0.8rem; background: #F8FAFC; border: 1px solid #E2E8F0; padding: 0.5rem 0.7rem; border-radius: 8px;">
+                <div style="font-weight: 800; color: #059669;">👥 New User Registration</div>
+                <div style="color: #475569; margin-top: 2px;">Rahul Sharma created a new shopper account.</div>
+              </div>
+            </div>
+            <button class="sc-admin-btn-primary" style="width: 100%; margin-top: 0.8rem; font-size: 0.78rem; padding: 0.4rem;" onclick="clearAdminNotifications()">Mark All as Read</button>
+          </div>
+
+          <!-- Admin Profile Dropdown Menu -->
+          <div id="adminProfileMenu" style="display: none; position: absolute; top: calc(100% + 5px); left: 0; width: 250px; background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 14px; box-shadow: 0 10px 30px rgba(15,23,42,0.25); z-index: 10000; padding: 1rem; color: #0F172A;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; border-bottom: 1px solid #E2E8F0; padding-bottom: 0.8rem; margin-bottom: 0.8rem;">
+              <div style="width: 38px; height: 38px; border-radius: 50%; background: #1D61E7; color: #FFFFFF; font-weight: 900; font-size: 1.1rem; display: flex; align-items: center; justify-content: center;">
+                SA
+              </div>
+              <div>
+                <strong style="font-size: 0.95rem; color: #0F172A; display: block;">Super Admin</strong>
+                <span style="font-size: 0.75rem; color: #059669; font-weight: 800;">👑 System Owner</span>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.82rem;">
+              <button class="sc-tab-btn" style="text-align: left; padding: 0.45rem 0.7rem; border: none; background: #F8FAFC; color: #0F172A;" onclick="switchAdminTab('settings'); toggleAdminProfileMenu();">
+                🔐 Security & Password
+              </button>
+              <button class="sc-tab-btn" style="text-align: left; padding: 0.45rem 0.7rem; border: none; background: #F8FAFC; color: #0F172A;" onclick="switchAdminTab('settings'); toggleAdminProfileMenu();">
+                👑 Manage Sub-Admins
+              </button>
+              <button class="sc-admin-btn-delete" style="width: 100%; margin-top: 0.4rem; padding: 0.45rem; text-align: center; font-size: 0.8rem;" onclick="closeAdminDashboardModal(); toggleAdminProfileMenu();">
+                🚪 Log Out Admin Panel
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <nav class="sc-sidebar-nav">
+          <button class="sc-sidebar-item active" onclick="switchAdminTab('analytics')">
+            <span class="sc-sidebar-num">1</span>
+            <span style="flex:1;">📊 Analytics & Traffic</span>
+            <span class="sc-sidebar-chevron">›</span>
+          </button>
+          <button class="sc-sidebar-item" onclick="switchAdminTab('stores')">
+            <span class="sc-sidebar-num">2</span>
+            <span style="flex:1;">🏪 Merchant Companies</span>
+            <span class="sc-sidebar-chevron">›</span>
+          </button>
+          <button class="sc-sidebar-item" onclick="switchAdminTab('codes')">
+            <span class="sc-sidebar-num">3</span>
+            <span style="flex:1;">💎 Promo Codes & Deals</span>
+            <span class="sc-sidebar-chevron">›</span>
+          </button>
+          <button class="sc-sidebar-item" onclick="switchAdminTab('userlist')">
+            <span class="sc-sidebar-num">4</span>
+            <span style="flex:1;">👥 Logged-In Users</span>
+            <span class="sc-sidebar-chevron">›</span>
+          </button>
+          <button class="sc-sidebar-item" onclick="switchAdminTab('settings')">
+            <span class="sc-sidebar-num">5</span>
+            <span style="flex:1;">⚙️ Dynamic Site Content</span>
+            <span class="sc-sidebar-chevron">›</span>
+          </button>
+          <button class="sc-sidebar-item" onclick="switchAdminTab('csvhub')">
+            <span class="sc-sidebar-num">6</span>
+            <span style="flex:1;">📁 CSV & Excel Bulk Hub</span>
+            <span class="sc-sidebar-chevron">›</span>
+          </button>
+        </nav>
+
+        <div class="sc-sidebar-footer">
+          <button class="sc-sidebar-close-btn" onclick="closeAdminDashboardModal()">
+            <span>✕</span> Close Dashboard
+          </button>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT VIEWPORT -->
+      <main class="sc-dashboard-content">
+        <div class="sc-superadmin-header" style="margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <div class="sc-header-icon-box">👑</div>
+            <div>
+              <h2 style="font-size: 1.5rem; font-weight: 900; color: #0F172A; margin: 0;" id="adminHeaderTitle">Super Admin Dashboard</h2>
+              <p style="font-size: 0.85rem; color: #64748B; margin-top: 0.2rem;" id="adminHeaderSub">Real-time site traffic, user login tracking & multi-code merchant manager.</p>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap;">
+            <div class="sc-admin-search-pill">
+              <span style="color: #64748B;">🔍</span>
+              <input type="text" id="adminHeaderSearchInput" placeholder="Search company or domain..." style="border: none; outline: none; background: transparent; font-size: 0.88rem; width: 200px; color: #0F172A;" oninput="renderAdminStoreList(this.value)">
+            </div>
+            <button class="sc-admin-btn-primary" onclick="switchAdminTab('stores'); openAddStoreForm();">
+              <span>+</span> Add New Company
+            </button>
+
+          </div>
+        </div>
+
+        <!-- TAB 1: REAL-TIME ANALYTICS & TRAFFIC -->
+        <div id="adminTabAnalytics">
+        <div class="sc-analytics-grid">
+          <div class="sc-analytic-card">
+            <div class="sc-analytic-num" style="color: var(--sc-neon-green);" id="statActiveVisitors">1,284</div>
+            <div class="sc-analytic-lbl">🟢 Live Active Visitors Right Now</div>
+          </div>
+          <div class="sc-analytic-card">
+            <div class="sc-analytic-num" style="color: var(--sc-neon-blue);" id="statTotalLogins">452</div>
+            <div class="sc-analytic-lbl">👥 User Logins Today</div>
+          </div>
+          <div class="sc-analytic-card">
+            <div class="sc-analytic-num" style="color: #F59E0B;" id="statCodeCopies">8,940</div>
+            <div class="sc-analytic-lbl">💎 Total Coupon Codes Copied</div>
+          </div>
+          <div class="sc-analytic-card">
+            <div class="sc-analytic-num" style="color: var(--sc-neon-purple);" id="statShopRedirects">3,120</div>
+            <div class="sc-analytic-lbl">🚀 Merchant Redirect Clicks</div>
+          </div>
+        </div>
+
+        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 1rem; color: #0F172A;">⚡ Live User Activity Stream</h3>
+        <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 1rem; max-height: 250px; overflow-y: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.03);" id="adminActivityStream">
+          <!-- Populated by app.js -->
+        </div>
+
+        <!-- 24-HOUR UNIVERSAL UNDO & ACTION HISTORY LOG BOX -->
+        <div style="margin-top: 1.5rem; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.25rem; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.8rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span style="font-size: 1.3rem;">↩️</span>
+              <div>
+                <h4 style="font-size: 1.05rem; font-weight: 900; color: #0F172A; margin: 0;">24-Hour Universal Undo & Action History</h4>
+                <p style="font-size: 0.8rem; color: #64748B; margin-top: 0.1rem;">Any deleted or edited store, promo code, user account or setting can be undone within 24 hours.</p>
+              </div>
+            </div>
+            <button class="sc-tab-btn" style="font-size: 0.78rem; padding: 0.35rem 0.75rem; background: #F8FAFC; color: #0F172A; border: 1px solid #CBD5E1;" onclick="renderUndoLogList()">
+              🔄 Refresh Undo List
+            </button>
+          </div>
+
+          <div id="adminUndoLogList" style="display: flex; flex-direction: column; gap: 0.5rem; max-height: 280px; overflow-y: auto;">
+            <!-- Populated dynamically by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: COMPANIES & MULTIPLE CODES MANAGER -->
+      <div id="adminTabStores" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.8rem;">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div class="sc-header-icon-box" style="background: #E0EDFF; color: #1D61E7; font-size: 1.2rem; padding: 8px 10px; border-radius: 10px;">🏢</div>
+            <div>
+              <h3 style="font-size: 1.3rem; font-weight: 900; color: #0F172A; margin: 0;">Manage Merchant Companies</h3>
+              <p style="font-size: 0.82rem; color: #64748B; margin-top: 0.1rem;">Showing all <strong style="color: #059669; font-weight: 800;" id="adminStoreCountHeader">35</strong> merchant companies.</p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap;">
+            <div class="sc-admin-search-pill">
+              <span style="color: #64748B;">🔍</span>
+              <input type="text" id="adminStoreSearchInput" placeholder="Search company or domain..." style="border: none; outline: none; background: transparent; font-size: 0.88rem; width: 220px; color: #0F172A;" oninput="renderAdminStoreList(this.value)">
+            </div>
+            <button class="sc-admin-btn-primary" onclick="openAddStoreForm()">
+              <span>+</span> Add New Company
+            </button>
+          </div>
+        </div>
+
+        <!-- Add New Store Form Box -->
+        <div id="addStoreFormContainer" style="display: none; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.2rem; margin-bottom: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+          <h4 style="font-size: 1rem; font-weight: 800; margin-bottom: 1rem; color: var(--sc-neon-green);">Add New Merchant Company</h4>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="sc-admin-form-group">
+              <label>Company Name</label>
+              <input type="text" id="newStoreName" class="sc-admin-input" placeholder="e.g. Harbor Freight">
+            </div>
+            <div class="sc-admin-form-group">
+              <label>Domain</label>
+              <input type="text" id="newStoreDomain" class="sc-admin-input" placeholder="e.g. harborfreight.com">
+            </div>
+            <div class="sc-admin-form-group" style="grid-column: 1/-1;">
+              <label>Redirect Website URL (When user clicks 'Shop at Company')</label>
+              <input type="text" id="newTargetUrl" class="sc-admin-input" placeholder="https://www.harborfreight.com">
+            </div>
+            <div class="sc-admin-form-group" style="grid-column: 1/-1;">
+              <label>Logo Image URL</label>
+              <input type="text" id="newStoreLogo" class="sc-admin-input" placeholder="https://images.simplycodes.com/brand/harborfreight.com/logo.png">
+            </div>
+          </div>
+          <div style="display: flex; gap: 0.8rem; margin-top: 1rem;">
+            <button class="sc-admin-btn-save" onclick="saveNewStore()">Create Company</button>
+            <button class="sc-admin-btn-delete" onclick="closeAddStoreForm()">Cancel</button>
+          </div>
+        </div>
+
+        <!-- Manage Stores List -->
+        <div id="adminStoreList"></div>
+      </div>
+
+      <!-- TAB 3: PROMO CODES & DEALS MANAGER -->
+      <div id="adminTabCodes" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.8rem;">
+          <div>
+            <h3 style="font-size: 1.2rem; font-weight: 900; color: #0F172A; margin: 0;">Manage All Promo Codes & Coupons</h3>
+            <p style="font-size: 0.78rem; color: var(--sc-text-sub); margin-top: 0.2rem;">Showing <strong style="color: var(--sc-neon-green);" id="adminCodesCountHeader">0</strong> active promo codes across companies.</p>
+          </div>
+          <div style="display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap;">
+            <select id="adminCodesCompanyFilter" class="sc-admin-input" style="width: 200px; padding: 0.45rem 0.8rem;" onchange="renderAdminCodesList()">
+              <option value="ALL">All Merchant Companies</option>
+            </select>
+            <input type="text" id="adminCodeSearchInput" class="sc-admin-input" placeholder="🔍 Search code or title..." style="width: 200px; padding: 0.45rem 0.8rem;" oninput="renderAdminCodesList()">
+            <button class="sc-admin-btn-save" onclick="openAddCodeModal()">+ Add New Promo Code</button>
+          </div>
+        </div>
+
+        <!-- Add New Promo Code Form Box -->
+        <div id="addCodeFormContainer" style="display: none; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.2rem; margin-bottom: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+          <h4 style="font-size: 1rem; font-weight: 800; margin-bottom: 1rem; color: var(--sc-neon-green);">💎 Add New Promo Code to Company</h4>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="sc-admin-form-group" style="grid-column: 1/-1;">
+              <label>Select Target Company</label>
+              <select id="newCodeStoreId" class="sc-admin-input" style="border-color: var(--sc-neon-green); font-weight: 700;">
+                <!-- Populated by app.js -->
+              </select>
+            </div>
+            <div class="sc-admin-form-group">
+              <label>Discount Title</label>
+              <input type="text" id="newCodeTitle" class="sc-admin-input" placeholder="e.g. 30% OFF Clearance">
+            </div>
+            <div class="sc-admin-form-group">
+              <label>Promo Code String</label>
+              <input type="text" id="newCodeString" class="sc-admin-input" placeholder="e.g. SAVE30" style="font-family: monospace; color: var(--sc-neon-green); font-weight: 800;">
+            </div>
+            <div class="sc-admin-form-group" style="grid-column: 1/-1;">
+              <label>Description / Terms (Optional)</label>
+              <input type="text" id="newCodeDesc" class="sc-admin-input" placeholder="e.g. Valid on footwear & activewear cart">
+            </div>
+          </div>
+          <div style="display: flex; gap: 0.8rem; margin-top: 1rem;">
+            <button class="sc-admin-btn-save" onclick="saveNewPromoCodeFromForm()">Save & Publish Code</button>
+            <button class="sc-admin-btn-delete" onclick="closeAddCodeModal()">Cancel</button>
+          </div>
+        </div>
+
+        <!-- Manage Codes List Container -->
+        <div id="adminCodesListContainer"></div>
+      </div>
+
+      <!-- TAB 4: LOGGED-IN USERS TABLE & DETAILED USER MANAGER -->
+      <div id="adminTabUserlist" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.8rem;">
+          <div>
+            <h3 style="font-size: 1.2rem; font-weight: 900; color: #0F172A; margin: 0;">User Accounts & Login Activity</h3>
+            <p style="font-size: 0.78rem; color: var(--sc-text-sub); margin-top: 0.2rem;">Click any user row below to view full live session duration, shopping visits, block or delete user.</p>
+          </div>
+          <button class="sc-admin-btn-save" onclick="openAddUserForm()">+ Add New User</button>
+        </div>
+
+        <!-- Add New User Form Container -->
+        <div id="addUserFormContainer" style="display: none; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.25rem; margin-bottom: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+          <h4 style="font-size: 1rem; font-weight: 800; margin-bottom: 1rem; color: #1D61E7;">➕ Create & Configure New User Account</h4>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+            <!-- 1. Email -->
+            <div class="sc-admin-form-group">
+              <label>1. Email Address</label>
+              <input type="email" id="newUserEmail" class="sc-admin-input" placeholder="e.g. user@gmail.com" required>
+            </div>
+            <!-- 2. Username -->
+            <div class="sc-admin-form-group">
+              <label>2. Username</label>
+              <input type="text" id="newUserName" class="sc-admin-input" placeholder="e.g. rahul_sharma" required>
+            </div>
+            <!-- 3. Password -->
+            <div class="sc-admin-form-group">
+              <label>3. Login Password</label>
+              <input type="password" id="newUserPassword" class="sc-admin-input" placeholder="••••••••" required>
+            </div>
+            <!-- 4. Role Dropdown -->
+            <div class="sc-admin-form-group">
+              <label>4. Role Dropdown</label>
+              <select id="newUserRole" class="sc-admin-input" style="font-weight: 700; color: #1D61E7;" onchange="applyUserRolePermissions(this.value)">
+                <option value="User">1. User (Regular Shopper)</option>
+                <option value="Admin">2. Admin (Management Access)</option>
+                <option value="Supervisor">3. Supervisor (Auditor & Reviewer)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 5. Access Dropdown / Checkboxes Grid -->
+          <div style="margin-bottom: 1rem;">
+            <label style="font-size: 0.85rem; font-weight: 800; color: #0F172A; display: block; margin-bottom: 0.5rem;">
+              5. Select Access Permissions (Kon-Kon Se Access Dene Hai):
+            </label>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.65rem; background: #F8FAFC; padding: 0.85rem 1rem; border-radius: 10px; border: 1px solid #CBD5E1;">
+              <label style="font-size: 0.82rem; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" id="userPermStores" checked> 🏬 Stores Directory & Merchants
+              </label>
+              <label style="font-size: 0.82rem; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" id="userPermCodes" checked> 💎 Promo Codes & Deals
+              </label>
+              <label style="font-size: 0.82rem; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" id="userPermUsers"> 👥 User Accounts & Login Activity
+              </label>
+              <label style="font-size: 0.82rem; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" id="userPermContent"> ⚙️ Edit Dynamic Website Content
+              </label>
+              <label style="font-size: 0.82rem; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" id="userPermAnalytics"> 📊 Analytics & Traffic Reports
+              </label>
+              <label style="font-size: 0.82rem; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" id="userPermCsv"> 📁 CSV Bulk Import / Export
+              </label>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 0.8rem;">
+            <button class="sc-admin-btn-primary" onclick="saveNewUser()">Save & Create User</button>
+            <button class="sc-admin-btn-delete" onclick="closeAddUserForm()">Cancel</button>
+          </div>
+        </div>
+
+        <div class="sc-table-wrap">
+          <table class="sc-table">
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Username / Email</th>
+                <th>Login IP</th>
+                <th>Codes Used</th>
+                <th>Status</th>
+                <th>Last Active</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminUserTableBody">
+              <!-- Rendered by app.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 5: 100% FULL DYNAMIC SITE CONTENT & HERO SETTINGS -->
+      <div id="adminTabSettings" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.8rem;">
+          <div>
+            <h3 style="font-size: 1.2rem; font-weight: 900; color: #0F172A; margin: 0;">⚙️ 100% Dynamic Site Content Editor</h3>
+            <p style="font-size: 0.78rem; color: var(--sc-text-sub); margin-top: 0.2rem;">Modify website brand name, top banner, headlines, feature cards, and download links in real-time.</p>
+          </div>
+          <div style="display: flex; gap: 0.6rem;">
+            <button class="sc-admin-btn-save" onclick="saveSiteSettings()">💾 Save & Publish Live</button>
+            <button class="sc-admin-btn-delete" onclick="resetSiteSettingsToDefault()">🔄 Reset Content</button>
+          </div>
+        </div>
+
+        <!-- Section 1: Brand & Top Announcement Banner Settings -->
+        <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+          <h4 style="font-size: 1rem; font-weight: 800; margin-bottom: 1rem; color: var(--sc-neon-green);">🏷️ Brand Name & Top Announcement Banner</h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+            <div class="sc-admin-form-group">
+              <label>Website Brand Name</label>
+              <input type="text" id="settingBrandName" class="sc-admin-input" value="Codes4U">
+            </div>
+            <div class="sc-admin-form-group">
+              <label>Top Banner Highlight Text (Bold Gold)</label>
+              <input type="text" id="settingTopBadge" class="sc-admin-input" value="RETAILMENOT APP WEEK:">
+            </div>
+            <div class="sc-admin-form-group" style="grid-column: 1/-1;">
+              <label>Top Banner Announcement Message</label>
+              <input type="text" id="settingTopText" class="sc-admin-input" value="Up to 50% OFF + 15% Cash Back at Top Brands Today!">
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Hero Section & 4 Metric Counters -->
+        <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+          <h4 style="font-size: 1rem; font-weight: 800; margin-bottom: 1rem; color: var(--sc-neon-green);">✨ Hero Section & Live Stat Counters</h4>
+          
+          <div class="sc-admin-form-group">
+            <label>Announcement Pill Tag Text</label>
+            <input type="text" id="settingPillTag" class="sc-admin-input" value="✨ Introducing 100 Merchants Ranking">
+          </div>
+
+          <div class="sc-admin-form-group">
+            <label>Hero Main Title (Headline)</label>
+            <input type="text" id="settingHeroTitle" class="sc-admin-input" value="Codes that actually work.">
+          </div>
+
+          <div class="sc-admin-form-group">
+            <label>Hero Subtitle / Description</label>
+            <textarea id="settingHeroSub" class="sc-admin-input" style="height: 65px; resize: vertical;">The only platform powered by real shoppers testing codes live at checkout. No expired junk, no fake deals.</textarea>
+          </div>
+
+          <h5 style="font-size: 0.9rem; font-weight: 800; margin: 1.2rem 0 0.8rem 0; color: #0F172A;">Hero 4 Stat Metric Counters</h5>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+            <div class="sc-admin-form-group">
+              <label>Stat 1 Value</label>
+              <input type="text" id="settingStat1Val" class="sc-admin-input" value="647,966">
+            </div>
+            <div class="sc-admin-form-group">
+              <label>Stat 1 Label</label>
+              <input type="text" id="settingStat1Lbl" class="sc-admin-input" value="active codes">
+            </div>
+
+            <div class="sc-admin-form-group">
+              <label>Stat 2 Value</label>
+              <input type="text" id="settingStat2Val" class="sc-admin-input" value="98%">
+            </div>
+            <div class="sc-admin-form-group">
+              <label>Stat 2 Label</label>
+              <input type="text" id="settingStat2Lbl" class="sc-admin-input" value="verification health">
+            </div>
+
+            <div class="sc-admin-form-group">
+              <label>Stat 3 Value</label>
+              <input type="text" id="settingStat3Val" class="sc-admin-input" value="2.9M+">
+            </div>
+            <div class="sc-admin-form-group">
+              <label>Stat 3 Label</label>
+              <input type="text" id="settingStat3Lbl" class="sc-admin-input" value="shoppers testing">
+            </div>
+
+            <div class="sc-admin-form-group">
+              <label>Stat 4 Value</label>
+              <input type="text" id="settingStat4Val" class="sc-admin-input" value="$10+">
+            </div>
+            <div class="sc-admin-form-group">
+              <label>Stat 4 Label</label>
+              <input type="text" id="settingStat4Lbl" class="sc-admin-input" value="average savings per checkout">
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: "Why Engine" & 3 Feature Cards Editor -->
+        <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+          <h4 style="font-size: 1rem; font-weight: 800; margin-bottom: 1rem; color: var(--sc-neon-green);">⚡ 'Why Engine' & 3 Feature Cards</h4>
+          
+          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1rem;">
+            <div class="sc-admin-form-group">
+              <label>Section Tag</label>
+              <input type="text" id="settingWhyTag" class="sc-admin-input" value="WHY CODES4U">
+            </div>
+            <div class="sc-admin-form-group">
+              <label>Section Main Title</label>
+              <input type="text" id="settingWhyTitle" class="sc-admin-input" value="We test 1M+ codes. Every. Single. Month.">
+            </div>
+          </div>
+          <div class="sc-admin-form-group">
+            <label>Section Description</label>
+            <input type="text" id="settingWhyDesc" class="sc-admin-input" value="Our engine tests codes against real cart checkouts 24/7. When a code works, we issue a Proof Packet with an auditable evidence chain.">
+          </div>
+
+          <!-- Feature 1 Card -->
+          <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 1rem; margin-top: 1rem;">
+            <div style="font-weight: 800; color: #0F172A; font-size: 0.9rem; margin-bottom: 0.6rem;">Feature Card 1</div>
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 0.8rem;">
+              <div class="sc-admin-form-group"><label>Title</label><input type="text" id="settingFeat1Title" class="sc-admin-input" value="1. AI Automated Testing"></div>
+              <div class="sc-admin-form-group"><label>Badge Tag</label><input type="text" id="settingFeat1Badge" class="sc-admin-input" value="LIVE 24/7"></div>
+            </div>
+            <div class="sc-admin-form-group"><label>Description</label><input type="text" id="settingFeat1Desc" class="sc-admin-input" value="Continuous checkout cart simulation testing 100k+ codes per hour across major online retailers."></div>
+          </div>
+
+
+          <!-- Feature 2 Card -->
+          <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 1rem; margin-top: 0.8rem;">
+            <div style="font-weight: 800; color: #0F172A; font-size: 0.9rem; margin-bottom: 0.6rem;">Feature Card 2</div>
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 0.8rem;">
+              <div class="sc-admin-form-group"><label>Title</label><input type="text" id="settingFeat2Title" class="sc-admin-input" value="2. Shopper Consensus"></div>
+              <div class="sc-admin-form-group"><label>Badge Tag</label><input type="text" id="settingFeat2Badge" class="sc-admin-input" value="VERIFIED"></div>
+            </div>
+            <div class="sc-admin-form-group"><label>Description</label><input type="text" id="settingFeat2Desc" class="sc-admin-input" value="Real community members confirming working codes and uploading receipt proofs in real-time."></div>
+          </div>
+
+          <!-- Feature 3 Card -->
+          <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 1rem; margin-top: 0.8rem;">
+            <div style="font-weight: 800; color: #0F172A; font-size: 0.9rem; margin-bottom: 0.6rem;">Feature Card 3</div>
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 0.8rem;">
+              <div class="sc-admin-form-group"><label>Title</label><input type="text" id="settingFeat3Title" class="sc-admin-input" value="3. Code Health Score"></div>
+              <div class="sc-admin-form-group"><label>Badge Tag</label><input type="text" id="settingFeat3Badge" class="sc-admin-input" value="0-100% SCORE"></div>
+            </div>
+            <div class="sc-admin-form-group"><label>Description</label><input type="text" id="settingFeat3Desc" class="sc-admin-input" value="Live reliability rating calculated from recent verification history, usage frequency, and success rates."></div>
+          </div>
+        </div>
+
+        <!-- Section 4: Mobile Extension & App Store Links -->
+        <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+          <h4 style="font-size: 1rem; font-weight: 800; margin-bottom: 1rem; color: var(--sc-neon-green);">🚀 Extension & App Store Download Links</h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+            <div class="sc-admin-form-group">
+              <label>Extension Section Title</label>
+              <input type="text" id="settingExtTitle" class="sc-admin-input" value="Try Codes4U">
+            </div>
+            <div class="sc-admin-form-group">
+              <label>Floating Card Headline</label>
+              <input type="text" id="settingFloatingTitle" class="sc-admin-input" value="Never pay full price again.">
+            </div>
+            <div class="sc-admin-form-group" style="grid-column: 1/-1;">
+              <label>Extension Subtitle</label>
+              <input type="text" id="settingExtDesc" class="sc-admin-input" value="The lightest, privacy-first browser extension for Chrome, Safari, and mobile.">
+            </div>
+            <div class="sc-admin-form-group">
+              <label>Apple App Store Redirect URL</label>
+              <input type="text" id="settingAppStoreUrl" class="sc-admin-input" value="https://apple.com">
+            </div>
+            <div class="sc-admin-form-group">
+              <label>Google Play Store Redirect URL</label>
+              <input type="text" id="settingGooglePlayUrl" class="sc-admin-input" value="https://google.com">
+            </div>
+            <div class="sc-admin-form-group" style="grid-column: 1/-1;">
+              <label>Chrome Web Store Extension URL</label>
+              <input type="text" id="settingChromeExtUrl" class="sc-admin-input" value="https://chrome.google.com">
+            </div>
+          </div>
+
+          <button class="sc-admin-btn-save" style="margin-top: 1.2rem; width: 100%; padding: 0.8rem; font-size: 0.95rem;" onclick="saveSiteSettings()">
+            💾 Save & Publish All Site Content Live
+          </button>
+        </div>
+
+        <!-- Section 5: System Database Reset Tools -->
+        <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+          <h4 style="font-size: 1rem; font-weight: 800; margin-bottom: 0.4rem; color: #3B82F6;">🛠️ System Database Tools & Reset</h4>
+          <p style="font-size: 0.78rem; color: var(--sc-text-sub); margin-bottom: 1rem;">Instantly reset merchant store data or user logs back to initial defaults.</p>
+          <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+            <button class="sc-admin-btn-block" style="background: rgba(59, 130, 246, 0.15); color: #3B82F6; border-color: rgba(59, 130, 246, 0.3);" onclick="resetStoresToDefault()">
+              🏪 Reset Stores & Codes Data
+            </button>
+            <button class="sc-admin-btn-delete" onclick="resetUserLogsToDefault()">
+              👥 Reset User Accounts Data
+            </button>
+          </div>
+        </div>
+
+        <!-- Section 6: Super Admin Password Manager -->
+        <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+          <h4 style="font-size: 1rem; font-weight: 800; margin-bottom: 0.3rem; color: #F59E0B;">🔐 Super Admin Security & Password Manager</h4>
+          <p style="font-size: 0.78rem; color: var(--sc-text-sub); margin-bottom: 1rem;">Update your Super Admin username & login password.</p>
+          
+          <form onsubmit="handleAdminPasswordChange(event)">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+              <div class="sc-admin-form-group">
+                <label>Admin Username</label>
+                <input type="text" id="adminNewUsername" class="sc-admin-input" value="superadmin" required>
+              </div>
+              <div class="sc-admin-form-group">
+                <label>Current Password</label>
+                <input type="password" id="adminCurrentPassword" class="sc-admin-input" placeholder="Current password" required>
+              </div>
+              <div class="sc-admin-form-group">
+                <label>New Admin Password</label>
+                <input type="password" id="adminNewPassword" class="sc-admin-input" placeholder="New password" required>
+              </div>
+              <div class="sc-admin-form-group">
+                <label>Confirm New Password</label>
+                <input type="password" id="adminConfirmPassword" class="sc-admin-input" placeholder="Confirm new password" required>
+              </div>
+            </div>
+
+            <div id="adminPassErrorMsg" style="color: #EF4444; font-size: 0.82rem; margin-top: 0.5rem; display: none;">Error!</div>
+
+            <button type="submit" class="sc-admin-btn-save" style="margin-top: 1rem; padding: 0.75rem 1.4rem; background: linear-gradient(135deg, #F59E0B, #D97706); color: #FFF; font-size: 0.9rem;">
+              🔒 Save & Update Admin Credentials
+            </button>
+          </form>
+        </div>
+
+        <!-- Section 7: Sub-Admin User Creation & Granular Access Permissions -->
+        <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.5rem; margin-top: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.8rem;">
+            <div>
+              <h4 style="font-size: 1.1rem; font-weight: 900; color: #1D61E7; margin: 0;">👑 Create Sub-Admin Account & Custom Access Permissions</h4>
+              <p style="font-size: 0.82rem; color: #64748B; margin-top: 0.2rem;">Super Admin can create sub-admins and assign specific feature access permissions.</p>
+            </div>
+            <button class="sc-admin-btn-primary" onclick="openCreateSubAdminForm()">+ Create New Sub-Admin</button>
+          </div>
+
+          <!-- Create Sub-Admin Form -->
+          <div id="createSubAdminContainer" style="display: none; background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 12px; padding: 1.25rem; margin-bottom: 1.2rem;">
+            <h5 style="font-size: 0.95rem; font-weight: 800; color: #0F172A; margin-bottom: 0.8rem;">➕ New Sub-Admin User Details</h5>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+              <div class="sc-admin-form-group">
+                <label>Admin Username</label>
+                <input type="text" id="subAdminUsername" class="sc-admin-input" placeholder="e.g. rahul_admin" required>
+              </div>
+              <div class="sc-admin-form-group">
+                <label>Admin Email</label>
+                <input type="email" id="subAdminEmail" class="sc-admin-input" placeholder="e.g. rahul@codes4u.com" required>
+              </div>
+              <div class="sc-admin-form-group">
+                <label>Login Password</label>
+                <input type="password" id="subAdminPassword" class="sc-admin-input" placeholder="••••••••" required>
+              </div>
+              <div class="sc-admin-form-group">
+                <label>Assigned Role Preset</label>
+                <select id="subAdminRole" class="sc-admin-input" onchange="applyRolePresetPermissions(this.value)">
+                  <option value="Admin">Admin (Full Operational)</option>
+                  <option value="Editor">Editor (Content & Stores Only)</option>
+                  <option value="Viewer">Viewer (Read Only)</option>
+                  <option value="Custom">Custom Permissions</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Granular Access Permissions Checkboxes Grid -->
+            <label style="font-size: 0.85rem; font-weight: 800; color: #0F172A; display: block; margin-bottom: 0.6rem;">
+              🔐 Select Custom Feature Permissions for this Sub-Admin:
+            </label>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem; background: #FFFFFF; padding: 1rem; border-radius: 10px; border: 1px solid #E2E8F0; margin-bottom: 1rem;">
+              <label style="font-size: 0.82rem; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" id="permStores" checked> 🏢 Manage Merchant Companies
+              </label>
+              <label style="font-size: 0.82rem; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" id="permCodes" checked> 💎 Manage Promo Codes & Verification
+              </label>
+              <label style="font-size: 0.82rem; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" id="permUsers" checked> 👥 Manage Logged-In User Accounts
+              </label>
+              <label style="font-size: 0.82rem; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" id="permContent" checked> ⚙️ Edit Dynamic Website Content
+              </label>
+              <label style="font-size: 0.82rem; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" id="permAnalytics" checked> 📊 Access Analytics & Traffic Reports
+              </label>
+              <label style="font-size: 0.82rem; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" id="permCsv" checked> 📁 Perform CSV Bulk Import / Export
+              </label>
+              <label style="font-size: 0.82rem; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" id="permReset"> 🛠️ Access System Resets & Tools
+              </label>
+            </div>
+
+            <div style="display: flex; gap: 0.8rem;">
+              <button class="sc-admin-btn-primary" onclick="saveNewSubAdmin()">Save & Grant Sub-Admin Access</button>
+              <button class="sc-admin-btn-delete" onclick="closeCreateSubAdminForm()">Cancel</button>
+            </div>
+          </div>
+
+          <!-- Existing Sub-Admins Table -->
+          <div class="sc-table-wrap">
+            <table class="sc-table">
+              <thead>
+                <tr>
+                  <th>Admin User</th>
+                  <th>Role</th>
+                  <th>Granted Permissions</th>
+                  <th>Created Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="subAdminTableBody">
+                <!-- Populated by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 6: CSV & EXCEL BULK UPLOAD & DOWNLOAD HUB -->
+      <div id="adminTabCsvhub" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div class="sc-header-icon-box" style="background: #ECFDF5; color: #059669; font-size: 1.3rem; padding: 10px 12px; border-radius: 12px;">📁</div>
+            <div>
+              <h3 style="font-size: 1.4rem; font-weight: 900; color: #0F172A; margin: 0;">CSV & Excel Bulk Hub (Import / Export)</h3>
+              <p style="font-size: 0.85rem; color: #64748B; margin-top: 0.15rem;">One-click bulk download entire database or bulk upload merchant stores, promo codes, and user accounts.</p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 0.6rem;">
+            <button class="sc-admin-btn-primary" style="background: linear-gradient(135deg, #059669, #047857);" onclick="exportStoresToCSV()">
+              📥 Export Merchants CSV
+            </button>
+            <button class="sc-admin-btn-primary" style="background: linear-gradient(135deg, #2563EB, #1D4ED8);" onclick="exportCodesToCSV()">
+              💎 Export Codes CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- SECTION 1: INSTANT BULK DOWNLOAD (EXPORTS & TEMPLATES) -->
+        <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+          <h4 style="font-size: 1.05rem; font-weight: 800; color: #0F172A; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+            📥 1. Instant System Database Export (CSV / Excel Download)
+          </h4>
+          <p style="font-size: 0.82rem; color: #64748B; margin-bottom: 1.2rem;">Click any button below to download the latest live data directly to standard `.csv` files compatible with Microsoft Excel, Google Sheets, and LibreOffice.</p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+            <!-- Card 1: Merchants Export -->
+            <div style="background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 12px; padding: 1.2rem; text-align: left;">
+              <div style="font-size: 1.5rem; margin-bottom: 0.4rem;">🏪</div>
+              <strong style="font-size: 0.95rem; color: #0F172A; display: block;">Merchant Companies</strong>
+              <span style="font-size: 0.78rem; color: #64748B; display: block; margin-top: 0.2rem; margin-bottom: 1rem;">Export all company names, domains, categories, logos & redirect URLs.</span>
+              <button class="sc-admin-btn-primary" style="width: 100%; font-size: 0.82rem; padding: 0.55rem; background: linear-gradient(135deg, #059669, #047857);" onclick="exportStoresToCSV()">
+                📥 Download Merchants CSV
+              </button>
+            </div>
+
+            <!-- Card 2: Promo Codes Export -->
+            <div style="background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 12px; padding: 1.2rem; text-align: left;">
+              <div style="font-size: 1.5rem; margin-bottom: 0.4rem;">💎</div>
+              <strong style="font-size: 0.95rem; color: #0F172A; display: block;">Promo Codes & Deals</strong>
+              <span style="font-size: 0.78rem; color: #64748B; display: block; margin-top: 0.2rem; margin-bottom: 1rem;">Export all coupon strings, discount titles, verification status & terms.</span>
+              <button class="sc-admin-btn-primary" style="width: 100%; font-size: 0.82rem; padding: 0.55rem; background: linear-gradient(135deg, #2563EB, #1D4ED8);" onclick="exportCodesToCSV()">
+                📥 Download Promo Codes CSV
+              </button>
+            </div>
+
+            <!-- Card 3: User Accounts Export -->
+            <div style="background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 12px; padding: 1.2rem; text-align: left;">
+              <div style="font-size: 1.5rem; margin-bottom: 0.4rem;">👥</div>
+              <strong style="font-size: 0.95rem; color: #0F172A; display: block;">User Accounts & Logins</strong>
+              <span style="font-size: 0.78rem; color: #64748B; display: block; margin-top: 0.2rem; margin-bottom: 1rem;">Export user IDs, emails, login IPs, total codes used & live statuses.</span>
+              <button class="sc-admin-btn-primary" style="width: 100%; font-size: 0.82rem; padding: 0.55rem; background: linear-gradient(135deg, #9333EA, #7C3AED);" onclick="exportUsersToCSV()">
+                📥 Download User Accounts CSV
+              </button>
+            </div>
+
+            <!-- Card 4: Sample CSV Templates -->
+            <div style="background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 12px; padding: 1.2rem; text-align: left;">
+              <div style="font-size: 1.5rem; margin-bottom: 0.4rem;">📄</div>
+              <strong style="font-size: 0.95rem; color: #0F172A; display: block;">Sample CSV Import Templates</strong>
+              <span style="font-size: 0.78rem; color: #64748B; display: block; margin-top: 0.2rem; margin-bottom: 0.6rem;">Get pre-formatted sample files for bulk upload.</span>
+              <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                <button class="sc-tab-btn" style="font-size: 0.78rem; padding: 0.35rem 0.6rem; text-align: left; background: #FFFFFF; color: #0F172A; border: 1px solid #CBD5E1;" onclick="downloadCSVTemplate('stores')">
+                  📄 Sample Merchants Template.csv
+                </button>
+                <button class="sc-tab-btn" style="font-size: 0.78rem; padding: 0.35rem 0.6rem; text-align: left; background: #FFFFFF; color: #0F172A; border: 1px solid #CBD5E1;" onclick="downloadCSVTemplate('codes')">
+                  📄 Sample Promo Codes Template.csv
+                </button>
+                <button class="sc-tab-btn" style="font-size: 0.78rem; padding: 0.35rem 0.6rem; text-align: left; background: #FFFFFF; color: #0F172A; border: 1px solid #CBD5E1;" onclick="downloadCSVTemplate('users')">
+                  📄 Sample User Accounts Template.csv
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: BULK UPLOAD (CSV & EXCEL FILE PARSER) -->
+        <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+          <h4 style="font-size: 1.05rem; font-weight: 800; color: #0F172A; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            📤 2. Bulk Upload CSV & Excel File Parser
+          </h4>
+          <p style="font-size: 0.82rem; color: #64748B; margin-bottom: 1.2rem;">Select your CSV or Excel export file to upload multiple stores, promo codes or user accounts at once.</p>
+
+          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1.2rem; margin-bottom: 1.2rem;">
+            <div class="sc-admin-form-group">
+              <label style="font-weight: 800; color: #0F172A;">Select Target Import Category</label>
+              <select id="csvImportCategory" class="sc-admin-input" style="font-weight: 800; color: #1D61E7; padding: 0.6rem;">
+                <option value="stores">🏬 Merchant Companies (Stores)</option>
+                <option value="codes">💎 Promo Codes & Deals</option>
+                <option value="users">👥 User Accounts</option>
+              </select>
+            </div>
+
+            <!-- Drag & Drop Upload Zone -->
+            <div style="border: 2px dashed #3B82F6; background: #EFF6FF; border-radius: 12px; padding: 1.2rem; text-align: center; cursor: pointer; transition: all 0.2s;" onclick="document.getElementById('csvFileInput').click()">
+              <input type="file" id="csvFileInput" accept=".csv, .txt, .tsv, .xlsx, .xls" style="display: none;" onchange="handleCSVFileSelected(event)">
+              <div style="font-size: 2rem; margin-bottom: 0.3rem;">☁️</div>
+              <strong style="font-size: 0.95rem; color: #1D4ED8; display: block;">Click to Select or Drag & Drop CSV / Excel File Here</strong>
+              <span style="font-size: 0.78rem; color: #64748B; display: block; margin-top: 0.2rem;">Supports .csv, .xlsx, .xls and formatted .txt files</span>
+            </div>
+          </div>
+
+          <!-- File Selected Status & Parsed Preview Container -->
+          <div id="csvPreviewContainer" style="display: none; background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 12px; padding: 1.2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.8rem;">
+              <div>
+                <strong style="font-size: 0.95rem; color: #0F172A; display: flex; align-items: center; gap: 0.4rem;">
+                  <span>📋 Parsed CSV File Preview:</span>
+                  <span style="color: #059669; font-weight: 800; font-size: 0.85rem;" id="csvFileName">data.csv</span>
+                </strong>
+                <span style="font-size: 0.78rem; color: #64748B;" id="csvRecordCount">0 records ready for import</span>
+              </div>
+              <div style="display: flex; gap: 0.6rem;">
+                <button class="sc-admin-btn-primary" style="background: linear-gradient(135deg, #059669, #047857);" onclick="confirmBulkImportToDatabase()">
+                  ✅ Confirm & Import to Database
+                </button>
+                <button class="sc-admin-btn-delete" onclick="cancelCSVUpload()">
+                  Cancel Upload
+                </button>
+              </div>
+            </div>
+
+            <!-- Preview Table -->
+            <div class="sc-table-wrap" style="max-height: 250px; overflow-y: auto;">
+              <table class="sc-table" id="csvPreviewTable">
+                <thead id="csvPreviewThead"></thead>
+                <tbody id="csvPreviewTbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: CSV FORMATTING GUIDELINES -->
+        <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+          <h4 style="font-size: 1rem; font-weight: 800; color: #0F172A; margin-bottom: 0.6rem;">
+            📖 CSV Column Formatting Specifications
+          </h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; font-size: 0.82rem; color: #475569;">
+            <div style="background: #F8FAFC; padding: 1rem; border-radius: 10px; border: 1px solid #E2E8F0;">
+              <strong style="color: #059669; font-size: 0.88rem; display: block; margin-bottom: 0.4rem;">1. Merchant Companies CSV Format</strong>
+              <code>name, domain, category, targetUrl, discountTitle, logo</code>
+              <div style="margin-top: 0.4rem; color: #64748B;">Example: <code>Nike, nike.com, fashion, https://www.nike.com, 30% OFF, https://logo.png</code></div>
+            </div>
+            <div style="background: #F8FAFC; padding: 1rem; border-radius: 10px; border: 1px solid #E2E8F0;">
+              <strong style="color: #2563EB; font-size: 0.88rem; display: block; margin-bottom: 0.4rem;">2. Promo Codes CSV Format</strong>
+              <code>companyName, code, title, desc</code>
+              <div style="margin-top: 0.4rem; color: #64748B;">Example: <code>Nike, SWISH30, 30% OFF Clearance, Valid on footwear</code></div>
+            </div>
+            <div style="background: #F8FAFC; padding: 1rem; border-radius: 10px; border: 1px solid #E2E8F0;">
+              <strong style="color: #9333EA; font-size: 0.88rem; display: block; margin-bottom: 0.4rem;">3. User Accounts CSV Format</strong>
+              <code>usernameEmail, fullName, password, role, status</code>
+              <div style="margin-top: 0.4rem; color: #64748B;">Example: <code>rahul@gmail.com, Rahul Sharma, pass123, User, Active</code></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      </main>
+
+    </div>
+  </div>
+
+  <!-- DETAILED USER PROFILE & ACTIVITY MODAL -->
+  <div class="sc-modal-overlay" id="userDetailModal">
+    <div class="sc-superadmin-dashboard">
+      <div class="sc-superadmin-header">
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.3rem;">
+            <span style="font-size: 1.4rem;">👤</span>
+            <h3 style="font-size: 1.3rem; font-weight: 900; color: #0F172A; margin: 0;" id="userModalTitle">User Profile Details</h3>
+            <span id="userModalStatusBadge" style="font-size: 0.75rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 99px; background: rgba(0,230,118,0.15); color: var(--sc-neon-green);">🟢 Active</span>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--sc-text-sub);" id="userModalSub">Comprehensive live tracking & shopping audit log</p>
+        </div>
+        <button class="sc-modal-close" style="position: static;" onclick="closeUserDetailModal()">&times;</button>
+      </div>
+
+      <!-- Quick Metrics Bar -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.8rem; margin-bottom: 1.2rem;">
+        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; padding: 0.8rem; border-radius: 10px;">
+          <div style="font-size: 0.75rem; color: var(--sc-text-muted);">🕒 Kab Login Hua</div>
+          <div style="font-size: 0.85rem; font-weight: 800; color: #0F172A; margin-top: 0.2rem;" id="udLoginTime">2026-09-25 21:05</div>
+        </div>
+        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; padding: 0.8rem; border-radius: 10px;">
+          <div style="font-size: 0.75rem; color: var(--sc-text-muted);">⏱️ Kitni Der Live Tha</div>
+          <div style="font-size: 0.85rem; font-weight: 800; color: var(--sc-neon-green); margin-top: 0.2rem;" id="udLiveDuration">14 mins 32 secs</div>
+        </div>
+        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; padding: 0.8rem; border-radius: 10px;">
+          <div style="font-size: 0.75rem; color: var(--sc-text-muted);">🌐 Login IP & Device</div>
+          <div style="font-size: 0.82rem; font-weight: 700; color: #0F172A; margin-top: 0.2rem;" id="udIpDevice">192.168.1.42</div>
+        </div>
+      </div>
+
+      <!-- SHOPPING SITES VISITED SECTION (kitne site me shoping karne gya) -->
+      <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 1rem; margin-bottom: 1.2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+          <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--sc-neon-green);">
+            🛍️ Shopping Sites Visited (<span id="udShoppingCount">0</span> Stores)
+          </h4>
+          <span style="font-size: 0.72rem; color: var(--sc-text-muted);">Stores redirect clicked</span>
+        </div>
+        <div id="udShoppingList" style="max-height: 140px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem;">
+          <!-- Populated by app.js -->
+        </div>
+      </div>
+
+      <!-- COPIED PROMO CODES SECTION -->
+      <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 1rem; margin-bottom: 1.5rem;">
+        <h4 style="font-size: 0.95rem; font-weight: 800; color: #0F172A; margin-bottom: 0.6rem;">
+          💎 Copied Promo Codes (<span id="udCodesCount">0</span>)
+        </h4>
+        <div id="udCodesList" style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
+          <!-- Populated by app.js -->
+        </div>
+      </div>
+
+      <!-- USER ACTIONS BAR (BLOCK, DELETE, CLOSE) -->
+      <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--sc-border); padding-top: 1.2rem; flex-wrap: wrap; gap: 0.8rem;">
+        <div style="display: flex; gap: 0.6rem;">
+          <button id="udBlockBtn" class="sc-admin-btn-block" onclick="toggleBlockSelectedUser()">
+            🚫 Block User
+          </button>
+          <button id="udDeleteBtn" class="sc-admin-btn-delete" onclick="deleteSelectedUser()">
+            🗑️ Delete User
+          </button>
+        </div>
+        <button class="sc-tab-btn active" style="padding: 0.5rem 1.2rem;" onclick="closeUserDetailModal()">
+          Close Profile
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- HEADER QUICK NAVIGATION MENU MODAL / DRAWER -->
+  <div class="sc-modal-overlay" id="navMenuModal">
+    <div class="sc-modal-card" style="max-width: 380px; text-align: left; padding: 2rem 1.6rem;">
+      <button class="sc-modal-close" onclick="closeNavMenu()">&times;</button>
+      
+      <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.2rem; border-bottom: 1px solid var(--sc-border); padding-bottom: 0.8rem;">
+        <span class="sc-logo-badge" style="font-size: 1rem; padding: 0.3rem 0.8rem;">Codes4U</span>
+        <div style="font-size: 1rem; font-weight: 800; color: #0F172A;">Quick Menu Navigation</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem;">
+        <div style="font-size: 0.75rem; font-weight: 800; color: var(--sc-neon-green); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.2rem;">Shop Categories</div>
+        
+        <button class="sc-menu-drawer-item" onclick="openStoresDirectory(); closeNavMenu();" style="border-color: var(--sc-neon-green); background: rgba(0,230,118,0.1);">
+          <span>🏬 Stores Directory (All Coupons)</span>
+          <span style="font-size: 0.8rem; color: var(--sc-neon-green); font-weight: 800;">600k+ Stores ↗</span>
+        </button>
+        <button class="sc-menu-drawer-item" onclick="filterStores('all'); closeNavMenu();">
+          <span>🔥 Trending Today</span>
+          <span style="font-size: 0.8rem; color: var(--sc-text-muted);">Explore All</span>
+        </button>
+        <button class="sc-menu-drawer-item" onclick="filterStores('top'); closeNavMenu();">
+          <span>🛍️ Top Retailers</span>
+          <span style="font-size: 0.8rem; color: var(--sc-text-muted);">600k+ Stores</span>
+        </button>
+        <button class="sc-menu-drawer-item" onclick="filterStores('cashback'); closeNavMenu();">
+          <span>💵 Cash Back Offers</span>
+          <span style="font-size: 0.8rem; color: var(--sc-neon-green);">Up to 15% Back</span>
+        </button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem;">
+        <div style="font-size: 0.75rem; font-weight: 800; color: var(--sc-neon-green); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.2rem;">Account & Control Center</div>
+        
+        <button class="sc-menu-drawer-item" onclick="openAuthModal(); closeNavMenu();">
+          <span>👤 User Login / Register</span>
+          <span style="font-size: 0.8rem; color: var(--sc-text-muted);">My Account</span>
+        </button>
+        <button class="sc-menu-drawer-item" onclick="openAuthModal(); closeNavMenu();">
+          <span>👑 Super Admin Dashboard</span>
+          <span style="font-size: 0.8rem; color: #F59E0B;">Full Access</span>
+        </button>
+        <button class="sc-menu-drawer-item" onclick="openExtLink('chrome'); closeNavMenu();">
+          <span>🚀 Codes4U Extension</span>
+          <span style="font-size: 0.8rem; color: var(--sc-neon-green);">Get Extension</span>
+        </button>
+      </div>
+
+      <button class="sc-modal-shop-btn" style="padding: 0.7rem; font-size: 0.9rem;" onclick="closeNavMenu()">
+        Close Menu &nbsp;&times;
+      </button>
+    </div>
+  </div>
+
+  <!-- FLOATING TOAST NOTIFICATION CONTAINER -->
+  <div class="sc-toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
