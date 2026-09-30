@@ -681,8 +681,10 @@ document.addEventListener('DOMContentLoaded', () => {
   setupSearch();
   checkUserSession();
   startLiveAnalyticsStream();
+  startAdminAutoRefreshEngine();
   setupModalGlobalEvents();
 });
+
 
 // REST API Backend Client Integration
 const API_BASE = window.location.origin.includes('http') ? window.location.origin : 'http://localhost:5000';
@@ -796,7 +798,118 @@ async function loadUserData() {
 
 function saveUsersToStorage() {
   localStorage.setItem('simplycodes_users_data_v3', JSON.stringify(userLogins));
+  refreshAdminViewsRealtime();
 }
+
+function ensureActiveUserSession() {
+  if (!activeUser) {
+    const savedUser = localStorage.getItem('simplycodes_user_session');
+    if (savedUser) {
+      try {
+        const parsed = JSON.parse(savedUser);
+        const matched = userLogins.find(u => u.id === parsed.id || u.name === parsed.name);
+        if (matched) {
+          activeUser = matched;
+          isUserLoggedIn = true;
+          return activeUser;
+        }
+      } catch(e) {}
+    }
+    if (userLogins && userLogins.length > 0) {
+      activeUser = userLogins[0];
+    } else {
+      activeUser = {
+        id: 'USR-' + Math.floor(1000 + Math.random() * 9000),
+        name: 'guest_shopper@gmail.com',
+        fullName: 'Guest Shopper',
+        ip: '192.168.1.50',
+        loginTime: new Date().toISOString().replace('T', ' ').substring(0, 16),
+        sessionStartMs: Date.now(),
+        codesUsed: 0,
+        status: '🟢 Active',
+        lastActive: 'Just now',
+        device: 'Web Browser',
+        shoppingVisits: [],
+        copiedCodes: [],
+        orders: []
+      };
+      userLogins.unshift(activeUser);
+      saveUsersToStorage();
+    }
+  }
+  return activeUser;
+}
+
+function refreshAdminViewsRealtime() {
+  const tbody = document.getElementById('adminUserTableBody');
+  if (tbody && tbody.offsetParent !== null) {
+    renderUserTable();
+  }
+
+  if (selectedUserId && document.getElementById('userDetailModal')?.classList.contains('active')) {
+    const u = userLogins.find(user => user.id === selectedUserId);
+    if (u) {
+      const sCount = document.getElementById('udShoppingCount');
+      const cCount = document.getElementById('udCodesCount');
+      if (sCount) sCount.textContent = (u.shoppingVisits || []).length;
+      if (cCount) cCount.textContent = (u.copiedCodes || []).length;
+
+      const shoppingList = document.getElementById('udShoppingList');
+      if (shoppingList) {
+        const visits = u.shoppingVisits || [];
+        if (visits.length === 0) {
+          shoppingList.innerHTML = `<div style="font-size:0.82rem; color:var(--sc-text-muted);">No shopping redirects clicked yet.</div>`;
+        } else {
+          shoppingList.innerHTML = visits.map(v => `
+            <div style="display:flex; justify-content:space-between; align-items:center; background:#F8FAFC; padding:0.5rem 0.75rem; border-radius:8px; border:1px solid #E2E8F0;">
+              <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                <strong style="color:#0F172A; font-size:0.85rem;">🛍️ ${v.storeName}</strong>
+                <a href="${v.targetUrl}" target="_blank" style="font-size:0.75rem; color:var(--sc-neon-green); text-decoration:underline;">${v.targetUrl}</a>
+              </div>
+              <span style="font-size:0.75rem; color:var(--sc-text-muted);">${v.time}</span>
+            </div>
+          `).join('');
+        }
+      }
+
+      const codesList = document.getElementById('udCodesList');
+      if (codesList) {
+        const codes = u.copiedCodes || [];
+        if (codes.length === 0) {
+          codesList.innerHTML = `<div style="font-size:0.82rem; color:var(--sc-text-muted);">No codes copied yet.</div>`;
+        } else {
+          codesList.innerHTML = codes.map(c => `
+            <span style="font-family:monospace; font-size:0.8rem; font-weight:800; color:var(--sc-neon-green); background:var(--sc-neon-green-bg); border:1px solid rgba(0,230,118,0.3); padding:0.2rem 0.6rem; border-radius:6px;">
+              💎 ${c}
+            </span>
+          `).join('');
+        }
+      }
+    }
+  }
+
+  const undoLogContainer = document.getElementById('adminUndoLogList');
+  if (undoLogContainer && undoLogContainer.offsetParent !== null) {
+    renderUndoLogList();
+  }
+}
+
+function startAdminAutoRefreshEngine() {
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'simplycodes_users_data_v3' || e.key === 'codes4u_undo_logs_v1') {
+      const saved = localStorage.getItem('simplycodes_users_data_v3');
+      if (saved) {
+        try { userLogins = JSON.parse(saved); } catch(err) {}
+      }
+      refreshAdminViewsRealtime();
+    }
+  });
+
+  setInterval(() => {
+    refreshAdminViewsRealtime();
+  }, 1500);
+}
+
 
 // Category Filtering Engine
 function filterStores(category, btnElement) {
@@ -1138,17 +1251,21 @@ function createOrderRecordForUser(storeObj, codeVal) {
 
 // Copy single code & track under active user
 function handleCopySingleCode(code, storeName) {
+  const user = ensureActiveUserSession();
   navigator.clipboard.writeText(code).then(() => {
     metrics.codeCopies += 1;
     updateAnalyticsUI();
 
-    if (activeUser) {
-      if (!activeUser.copiedCodes) activeUser.copiedCodes = [];
-      if (!activeUser.copiedCodes.includes(code)) {
-        activeUser.copiedCodes.push(code);
+    if (user) {
+      if (!user.copiedCodes) user.copiedCodes = [];
+      if (!user.copiedCodes.includes(code)) {
+        user.copiedCodes.push(code);
       }
+      user.codesUsed = (user.codesUsed || 0) + 1;
+      user.lastActive = 'Just now';
       createOrderRecordForUser(activeStore, code);
       saveUsersToStorage();
+      addActivityLog(`Shopper ${user.name || user.id} copied code [${code}] for ${storeName || 'Store'}`);
     }
     showToast(`💎 Code '${code}' copied to clipboard!`);
   }).catch(() => {
@@ -1334,22 +1451,23 @@ function renderStoresDirectory(stores) {
 // Open Official Company Website URL in New Tab (Target URL configured by Super Admin) & track shopping visit & order
 function redirectToCompany(url) {
   if (url) {
+    const user = ensureActiveUserSession();
     metrics.shopRedirects += 1;
     updateAnalyticsUI();
 
-    if (activeUser) {
-      if (!activeUser.shoppingVisits) activeUser.shoppingVisits = [];
+    if (user) {
+      if (!user.shoppingVisits) user.shoppingVisits = [];
       const sName = activeStore ? activeStore.name : 'Merchant Store';
-      activeUser.shoppingVisits.unshift({
+      user.shoppingVisits.unshift({
         storeName: sName,
         targetUrl: url,
         time: new Date().toLocaleTimeString()
       });
-      activeUser.codesUsed = (activeUser.codesUsed || 0) + 1;
-      activeUser.lastActive = 'Just now';
+      user.codesUsed = (user.codesUsed || 0) + 1;
+      user.lastActive = 'Just now';
       createOrderRecordForUser(activeStore, activeStore && activeStore.codes ? activeStore.codes[0].code : 'DEAL2026');
       saveUsersToStorage();
-      addActivityLog(`User ${activeUser.id} clicked shop redirect for ${sName} → ${url}`);
+      addActivityLog(`Shopper ${user.name || user.id} clicked shop redirect for ${sName} → ${url}`);
     }
 
     window.open(url, '_blank');
