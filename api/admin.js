@@ -14,7 +14,7 @@ function verifyToken(authHeader) {
   if (signature !== expectedSignature) return null;
   try {
     const payload = JSON.parse(Buffer.from(body, 'base64url').toString('utf8'));
-    if (partload.exp && Date.now() > payload.exp) return null;
+    if (payload.exp && Date.now() > payload.exp) return null;
     return payload;
   } catch (e) {
     return null;
