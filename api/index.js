@@ -1,139 +1,132 @@
-/* Codes4U Vercel Serverless API Handler */
+/* Codes4U Vercel Serverless API Handler (Robust & Crash-Proof) */
 const fs = require('fs');
 const path = require('path');
 
-const DB_FILE = path.join(__dirname, '..', 'database.json');
+let dbCache = null;
 
-function readDB() {
+function getDB() {
+  if (dbCache) return dbCache;
   try {
-    const data = fs.readFileSync(DB_FILE, 'utf8');
-    return JSON.parse(data);
-  } catch (err) {
-    return {
-      adminCredentials: { username: 'superadmin', passwordHash: 'superadmin123' },
-      stores: [],
-      users: [],
-      siteSettings: {}
-    };
-  }
+    const DB_FILE = path.join(process.cwd(), 'database.json');
+    if (fs.existsSync(DB_FILE)) {
+      const data = fs.readFileSync(DB_FILE, 'utf8');
+      dbCache = JSON.parse(data);
+      return dbCache;
+    }
+  } catch (err) {}
+
+  dbCache = {
+    adminCredentials: { username: 'superadmin', passwordHash: 'superadmin123' },
+    stores: [],
+    users: [],
+    siteSettings: {}
+  };
+  return dbCache;
 }
 
 module.exports = (req, res) => {
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('X-Frame-Options', 'DENY');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  try {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-  if (req.method === 'OPTIONS') {
-    res.status(204).end();
-    return;
-  }
-
-  const url = req.url || '';
-  const pathname = url.split('?')[0];
-
-  // 1. Auth Login Endpoint
-  if (pathname === '/api/auth/login' && req.method === 'POST') {
-    const body = req.body || {};
-    const db = readDB();
-    const username = (body.username || '').trim().toLowerCase();
-    const password = body.password || '';
-
-    if (username === db.adminCredentials.username.toLowerCase() && password === db.adminCredentials.passwordHash) {
-      res.setHeader('Content-Type', 'application/json');
-      return res.status(200).send(JSON.stringify({
-        success: true,
-        role: 'admin',
-        token: 'admin-sec-token-' + Date.now(),
-        message: 'Super Admin authenticated securely.'
-      }));
+    if (req.method === 'OPTIONS') {
+      return res.status(204).end();
     }
 
-    const user = (db.users || []).find(u => u.name.toLowerCase() === username || u.id.toLowerCase() === username);
-    if (user) {
-      if (user.status && user.status.includes('Blocked')) {
-        res.setHeader('Content-Type', 'application/json');
-        return res.status(403).send(JSON.stringify({ success: false, message: 'Account is blocked by Super Admin.' }));
+    const url = req.url || '/';
+    const pathname = url.split('?')[0];
+    const db = getDB();
+
+    // 1. Auth Login Endpoint
+    if (pathname.includes('/auth/login') && req.method === 'POST') {
+      const body = req.body || {};
+      const username = (body.username || '').trim().toLowerCase();
+      const password = body.password || '';
+
+      if (username === db.adminCredentials.username.toLowerCase() && password === db.adminCredentials.passwordHash) {
+        return res.status(200).json({
+          success: true,
+          role: 'admin',
+          token: 'admin-sec-token-' + Date.now(),
+          message: 'Super Admin authenticated securely.'
+        });
       }
-      res.setHeader('Content-Type', 'application/json');
-      return res.status(200).send(JSON.stringify({
-        success: true,
-        role: 'user',
-        token: 'user-token-' + Date.now(),
-        user: { id: user.id, name: user.name, fullName: user.fullName || user.name, status: user.status }
-      }));
+
+      const user = (db.users || []).find(u => u.name.toLowerCase() === username || u.id.toLowerCase() === username);
+      if (user) {
+        if (user.status && user.status.includes('Blocked')) {
+          return res.status(403).json({ success: false, message: 'Account is blocked by Super Admin.' });
+        }
+        return res.status(200).json({
+          success: true,
+          role: 'user',
+          token: 'user-token-' + Date.now(),
+          user: { id: user.id, name: user.name, fullName: user.fullName || user.name, status: user.status }
+        });
+      }
+
+      return res.status(401).json({ success: false, message: 'Invalid credentials.' });
     }
 
-    res.setHeader('Content-Type', 'application/json');
-    return res.status(401).send(JSON.stringify({ success: false, message: 'Invalid credentials.' }));
-  }
+    // 2. Auth Signup Endpoint
+    if (pathname.includes('/auth/signup') && req.method === 'POST') {
+      const body = req.body || {};
+      const email = (body.email || '').trim();
+      const fullName = (body.name || '').trim();
 
-  // 2. Auth Signup Endpoint
-  if (pathname === '/api/auth/signup' && req.method === 'POST') {
-    const body = req.body || {};
-    const db = readDB();
-    const email = (body.email || '').trim();
-    const fullName = (body.name || '').trim();
+      if (!email) {
+        return res.status(400).json({ success: false, message: 'Email required.' });
+      }
 
-    if (!email) {
-      res.setHeader('Content-Type', 'application/json');
-      return res.status(400).send(JSON.stringify({ success: false, message: 'Email required.' }));
+      let existing = (db.users || []).find(u => u.name.toLowerCase() === email.toLowerCase());
+      if (existing) {
+        return res.status(200).json({ success: true, user: { id: existing.id, name: existing.name, fullName: existing.fullName } });
+      }
+
+      const newId = 'USR-' + Math.floor(1000 + Math.random() * 9000);
+      const newUser = {
+        id: newId,
+        name: email,
+        fullName: fullName || email.split('@')[0],
+        loginTime: new Date().toISOString().replace('T', ' ').substring(0, 16),
+        codesUsed: 0,
+        status: '🟢 Active',
+        lastActive: 'Just registered',
+        device: 'Vercel Web App',
+        shoppingVisits: [],
+        copiedCodes: [],
+        orders: []
+      };
+
+      return res.status(201).json({ success: true, user: { id: newUser.id, name: newUser.name, fullName: newUser.fullName } });
     }
 
-    let existing = (db.users || []).find(u => u.name.toLowerCase() === email.toLowerCase());
-    if (existing) {
-      res.setHeader('Content-Type', 'application/json');
-      return res.status(200).send(JSON.stringify({ success: true, user: { id: existing.id, name: existing.name, fullName: existing.fullName } }));
+    // 3. Get All Stores
+    if (pathname.includes('/stores') && req.method === 'GET') {
+      return res.status(200).json(db.stores || []);
     }
 
-    const newId = 'USR-' + Math.floor(1000 + Math.random() * 9000);
-    const newUser = {
-      id: newId,
-      name: email,
-      fullName: fullName || email.split('@')[0],
-      loginTime: new Date().toISOString().replace('T', ' ').substring(0, 16),
-      codesUsed: 0,
-      status: '🟢 Active',
-      lastActive: 'Just registered',
-      device: 'Vercel Web App',
-      shoppingVisits: [],
-      copiedCodes: [],
-      orders: []
-    };
+    // 4. Save/Add Store
+    if (pathname.includes('/stores') && req.method === 'POST') {
+      const body = req.body || {};
+      return res.status(200).json({ success: true, data: body });
+    }
 
-    res.setHeader('Content-Type', 'application/json');
-    return res.status(201).send(JSON.stringify({ success: true, user: { id: newUser.id, name: newUser.name, fullName: newUser.fullName } }));
+    // 5. Get All Users
+    if (pathname.includes('/users') && req.method === 'GET') {
+      return res.status(200).json(db.users || []);
+    }
+
+    // 6. Get Site Settings
+    if (pathname.includes('/settings') && req.method === 'GET') {
+      return res.status(200).json(db.siteSettings || {});
+    }
+
+    return res.status(200).json({ success: true, message: 'Codes4U Vercel API Active', timestamp: Date.now() });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
   }
-
-  // 3. Get All Stores
-  if (pathname === '/api/stores' && req.method === 'GET') {
-    const db = readDB();
-    res.setHeader('Content-Type', 'application/json');
-    return res.status(200).send(JSON.stringify(db.stores || []));
-  }
-
-  // 4. Save/Add Store
-  if (pathname === '/api/stores' && req.method === 'POST') {
-    const body = req.body || {};
-    res.setHeader('Content-Type', 'application/json');
-    return res.status(200).send(JSON.stringify({ success: true, data: body }));
-  }
-
-  // 5. Get All Users
-  if (pathname === '/api/users' && req.method === 'GET') {
-    const db = readDB();
-    res.setHeader('Content-Type', 'application/json');
-    return res.status(200).send(JSON.stringify(db.users || []));
-  }
-
-  // 6. Get Site Settings
-  if (pathname === '/api/settings' && req.method === 'GET') {
-    const db = readDB();
-    res.setHeader('Content-Type', 'application/json');
-    return res.status(200).send(JSON.stringify(db.siteSettings || {}));
-  }
-
-  res.setHeader('Content-Type', 'application/json');
-  return res.status(200).send(JSON.stringify({ success: true, message: 'Codes4U Vercel API Ready' }));
 };
