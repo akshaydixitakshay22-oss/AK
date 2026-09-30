@@ -120,6 +120,25 @@ module.exports = (req, res) => {
       return res.status(200).json(db.users || []);
     }
 
+    // 5b. Sync User Activity (Copied codes & shopping visits)
+    if (pathname.includes('/users/sync') && req.method === 'POST') {
+      const body = req.body || {};
+      if (body.user && body.user.id) {
+        let existingIndex = (db.users || []).findIndex(u => u.id === body.user.id || u.name === body.user.name);
+        if (existingIndex !== -1) {
+          db.users[existingIndex].shoppingVisits = body.user.shoppingVisits || db.users[existingIndex].shoppingVisits || [];
+          db.users[existingIndex].copiedCodes = body.user.copiedCodes || db.users[existingIndex].copiedCodes || [];
+          db.users[existingIndex].orders = body.user.orders || db.users[existingIndex].orders || [];
+          db.users[existingIndex].codesUsed = body.user.codesUsed || db.users[existingIndex].codesUsed || 0;
+          db.users[existingIndex].lastActive = body.user.lastActive || 'Just active';
+        } else {
+          if (!db.users) db.users = [];
+          db.users.unshift(body.user);
+        }
+      }
+      return res.status(200).json({ success: true });
+    }
+
     // 6. Get Site Settings
     if (pathname.includes('/settings') && req.method === 'GET') {
       return res.status(200).json(db.siteSettings || {});

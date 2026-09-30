@@ -799,6 +799,64 @@ async function loadUserData() {
 function saveUsersToStorage() {
   localStorage.setItem('simplycodes_users_data_v3', JSON.stringify(userLogins));
   refreshAdminViewsRealtime();
+
+  if (activeUser && activeUser.id) {
+    fetch(`${API_BASE}/api/users/sync`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user: activeUser })
+    }).catch(() => {});
+  }
+}
+
+async function pollServerUserData() {
+  try {
+    const res = await fetch(`${API_BASE}/api/users`);
+    if (res.ok) {
+      const serverUsers = await res.json();
+      if (Array.isArray(serverUsers) && serverUsers.length > 0) {
+        let updated = false;
+        serverUsers.forEach(sUser => {
+          let idx = userLogins.findIndex(u => u.id === sUser.id || u.name === sUser.name);
+          if (idx !== -1) {
+            const currentObj = userLogins[idx];
+            if (JSON.stringify(currentObj.copiedCodes || []) !== JSON.stringify(sUser.copiedCodes || []) ||
+                JSON.stringify(currentObj.shoppingVisits || []) !== JSON.stringify(sUser.shoppingVisits || []) ||
+                JSON.stringify(currentObj.orders || []) !== JSON.stringify(sUser.orders || []) ||
+                currentObj.codesUsed !== sUser.codesUsed ||
+                currentObj.status !== sUser.status) {
+              userLogins[idx] = { ...currentObj, ...sUser };
+              updated = true;
+            }
+          } else {
+            userLogins.unshift(sUser);
+            updated = true;
+          }
+        });
+        if (updated) {
+          localStorage.setItem('simplycodes_users_data_v3', JSON.stringify(userLogins));
+        }
+      }
+    }
+  } catch(e) {}
+}
+
+function startAdminAutoRefreshEngine() {
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'simplycodes_users_data_v3' || e.key === 'codes4u_undo_logs_v1') {
+      const saved = localStorage.getItem('simplycodes_users_data_v3');
+      if (saved) {
+        try { userLogins = JSON.parse(saved); } catch(err) {}
+      }
+      refreshAdminViewsRealtime();
+    }
+  });
+
+  setInterval(() => {
+    pollServerUserData().then(() => {
+      refreshAdminViewsRealtime();
+    });
+  }, 1500);
 }
 
 function ensureActiveUserSession() {

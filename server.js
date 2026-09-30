@@ -223,6 +223,31 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // 5b. Real-Time User Activity Sync Endpoint (Copied codes & shopping visits from any user device)
+  if (pathname === '/api/users/sync' && method === 'POST') {
+    const body = await parseJSONBody(req);
+    const db = readDB();
+
+    if (body.user && body.user.id) {
+      let existingIndex = (db.users || []).findIndex(u => u.id === body.user.id || u.name === body.user.name);
+      if (existingIndex !== -1) {
+        db.users[existingIndex].shoppingVisits = body.user.shoppingVisits || db.users[existingIndex].shoppingVisits || [];
+        db.users[existingIndex].copiedCodes = body.user.copiedCodes || db.users[existingIndex].copiedCodes || [];
+        db.users[existingIndex].orders = body.user.orders || db.users[existingIndex].orders || [];
+        db.users[existingIndex].codesUsed = body.user.codesUsed || db.users[existingIndex].codesUsed || 0;
+        db.users[existingIndex].lastActive = body.user.lastActive || 'Just active';
+      } else {
+        if (!db.users) db.users = [];
+        db.users.unshift(body.user);
+      }
+      writeDB(db);
+    }
+
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: true }));
+    return;
+  }
+
   // 6. Record User Order
   if (pathname === '/api/orders' && method === 'POST') {
     const body = await parseJSONBody(req);
