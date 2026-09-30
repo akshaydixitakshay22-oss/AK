@@ -665,12 +665,12 @@ let udTimerInterval = null;
 let isAdminLoggedIn = false;
 let isUserLoggedIn = false;
 
-// Analytics Counters
+// Real Analytics Counters (Calculated strictly from live database)
 let metrics = {
-  liveVisitors: 1284,
-  userLogins: 452,
-  codeCopies: 8940,
-  shopRedirects: 3120
+  liveVisitors: 0,
+  userLogins: 0,
+  codeCopies: 0,
+  shopRedirects: 0
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -930,7 +930,31 @@ function ensureActiveUserSession() {
   return activeUser;
 }
 
+function recalculateRealMetrics() {
+  const totalUsers = userLogins ? userLogins.length : 0;
+  const activeUsersCount = userLogins ? userLogins.filter(u => u.status && !u.status.includes('Blocked')).length : 0;
+  
+  let totalCodesCopied = 0;
+  let totalRedirectsClicked = 0;
+  
+  if (userLogins) {
+    userLogins.forEach(u => {
+      if (u.copiedCodes) totalCodesCopied += u.copiedCodes.length;
+      if (u.shoppingVisits) totalRedirectsClicked += u.shoppingVisits.length;
+    });
+  }
+
+  metrics.liveVisitors = activeUsersCount;
+  metrics.userLogins = totalUsers;
+  metrics.codeCopies = totalCodesCopied;
+  metrics.shopRedirects = totalRedirectsClicked;
+
+  updateAnalyticsUI();
+}
+
 function refreshAdminViewsRealtime() {
+  recalculateRealMetrics();
+
   const tbody = document.getElementById('adminUserTableBody');
   if (tbody && tbody.offsetParent !== null) {
     renderUserTable();
@@ -2605,56 +2629,12 @@ function addActivityLog(text) {
   if (stream.children.length > 40) stream.lastElementChild.remove();
 }
 
-const liveCities = ['New York', 'Chicago', 'Los Angeles', 'Houston', 'London', 'Toronto', 'Sydney', 'Mumbai', 'San Francisco', 'Miami', 'Berlin', 'Tokyo', 'Dallas'];
-
 function startLiveAnalyticsStream() {
-  // Populate initial activity logs
-  addActivityLog(`🟢 Live Real-Time Analytics Engine initialized.`);
-  addActivityLog(`🛒 Shopper from <strong>New York</strong> copied code <span style="color:#059669; font-weight:800; font-family:monospace;">[SWISH30]</span> on Nike`);
-  addActivityLog(`🚀 Visitor from <strong>Chicago</strong> clicked merchant checkout for Harbor Freight`);
-
-  // Continuous 2.5s real-time live ticker
-  setInterval(() => {
-    // 1. Live visitors fluctuation (+/- 1 to 4)
-    const visitorDelta = Math.floor(Math.random() * 7) - 3;
-    metrics.liveVisitors = Math.max(1240, Math.min(1380, metrics.liveVisitors + visitorDelta));
-
-    // 2. Coupon codes copied ticker (65% chance)
-    if (Math.random() < 0.65) {
-      metrics.codeCopies += Math.floor(Math.random() * 3) + 1;
-    }
-
-    // 3. Merchant redirect clicks ticker (50% chance)
-    if (Math.random() < 0.50) {
-      metrics.shopRedirects += Math.floor(Math.random() * 2) + 1;
-    }
-
-    // 4. Logins ticker (25% chance)
-    if (Math.random() < 0.25) {
-      metrics.userLogins += 1;
-    }
-
-    updateAnalyticsUI();
-
-    // 5. Generate realistic live activity event
-    if (Math.random() < 0.80 && storeData && storeData.length > 0) {
-      const city = liveCities[Math.floor(Math.random() * liveCities.length)];
-      const store = storeData[Math.floor(Math.random() * storeData.length)];
-      const codeObj = (store.codes && store.codes.length > 0) ? store.codes[Math.floor(Math.random() * store.codes.length)] : { code: 'SAVE20' };
-      const savedAmount = (10 + Math.floor(Math.random() * 40)) + '.00';
-
-      const eventTypes = [
-        `🛒 Shopper from <strong>${city}</strong> copied code <span style="color:#059669; font-weight:800; font-family:monospace;">[${codeObj.code}]</span> on ${store.name} (Saved $${savedAmount})`,
-        `🚀 Visitor from <strong>${city}</strong> clicked merchant checkout for ${store.name}`,
-        `💎 Verified deal <span style="color:#059669; font-weight:800; font-family:monospace;">[${codeObj.code}]</span> confirmed on ${store.name}`,
-        `🟢 New shopper logged in from <strong>${city}</strong>`,
-        `⚡ Cart verification check passed for ${store.name} (${store.health || '98% Health'})`
-      ];
-
-      const text = eventTypes[Math.floor(Math.random() * eventTypes.length)];
-      addActivityLog(text);
-    }
-  }, 2500);
+  recalculateRealMetrics();
+  const stream = document.getElementById('adminActivityStream');
+  if (stream && stream.children.length === 0) {
+    addActivityLog(`🟢 Real-Time User Activity Stream initialized. (Live shopper actions will stream here)`);
+  }
 }
 
 // Render Admin Company & Multiple Codes Management List
