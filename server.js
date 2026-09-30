@@ -1,35 +1,148 @@
-/* Codes4U Secure Node.js REST API Backend Server */
+/* Codes4U Enterprise-Grade Secure Node.js REST API Backend Server */
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
+const crypto = require('crypto');
 
 const PORT = process.env.PORT || 5000;
 const DB_FILE = path.join(__dirname, 'database.json');
+const SECRET_KEY = process.env.JWT_SECRET || 'super-secret-codes4u-key-2026-secure-auth-token-98765';
 
-// Helper to read database
-function readDB() {
+// ==========================================
+// SECURITY & CRYPTOGRAPHY UTILITIES
+// ==========================================
+
+// Enterprise-grade PBKDF2 Password Hashing (100,000 iterations)
+function hashPassword(password, salt = null) {
+  if (!password) return '';
+  if (!salt) salt = crypto.randomBytes(16).toString('hex');
+  const hash = crypto.pbkdf2Sync(password, salt, 100000, 64, 'sha512').toString('hex');
+  return `${salt}:${hash}`;
+}
+
+function verifyPassword(password, storedHash) {
+  if (!password || !storedHash) return false;
+  // Backward-compatibility check for plain text passwords
+  if (!storedHash.includes(':')) {
+    return password === storedHash;
+  }
+  const [salt, originalHash] = storedHash.split(':');
+  const hash = crypto.pbkdf2Sync(password, salt, 100000, 64, 'sha512').toString('hex');
+  return hash === originalHash;
+}
+
+// HMAC-SHA256 Bearer Token Generation & Verification
+function generateToken(payload) {
+  const header = Buffer.from(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).toString('base64url');
+  const exp = Date.now() + (24 * 60 * 60 * 1000); // 24 Hours Expiry
+  const body = Buffer.from(JSON.stringify({ ...payload, exp })).toString('base64url');
+  const signature = crypto.createHmac('sha256', SECRET_KEY).update(`${header}.${body}`).digest('base64url');
+  return `${header}.${body}.${signature}`;
+}
+
+function verifyToken(authHeader) {
+  if (!authHeader) return null;
+  const token = authHeader.replace('Bearer ', '').trim();
+  const parts = token.split('.');
+  if (parts.length !== 3) return null;
+  const [header, body, signature] = parts;
+  const expectedSignature = crypto.createHmac('sha256', SECRET_KEY).update(`${header}.${body}`).digest('base64url');
+  if (signature !== expectedSignature) return null;
   try {
-    const data = fs.readFileSync(DB_FILE, 'utf8');
-    return JSON.parse(data);
-  } catch (err) {
-    console.error('Error reading database.json:', err);
-    return { adminCredentials: { username: 'superadmin', passwordHash: 'superadmin123' }, stores: [], users: [], siteSettings: {} };
+    const payload = JSON.parse(Buffer.from(body, 'base64url').toString('utf8'));
+    if (payload.exp && Date.now() > payload.exp) return null;
+    return payload;
+  } catch (e) {
+    return null;
   }
 }
 
-// Helper to write database
+// In-Memory Rate Limiting (15 requests per minute per IP for Auth endpoints)
+const rateLimitMap = new Map();
+
+function isRateLimited(ip, limit = 15, windowMs = 60000) {
+  const now = Date.now();
+  const record = rateLimitMap.get(ip) || { count: 0, resetTime: now + windowMs };
+  if (now > record.resetTime) {
+    record.count = 1;
+    record.resetTime = now + windowMs;
+  } else {
+    record.count += 1;
+  }
+  rateLimitMap.set(ip, record);
+  return record.count > limit;
+}
+
+// Input Sanitization for Security
+function sanitize(input) {
+  if (typeof input !== 'string') return input;
+  return input.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// ==========================================
+// DATABASE ACCESS & MIGRATION
+// ==========================================
+
+function readDB() {
+  try {
+    if (!fs.existsSync(DB_FILE)) {
+      const defaultAdminPass = process.env.ADMIN_DEFAULT_PASSWORD || 'superadmin123';
+      const initialDB = {
+        adminCredentials: {
+          username: process.env.ADMIN_USERNAME || 'superadmin',
+          passwordHash: hashPassword(defaultAdminPass)
+        },
+        stores: [],
+        users: [],
+        siteSettings: {}
+      };
+      fs.writeFileSync(DB_FILE, JSON.stringify(initialDB, null, 2), 'utf8');
+      return initialDB;
+    }
+
+    const data = fs.readFileSync(DB_FILE, 'utf8');
+    const db = JSON.parse(data);
+
+    // Auto-migrate any plain text passwords to PBKDF2 hashes
+    let migrated = false;
+    if (db.adminCredentials && db.adminCredentials.passwordHash && !db.adminCredentials.passwordHash.includes(':')) {
+      db.adminCredentials.passwordHash = hashPassword(db.adminCredentials.passwordHash);
+      migrated = true;
+    }
+    if (Array.isArray(db.users)) {
+      db.users.forEach(u => {
+        if (u.password && !u.password.includes(':')) {
+          u.password = hashPassword(u.password);
+          migrated = true;
+        }
+      });
+    }
+    if (migrated) {
+      fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf8');
+    }
+
+    return db;
+  } catch (err) {
+    return {
+      adminCredentials: { username: 'superadmin', passwordHash: hashPassword('superadmin123') },
+      stores: [],
+      users: [],
+      siteSettings: {}
+    };
+  }
+}
+
 function writeDB(db) {
   try {
     fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf8');
     return true;
   } catch (err) {
-    console.error('Error writing database.json:', err);
     return false;
   }
 }
 
-// Parse JSON request body
+// Parse JSON request body safely
 function parseJSONBody(req) {
   return new Promise((resolve) => {
     let body = '';
@@ -44,7 +157,7 @@ function parseJSONBody(req) {
   });
 }
 
-// Security headers
+// Enterprise Security Headers
 function setSecurityHeaders(res) {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
@@ -53,6 +166,13 @@ function setSecurityHeaders(res) {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
 }
+
+// Import Admin Template Generator Module
+const { getAdminTemplateHTML } = require('./adminTemplate');
+
+// ==========================================
+// HTTP SERVER HANDLER
+// ==========================================
 
 const server = http.createServer(async (req, res) => {
   setSecurityHeaders(res);
@@ -66,70 +186,88 @@ const server = http.createServer(async (req, res) => {
   const parsedUrl = url.parse(req.url, true);
   const pathname = parsedUrl.pathname;
   const method = req.method;
+  const clientIP = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '127.0.0.1';
 
-  // ==========================================
-  // REST API ENDPOINTS (/api/*)
-  // ==========================================
-
-  // 1. Auth Login Endpoint
+  // ------------------------------------------
+  // 1. AUTH LOGIN ENDPOINT (Rate-Limited & Hashed)
+  // ------------------------------------------
   if (pathname === '/api/auth/login' && method === 'POST') {
+    if (isRateLimited(clientIP, 10)) {
+      res.writeHead(429, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, message: 'Too many login attempts. Please wait 1 minute.' }));
+      return;
+    }
+
     const body = await parseJSONBody(req);
     const db = readDB();
-    const username = (body.username || '').trim().toLowerCase();
+    const username = sanitize((body.username || '').trim().toLowerCase());
     const password = body.password || '';
 
-    // Check Super Admin
-    if (username === db.adminCredentials.username.toLowerCase() && password === db.adminCredentials.passwordHash) {
+    // Check Super Admin Credentials
+    if (username === db.adminCredentials.username.toLowerCase() && verifyPassword(password, db.adminCredentials.passwordHash)) {
+      const token = generateToken({ id: 'admin-1', username: db.adminCredentials.username, role: 'admin' });
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({
         success: true,
         role: 'admin',
-        token: 'admin-sec-token-' + Date.now(),
+        token: token,
         message: 'Super Admin authenticated securely.'
       }));
       return;
     }
 
-    // Check Regular User
-    const user = db.users.find(u => u.name.toLowerCase() === username || u.id.toLowerCase() === username);
+    // Check Regular User Credentials
+    const user = (db.users || []).find(u => u.name.toLowerCase() === username || u.id.toLowerCase() === username);
     if (user) {
       if (user.status && user.status.includes('Blocked')) {
         res.writeHead(403, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: false, message: 'Account is blocked by Super Admin.' }));
         return;
       }
-      user.lastActive = 'Just now';
-      writeDB(db);
-
+      if (user.password && !verifyPassword(password, user.password)) {
+        res.writeHead(401, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, message: 'Invalid username or password.' }));
+        return;
+      }
+      const token = generateToken({ id: user.id, username: user.name, role: 'user' });
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({
         success: true,
         role: 'user',
-        token: 'user-token-' + Date.now(),
+        token: token,
         user: { id: user.id, name: user.name, fullName: user.fullName || user.name, status: user.status }
       }));
       return;
     }
 
     res.writeHead(401, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ success: false, message: 'Invalid credentials.' }));
+    res.end(JSON.stringify({ success: false, message: 'Invalid username or password.' }));
     return;
   }
 
-  // 2. Auth Signup Endpoint
+  // ------------------------------------------
+  // 2. AUTH SIGNUP ENDPOINT (Rate-Limited & Hashed)
+  // ------------------------------------------
   if (pathname === '/api/auth/signup' && method === 'POST') {
-    const body = await parseJSONBody(req);
-    const db = readDB();
-    const email = (body.email || '').trim();
-    const fullName = (body.name || '').trim();
-
-    if (!email) {
-      res.writeHead(400, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: false, message: 'Email required.' }));
+    if (isRateLimited(clientIP, 10)) {
+      res.writeHead(429, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, message: 'Too many signup requests.' }));
       return;
     }
 
-    let existing = db.users.find(u => u.name.toLowerCase() === email.toLowerCase());
+    const body = await parseJSONBody(req);
+    const db = readDB();
+    const email = sanitize((body.email || '').trim());
+    const fullName = sanitize((body.name || '').trim());
+    const password = body.password || '';
+
+    if (!email) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, message: 'Email address is required.' }));
+      return;
+    }
+
+    let existing = (db.users || []).find(u => u.name.toLowerCase() === email.toLowerCase());
     if (existing) {
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ success: true, user: { id: existing.id, name: existing.name, fullName: existing.fullName } }));
@@ -141,26 +279,46 @@ const server = http.createServer(async (req, res) => {
       id: newId,
       name: email,
       fullName: fullName || email.split('@')[0],
-      ip: req.socket.remoteAddress || '192.168.1.10',
+      password: hashPassword(password || 'default123'),
       loginTime: new Date().toISOString().replace('T', ' ').substring(0, 16),
       codesUsed: 0,
       status: '🟢 Active',
       lastActive: 'Just registered',
-      device: req.headers['user-agent'] || 'Web Browser',
+      device: 'Web Browser',
       shoppingVisits: [],
       copiedCodes: [],
       orders: []
     };
 
+    if (!db.users) db.users = [];
     db.users.unshift(newUser);
     writeDB(db);
 
+    const token = generateToken({ id: newUser.id, username: newUser.name, role: 'user' });
     res.writeHead(201, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ success: true, user: { id: newUser.id, name: newUser.name, fullName: newUser.fullName } }));
+    res.end(JSON.stringify({ success: true, token, user: { id: newUser.id, name: newUser.name, fullName: newUser.fullName } }));
     return;
   }
 
-  // 3. Get All Stores
+  // ------------------------------------------
+  // 3. PROTECTED ADMIN DASHBOARD TEMPLATE ENDPOINT
+  // ------------------------------------------
+  if (pathname === '/api/admin/template' && method === 'GET') {
+    const authHeader = req.headers['authorization'];
+    const payload = verifyToken(authHeader);
+    if (!payload || payload.role !== 'admin') {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, message: 'Unauthorized: Valid Admin session required.' }));
+      return;
+    }
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.end(getAdminTemplateHTML());
+    return;
+  }
+
+  // ------------------------------------------
+  // 4. STORES ENDPOINTS (Public GET, Protected POST/PUT/DELETE)
+  // ------------------------------------------
   if (pathname === '/api/stores' && method === 'GET') {
     const db = readDB();
     res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -168,41 +326,39 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // 4. Add New Store (Admin)
   if (pathname === '/api/stores' && method === 'POST') {
-    const body = await parseJSONBody(req);
-    const db = readDB();
-    if (!body.name || !body.targetUrl) {
-      res.writeHead(400, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: false, message: 'Store Name & Redirect URL required.' }));
+    const authHeader = req.headers['authorization'];
+    const payload = verifyToken(authHeader);
+    if (!payload || payload.role !== 'admin') {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, message: 'Unauthorized: Admin authorization required.' }));
       return;
     }
 
-    const id = body.name.toLowerCase().replace(/[^a-z0-9]/g, '');
-    const newStore = {
-      id,
-      name: body.name,
-      domain: body.domain || `${id}.com`,
-      health: '100% Health',
-      discountTitle: body.discountTitle || '10% OFF',
-      logo: body.logo || 'https://via.placeholder.com/40',
-      targetUrl: body.targetUrl,
-      cashback: body.cashback || '5% Cash Back',
-      codes: body.codes || [{ title: '10% OFF Storewide', code: 'PROMO10', desc: '10% discount on order' }]
-    };
-
-    db.stores.unshift(newStore);
-    writeDB(db);
-
-    res.writeHead(201, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ success: true, store: newStore }));
+    const body = await parseJSONBody(req);
+    const db = readDB();
+    if (Array.isArray(body)) {
+      db.stores = body;
+      writeDB(db);
+    }
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: true, count: (db.stores || []).length }));
     return;
   }
 
-  // 5. Get All Users (Admin)
+  // ------------------------------------------
+  // 5. USERS ENDPOINTS (Protected GET, Sync POST)
+  // ------------------------------------------
   if (pathname === '/api/users' && method === 'GET') {
+    const authHeader = req.headers['authorization'];
+    const payload = verifyToken(authHeader);
+    if (!payload || payload.role !== 'admin') {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, message: 'Unauthorized: Admin authorization required.' }));
+      return;
+    }
+
     const db = readDB();
-    // Sanitize user data sent to admin (strip raw pass hashes)
     const sanitizedUsers = (db.users || []).map(u => ({
       id: u.id,
       name: u.name,
@@ -223,7 +379,6 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // 5b. Real-Time User Activity Sync Endpoint (Copied codes & shopping visits from any user device)
   if (pathname === '/api/users/sync' && method === 'POST') {
     const body = await parseJSONBody(req);
     const db = readDB();
@@ -248,26 +403,9 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // 6. Record User Order
-  if (pathname === '/api/orders' && method === 'POST') {
-    const body = await parseJSONBody(req);
-    const db = readDB();
-    const userId = body.userId;
-    const user = db.users.find(u => u.id === userId || u.name === userId);
-
-    if (user && body.order) {
-      if (!user.orders) user.orders = [];
-      user.orders.unshift(body.order);
-      user.codesUsed = (user.codesUsed || 0) + 1;
-      writeDB(db);
-    }
-
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ success: true }));
-    return;
-  }
-
-  // 7. Site Settings
+  // ------------------------------------------
+  // 6. SITE SETTINGS ENDPOINTS
+  // ------------------------------------------
   if (pathname === '/api/settings' && method === 'GET') {
     const db = readDB();
     res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -276,52 +414,29 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (pathname === '/api/settings' && method === 'POST') {
+    const authHeader = req.headers['authorization'];
+    const payload = verifyToken(authHeader);
+    if (!payload || payload.role !== 'admin') {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, message: 'Unauthorized: Admin authorization required.' }));
+      return;
+    }
+
     const body = await parseJSONBody(req);
     const db = readDB();
-    db.siteSettings = Object.assign({}, db.siteSettings, body);
+    db.siteSettings = body;
     writeDB(db);
 
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ success: true, settings: db.siteSettings }));
+    res.end(JSON.stringify({ success: true }));
     return;
   }
 
-  // ==========================================
-  // STATIC FRONTEND FILE SERVER
-  // ==========================================
-  let filePath = path.join(__dirname, pathname === '/' ? 'index.html' : pathname);
-  const ext = path.extname(filePath).toLowerCase();
-
-  const mimeTypes = {
-    '.html': 'text/html',
-    '.css': 'text/css',
-    '.js': 'application/javascript',
-    '.json': 'application/json',
-    '.png': 'image/png',
-    '.jpg': 'image/jpeg',
-    '.svg': 'image/svg+xml'
-  };
-
-  fs.readFile(filePath, (err, content) => {
-    if (err) {
-      if (err.code === 'ENOENT') {
-        res.writeHead(404, { 'Content-Type': 'text/html' });
-        res.end('<h1>404 Not Found</h1>');
-      } else {
-        res.writeHead(500);
-        res.end(`Server Error: ${err.code}`);
-      }
-    } else {
-      res.writeHead(200, { 'Content-Type': mimeTypes[ext] || 'text/plain' });
-      res.end(content, 'utf8');
-    }
-  });
+  // Default Fallback Response
+  res.writeHead(404, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify({ success: false, message: 'Endpoint not found' }));
 });
 
 server.listen(PORT, () => {
-  console.log(`=======================================================`);
-  console.log(`🚀 Codes4U Secure Backend API Server running on port ${PORT}`);
-  console.log(`🌐 API Base URL: http://localhost:${PORT}`);
-  console.log(`🛡️ DevTools Inspection Shield & Database Security ACTIVE`);
-  console.log(`=======================================================`);
+  console.log(`🔒 Codes4U Enterprise Backend running on http://localhost:${PORT}`);
 });

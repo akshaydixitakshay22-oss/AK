@@ -689,6 +689,33 @@ document.addEventListener('DOMContentLoaded', () => {
 // REST API Backend Client Integration
 const API_BASE = window.location.origin.includes('http') ? window.location.origin : 'http://localhost:5000';
 
+function getAdminAuthHeader() {
+  const token = localStorage.getItem('simplycodes_admin_token');
+  return token ? { 'Authorization': 'Bearer ' + token } : {};
+}
+
+async function fetchAdminDashboardTemplate() {
+  const container = document.getElementById('adminDashboardContainer');
+  if (!container) return false;
+  try {
+    const res = await fetch(`${API_BASE}/api/admin/template`, {
+      headers: getAdminAuthHeader()
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      alert(err.error || 'Failed to load Admin UI. Please log in as Admin.');
+      return false;
+    }
+    const html = await res.text();
+    container.innerHTML = html;
+    return true;
+  } catch (err) {
+    console.error('Error fetching admin template:', err);
+    alert('Failed to connect to server for Admin UI.');
+    return false;
+  }
+}
+
 // Load stores from API backend or fallback to storage/defaults
 async function loadStoreData() {
   try {
@@ -745,7 +772,7 @@ function saveStoresToStorage() {
   // Sync to API backend if available
   fetch(`${API_BASE}/api/stores`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: Object.assign({ 'Content-Type': 'application/json' }, getAdminAuthHeader()),
     body: JSON.stringify(storeData)
   }).catch(() => {});
 }
@@ -753,7 +780,9 @@ function saveStoresToStorage() {
 // Load users from API backend or fallback
 async function loadUserData() {
   try {
-    const res = await fetch(`${API_BASE}/api/users`);
+    const res = await fetch(`${API_BASE}/api/users`, {
+      headers: getAdminAuthHeader()
+    });
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
@@ -811,7 +840,9 @@ function saveUsersToStorage() {
 
 async function pollServerUserData() {
   try {
-    const res = await fetch(`${API_BASE}/api/users`);
+    const res = await fetch(`${API_BASE}/api/users`, {
+      headers: getAdminAuthHeader()
+    });
     if (res.ok) {
       const serverUsers = await res.json();
       if (Array.isArray(serverUsers) && serverUsers.length > 0) {
@@ -1762,9 +1793,12 @@ async function handleUserLogin(e) {
     if (res.ok && result.success) {
       if (result.role === 'admin') {
         isAdminLoggedIn = true;
+        if (result.token) {
+          localStorage.setItem('simplycodes_admin_token', result.token);
+        }
         localStorage.setItem('simplycodes_superadmin_session', 'true');
         closeAuthModal();
-        openAdminDashboard();
+        await openAdminDashboard();
         alert('🔑 Welcome Super Admin! Authenticated via REST API Server.');
         return;
       } else if (result.role === 'user' && result.user) {
@@ -2065,6 +2099,9 @@ function logoutUser() {
   activeUser = null;
   localStorage.removeItem('simplycodes_user_session');
   localStorage.removeItem('simplycodes_superadmin_session');
+  localStorage.removeItem('simplycodes_admin_token');
+  const adminContainer = document.getElementById('adminDashboardContainer');
+  if (adminContainer) adminContainer.innerHTML = '';
   updateUserAuthNavBtn();
   alert('🚪 You have logged out successfully.');
 }
@@ -2308,7 +2345,11 @@ function logoutUserFromDashboard() {
 // SUPER ADMIN DASHBOARD LOGIC
 // ==========================================
 
-function openAdminDashboard() {
+async function openAdminDashboard() {
+  if (!document.getElementById('adminDashboardModal')) {
+    const loaded = await fetchAdminDashboardTemplate();
+    if (!loaded) return;
+  }
   loadUndoLogs();
   renderAdminStoreList();
   populateAdminCompanyDropdowns();
@@ -2318,7 +2359,8 @@ function openAdminDashboard() {
   applySiteSettingsToDOM();
   renderUndoLogList();
   switchAdminTab('stores');
-  document.getElementById('adminDashboardModal').classList.add('active');
+  const modal = document.getElementById('adminDashboardModal');
+  if (modal) modal.classList.add('active');
 }
 
 function closeAdminDashboardModal() {

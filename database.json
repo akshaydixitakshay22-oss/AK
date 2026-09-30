@@ -6,6 +6,20 @@
   "stores": [],
   "users": [
     {
+      "id": "USR-9163",
+      "name": "rjs@123",
+      "fullName": "rjs",
+      "ip": "::1",
+      "loginTime": "2026-09-30 06:32",
+      "codesUsed": 0,
+      "status": "🟢 Active",
+      "lastActive": "Just now",
+      "device": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "shoppingVisits": [],
+      "copiedCodes": [],
+      "orders": []
+    },
+    {
       "id": "USR-6855",
       "name": "na1234@gmail.com",
       "fullName": "Rahul",
