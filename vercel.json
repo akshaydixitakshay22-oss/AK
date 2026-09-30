@@ -3,7 +3,19 @@
   "rewrites": [
     {
       "source": "/admin",
-      "destination": "/api/index.js"
+      "destination": "/api/admin.js"
+    },
+    {
+      "source": "/admin/(.*)",
+      "destination": "/api/admin.js"
+    },
+    {
+      "source": "/api/admin",
+      "destination": "/api/admin.js"
+    },
+    {
+      "source": "/api/admin/(.*)",
+      "destination": "/api/admin.js"
     },
     {
       "source": "/api/(.*)",
