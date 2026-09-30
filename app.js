@@ -758,7 +758,7 @@ async function loadUserData() {
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
         userLogins = data;
-        activeUser = userLogins[0];
+        if (!activeUser && userLogins.length > 0) activeUser = userLogins[0];
         return;
       }
     }
@@ -793,7 +793,7 @@ async function loadUserData() {
     userLogins = defaultUserLogins;
     saveUsersToStorage();
   }
-  activeUser = userLogins[0]; // Set default active user session
+  if (!activeUser && userLogins.length > 0) activeUser = userLogins[0];
 }
 
 function saveUsersToStorage() {
@@ -1848,37 +1848,65 @@ function updateUserAuthNavBtn() {
   const btn = document.getElementById('userAuthNavBtn');
   if (!btn) return;
 
-  if (isUserLoggedIn && activeUser && !isAdminLoggedIn) {
-    const displayName = activeUser.name.split('@')[0];
+  if (isAdminLoggedIn) {
+    btn.innerHTML = `👑 Super Admin Panel`;
+    btn.style.background = 'linear-gradient(135deg, #1D61E7, #0284C7)';
+    btn.style.color = '#FFFFFF';
+    btn.style.border = '1px solid #1D61E7';
+    btn.onclick = () => openAdminDashboard();
+  } else if (isUserLoggedIn && activeUser) {
+    const displayName = activeUser.fullName || activeUser.name.split('@')[0];
     btn.innerHTML = `👤 ${displayName}`;
     btn.style.background = 'rgba(0, 230, 118, 0.15)';
     btn.style.color = 'var(--sc-neon-green)';
     btn.style.border = '1px solid var(--sc-neon-green)';
+    btn.onclick = () => openUserDashboardModal();
   } else {
     btn.innerHTML = '👤 Log In / Sign Up';
     btn.style.background = 'linear-gradient(135deg, #00E676, #00C853)';
     btn.style.color = '#000000';
     btn.style.border = '1px solid #00E676';
+    btn.onclick = () => openAuthModal();
   }
 }
 
-// Restore active session on load
+// Restore active session on load (Restores both Super Admin and User Logins permanently across refreshes)
 function checkUserSession() {
-  // Clear any existing superadmin auto-login session so navbar button always displays Log In / Sign Up
-  localStorage.removeItem('simplycodes_superadmin_session');
-  isAdminLoggedIn = false;
+  // 1. Check Super Admin Session
+  const savedAdmin = localStorage.getItem('simplycodes_superadmin_session');
+  if (savedAdmin === 'true') {
+    isAdminLoggedIn = true;
+  }
 
+  // 2. Check Regular User Session
   const savedUser = localStorage.getItem('simplycodes_user_session');
   if (savedUser) {
     try {
       const parsed = JSON.parse(savedUser);
-      const matched = userLogins.find(u => u.id === parsed.id || u.name === parsed.name);
+      let matched = userLogins.find(u => u.id === parsed.id || u.name === parsed.name);
+      if (!matched && parsed.name) {
+        matched = {
+          id: parsed.id || ('USR-' + Math.floor(1000 + Math.random() * 9000)),
+          name: parsed.name,
+          fullName: parsed.fullName || parsed.name.split('@')[0],
+          status: '🟢 Active',
+          loginTime: new Date().toISOString().replace('T', ' ').substring(0, 16),
+          sessionStartMs: Date.now(),
+          codesUsed: 0,
+          orders: [],
+          copiedCodes: [],
+          shoppingVisits: []
+        };
+        userLogins.unshift(matched);
+        saveUsersToStorage();
+      }
       if (matched) {
         activeUser = matched;
         isUserLoggedIn = true;
       }
     } catch(e) {}
   }
+
   updateUserAuthNavBtn();
 }
 
@@ -1886,10 +1914,11 @@ function checkUserSession() {
 function logoutUser() {
   isUserLoggedIn = false;
   isAdminLoggedIn = false;
+  activeUser = null;
   localStorage.removeItem('simplycodes_user_session');
   localStorage.removeItem('simplycodes_superadmin_session');
   updateUserAuthNavBtn();
-  alert('You have logged out.');
+  alert('🚪 You have logged out successfully.');
 }
 
 // ==========================================
