@@ -702,9 +702,12 @@ async function fetchAdminDashboardTemplate() {
       headers: getAdminAuthHeader()
     });
     if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      alert(err.error || 'Failed to load Admin UI. Please log in as Admin.');
+      isAdminLoggedIn = false;
+      localStorage.removeItem('simplycodes_superadmin_session');
+      localStorage.removeItem('simplycodes_admin_token');
+      updateUserAuthNavBtn();
       container.innerHTML = '';
+      openAuthModal();
       return false;
     }
     const html = await res.text();
@@ -718,7 +721,11 @@ async function fetchAdminDashboardTemplate() {
   } catch (err) {
     console.error('Error fetching admin template:', err);
     container.innerHTML = '';
-    alert('Failed to connect to server for Admin UI.');
+    isAdminLoggedIn = false;
+    localStorage.removeItem('simplycodes_superadmin_session');
+    localStorage.removeItem('simplycodes_admin_token');
+    updateUserAuthNavBtn();
+    openAuthModal();
     return false;
   }
 }
@@ -1685,19 +1692,21 @@ function openAuthModal() {
     openAdminDashboard();
   } else {
     showLoginView();
-    document.getElementById('authModal').classList.add('active');
+    const modal = document.getElementById('authModal');
+    if (modal) modal.classList.add('active');
   }
 }
 
 function closeAuthModal() {
-  document.getElementById('authModal').classList.remove('active');
+  const modal = document.getElementById('authModal');
+  if (modal) modal.classList.remove('active');
 }
 
 function showForgotPasswordView() {
   const loginForm = document.getElementById('authLoginForm');
   const signupForm = document.getElementById('authSignupForm');
   const forgotForm = document.getElementById('authForgotForm');
-  const tabsHeader = document.querySelector('.sc-auth-tabs');
+  const tabsHeader = document.getElementById('authNavTabsRow') || document.querySelector('.sc-auth-tabs');
 
   if (loginForm) loginForm.style.display = 'none';
   if (signupForm) signupForm.style.display = 'none';
@@ -1739,7 +1748,7 @@ function showLoginView() {
   const loginForm = document.getElementById('authLoginForm');
   const signupForm = document.getElementById('authSignupForm');
   const forgotForm = document.getElementById('authForgotForm');
-  const tabsHeader = document.querySelector('.sc-auth-tabs');
+  const tabsHeader = document.getElementById('authNavTabsRow') || document.querySelector('.sc-auth-tabs');
 
   if (forgotForm) forgotForm.style.display = 'none';
   if (tabsHeader) tabsHeader.style.display = 'flex';
@@ -1753,21 +1762,21 @@ function switchAuthTab(tab) {
   const loginForm = document.getElementById('authLoginForm');
   const signupForm = document.getElementById('authSignupForm');
   const forgotForm = document.getElementById('authForgotForm');
-  const tabsHeader = document.querySelector('.sc-auth-tabs');
+  const tabsHeader = document.getElementById('authNavTabsRow') || document.querySelector('.sc-auth-tabs');
 
   if (tabsHeader) tabsHeader.style.display = 'flex';
   if (forgotForm) forgotForm.style.display = 'none';
 
   if (tab === 'login') {
-    loginTabBtn.classList.add('active');
-    signupTabBtn.classList.remove('active');
-    loginForm.style.display = 'block';
-    signupForm.style.display = 'none';
+    if (loginTabBtn) loginTabBtn.classList.add('active');
+    if (signupTabBtn) signupTabBtn.classList.remove('active');
+    if (loginForm) loginForm.style.display = 'block';
+    if (signupForm) signupForm.style.display = 'none';
   } else {
-    signupTabBtn.classList.add('active');
-    loginTabBtn.classList.remove('active');
-    signupForm.style.display = 'block';
-    loginForm.style.display = 'none';
+    if (signupTabBtn) signupTabBtn.classList.add('active');
+    if (loginTabBtn) loginTabBtn.classList.remove('active');
+    if (signupForm) signupForm.style.display = 'block';
+    if (loginForm) loginForm.style.display = 'none';
   }
 }
 
@@ -1876,9 +1885,11 @@ async function handleUserLogin(e) {
 // Handle Forgot Password Reset
 function handleForgotPassword(e) {
   e.preventDefault();
-  const identity = document.getElementById('forgotUserIdentity').value.trim();
-  const newPass = document.getElementById('forgotNewPassword').value.trim();
-  const msg = document.getElementById('forgotSuccessMsg');
+  const identityElem = document.getElementById('forgotUserIdentity') || document.getElementById('forgotUsernameInput');
+  const newPassElem = document.getElementById('forgotNewPassword') || document.getElementById('forgotNewPassInput');
+  const identity = identityElem ? identityElem.value.trim() : '';
+  const newPass = newPassElem ? newPassElem.value.trim() : '';
+  const msg = document.getElementById('forgotSuccessMsg') || document.getElementById('forgotErrorMsg');
 
   if (!identity || !newPass) {
     alert('Please enter your Account Username/Email and new password.');
@@ -1891,6 +1902,7 @@ function handleForgotPassword(e) {
     if (msg) {
       msg.textContent = '✅ Super Admin password updated successfully! Please log in with your new password.';
       msg.style.display = 'block';
+      msg.style.color = '#059669';
     }
     setTimeout(() => {
       showLoginView();
@@ -1905,6 +1917,7 @@ function handleForgotPassword(e) {
     if (msg) {
       msg.textContent = `✅ Password reset successful for user ${user.name}! You can now log in.`;
       msg.style.display = 'block';
+      msg.style.color = '#059669';
     }
     setTimeout(() => {
       showLoginView();
@@ -2037,7 +2050,13 @@ function updateUserAuthNavBtn() {
   const btn = document.getElementById('userAuthNavBtn');
   if (!btn) return;
 
-  if (isUserLoggedIn && activeUser && !isAdminLoggedIn) {
+  if (isAdminLoggedIn) {
+    btn.innerHTML = '👑 Admin Panel';
+    btn.style.background = 'linear-gradient(135deg, #FF9800, #F57C00)';
+    btn.style.color = '#FFFFFF';
+    btn.style.border = '1px solid #FF9800';
+    btn.onclick = () => openAdminDashboard();
+  } else if (isUserLoggedIn && activeUser) {
     const displayName = activeUser.fullName || activeUser.name.split('@')[0];
     btn.innerHTML = `👤 ${displayName}`;
     btn.style.background = 'rgba(0, 230, 118, 0.15)';
@@ -2049,13 +2068,7 @@ function updateUserAuthNavBtn() {
     btn.style.background = 'linear-gradient(135deg, #00E676, #00C853)';
     btn.style.color = '#000000';
     btn.style.border = '1px solid #00E676';
-    btn.onclick = () => {
-      if (isAdminLoggedIn) {
-        openAdminDashboard();
-      } else {
-        openAuthModal();
-      }
-    };
+    btn.onclick = () => openAuthModal();
   }
 }
 
