@@ -304,17 +304,17 @@
       <!-- VIEW 1: LOG IN FORM (REGULAR USERS & SUPER ADMIN) -->
       <div id="authLoginForm">
         <div style="font-size: 1.35rem; font-weight: 900; margin-bottom: 0.3rem; color: #0F172A;">Welcome Back 👋</div>
-        <p style="font-size: 0.82rem; color: var(--sc-text-sub); margin-bottom: 1.2rem;">Log in with your user email or admin credentials.</p>
+        <p style="font-size: 0.82rem; color: var(--sc-text-sub); margin-bottom: 1.2rem;">Log in with your user email and password.</p>
 
         <form onsubmit="handleUserLogin(event)">
-          <div class="sc-admin-form-group">
+          <div class="sc-app-form-group">
             <label>Username / Email</label>
-            <input type="text" id="loginUsername" class="sc-admin-input" placeholder="e.g. sarah_shopper@gmail.com or superadmin" required autocomplete="off">
+            <input type="text" id="loginUsername" class="sc-app-input" placeholder="e.g. sarah_shopper@gmail.com" required autocomplete="off">
           </div>
 
-          <div class="sc-admin-form-group">
+          <div class="sc-app-form-group">
             <label>Password</label>
-            <input type="password" id="loginPassword" class="sc-admin-input" placeholder="••••••••" required>
+            <input type="password" id="loginPassword" class="sc-app-input" placeholder="••••••••" required>
           </div>
 
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.9rem; flex-wrap: wrap; gap: 0.4rem;">
@@ -326,7 +326,7 @@
           </div>
 
           <div id="loginErrorMsg" style="color: #EF4444; font-size: 0.82rem; margin-bottom: 1rem; display: none;">Invalid username or password!</div>
-          <div id="loginBlockedMsg" style="color: #EF4444; font-size: 0.82rem; margin-bottom: 1rem; display: none;">🔴 Account is blocked by Super Admin!</div>
+          <div id="loginBlockedMsg" style="color: #EF4444; font-size: 0.82rem; margin-bottom: 1rem; display: none;">🔴 Account is currently suspended!</div>
 
           <button type="submit" class="sc-modal-shop-btn" style="border-radius: 8px; width: 100%;">
             Log In Now 🚀
@@ -343,19 +343,19 @@
         <p style="font-size: 0.82rem; color: var(--sc-text-sub); margin-bottom: 1.2rem;">Sign up in seconds to test codes & save on every checkout.</p>
 
         <form onsubmit="handleUserSignup(event)">
-          <div class="sc-admin-form-group">
+          <div class="sc-app-form-group">
             <label>Full Name / Username</label>
-            <input type="text" id="signupName" class="sc-admin-input" placeholder="e.g. Rahul Sharma" required autocomplete="off">
+            <input type="text" id="signupName" class="sc-app-input" placeholder="e.g. Rahul Sharma" required autocomplete="off">
           </div>
 
-          <div class="sc-admin-form-group">
+          <div class="sc-app-form-group">
             <label>Email Address</label>
-            <input type="email" id="signupEmail" class="sc-admin-input" placeholder="e.g. rahul@gmail.com" required autocomplete="off">
+            <input type="email" id="signupEmail" class="sc-app-input" placeholder="e.g. rahul@gmail.com" required autocomplete="off">
           </div>
 
-          <div class="sc-admin-form-group">
+          <div class="sc-app-form-group">
             <label>Create Password</label>
-            <input type="password" id="signupPassword" class="sc-admin-input" placeholder="••••••••" required>
+            <input type="password" id="signupPassword" class="sc-app-input" placeholder="••••••••" required>
           </div>
 
           <div id="signupErrorMsg" style="color: #EF4444; font-size: 0.82rem; margin-bottom: 1rem; display: none;">Please fill all fields!</div>
@@ -373,22 +373,22 @@
       <!-- VIEW 3: FORGOT / RESET PASSWORD FORM -->
       <div id="authForgotForm" style="display: none;">
         <div style="font-size: 1.35rem; font-weight: 900; margin-bottom: 0.3rem; color: #F59E0B;">🔑 Reset Password</div>
-        <p style="font-size: 0.82rem; color: var(--sc-text-sub); margin-bottom: 1.2rem;">Enter your Admin username or user email to set a new password.</p>
+        <p style="font-size: 0.82rem; color: var(--sc-text-sub); margin-bottom: 1.2rem;">Enter your user email to set a new password.</p>
 
         <form onsubmit="handleForgotPassword(event)">
-          <div class="sc-admin-form-group">
+          <div class="sc-app-form-group">
             <label>Username / Email</label>
-            <input type="text" id="forgotUsernameInput" class="sc-admin-input" placeholder="e.g. superadmin or user@gmail.com" required autocomplete="off">
+            <input type="text" id="forgotUsernameInput" class="sc-app-input" placeholder="e.g. user@gmail.com" required autocomplete="off">
           </div>
 
-          <div class="sc-admin-form-group">
+          <div class="sc-app-form-group">
             <label>New Password</label>
-            <input type="password" id="forgotNewPassInput" class="sc-admin-input" placeholder="Enter new password" required>
+            <input type="password" id="forgotNewPassInput" class="sc-app-input" placeholder="Enter new password" required>
           </div>
 
-          <div class="sc-admin-form-group">
+          <div class="sc-app-form-group">
             <label>Confirm New Password</label>
-            <input type="password" id="forgotConfirmPassInput" class="sc-admin-input" placeholder="Confirm new password" required>
+            <input type="password" id="forgotConfirmPassInput" class="sc-app-input" placeholder="Confirm new password" required>
           </div>
 
           <div id="forgotErrorMsg" style="color: #EF4444; font-size: 0.82rem; margin-bottom: 1rem; display: none;">Passwords do not match!</div>
@@ -439,7 +439,7 @@
         </nav>
 
         <div class="sc-sidebar-footer">
-          <button class="sc-admin-btn-delete" style="width: 100%; margin-bottom: 0.6rem; padding: 0.55rem;" onclick="logoutUserFromDashboard()">
+          <button class="sc-app-btn-delete" style="width: 100%; margin-bottom: 0.6rem; padding: 0.55rem;" onclick="logoutUserFromDashboard()">
             🚪 Log Out
           </button>
           <button class="sc-quick-tag" style="width: 100%; text-align: center; padding: 0.55rem;" onclick="closeUserDashboardModal()">
@@ -450,7 +450,7 @@
 
       <!-- MAIN CONTENT VIEWPORT -->
       <main class="sc-dashboard-content">
-        <div class="sc-superadmin-header" style="margin-bottom: 1.2rem;">
+        <div class="sc-app-modal-header" style="margin-bottom: 1.2rem;">
           <div>
             <h2 style="font-size: 1.4rem; font-weight: 900; color: #0F172A; margin: 0;" id="userDashName">My Account Dashboard</h2>
             <p style="font-size: 0.82rem; color: var(--sc-text-sub);" id="userDashEmail">Welcome to your personal shopping history & savings center</p>
@@ -479,8 +479,8 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.6rem;">
           <h3 style="font-size: 1.05rem; font-weight: 800; color: #0F172A; margin: 0;">Your Orders & Checkout History</h3>
           <div style="display: flex; gap: 0.4rem;">
-            <input type="text" id="userOrderSearchInput" class="sc-admin-input" placeholder="Search orders..." style="width: 180px; padding: 0.35rem 0.7rem; font-size: 0.8rem;" oninput="renderUserDashboard(this.value)">
-            <button class="sc-admin-btn-save" style="padding: 0.35rem 0.7rem; font-size: 0.8rem;" onclick="renderUserDashboard(document.getElementById('userOrderSearchInput').value)">🔍 Search</button>
+            <input type="text" id="userOrderSearchInput" class="sc-app-input" placeholder="Search orders..." style="width: 180px; padding: 0.35rem 0.7rem; font-size: 0.8rem;" oninput="renderUserDashboard(this.value)">
+            <button class="sc-app-btn-save" style="padding: 0.35rem 0.7rem; font-size: 0.8rem;" onclick="renderUserDashboard(document.getElementById('userOrderSearchInput').value)">🔍 Search</button>
           </div>
         </div>
         <div id="userOrdersList" style="display: flex; flex-direction: column; gap: 0.8rem; max-height: 380px; overflow-y: auto; padding-right: 0.3rem;">
@@ -493,8 +493,8 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.6rem;">
           <h3 style="font-size: 1.05rem; font-weight: 800; color: #0F172A; margin: 0;">Your Saved & Copied Promo Codes</h3>
           <div style="display: flex; gap: 0.4rem;">
-            <input type="text" id="userCodeSearchInput" class="sc-admin-input" placeholder="Search copied codes..." style="width: 180px; padding: 0.35rem 0.7rem; font-size: 0.8rem;" oninput="renderUserDashboard(this.value)">
-            <button class="sc-admin-btn-save" style="padding: 0.35rem 0.7rem; font-size: 0.8rem;" onclick="renderUserDashboard(document.getElementById('userCodeSearchInput').value)">🔍 Search</button>
+            <input type="text" id="userCodeSearchInput" class="sc-app-input" placeholder="Search copied codes..." style="width: 180px; padding: 0.35rem 0.7rem; font-size: 0.8rem;" oninput="renderUserDashboard(this.value)">
+            <button class="sc-app-btn-save" style="padding: 0.35rem 0.7rem; font-size: 0.8rem;" onclick="renderUserDashboard(document.getElementById('userCodeSearchInput').value)">🔍 Search</button>
           </div>
         </div>
         <div id="userCodesList" style="display: flex; flex-direction: column; gap: 0.6rem; max-height: 380px; overflow-y: auto;">
@@ -507,8 +507,8 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.6rem;">
           <h3 style="font-size: 1.05rem; font-weight: 800; color: #0F172A; margin: 0;">Stores You Visited Via Codes4U</h3>
           <div style="display: flex; gap: 0.4rem;">
-            <input type="text" id="userVisitSearchInput" class="sc-admin-input" placeholder="Search visited stores..." style="width: 180px; padding: 0.35rem 0.7rem; font-size: 0.8rem;" oninput="renderUserDashboard(this.value)">
-            <button class="sc-admin-btn-save" style="padding: 0.35rem 0.7rem; font-size: 0.8rem;" onclick="renderUserDashboard(document.getElementById('userVisitSearchInput').value)">🔍 Search</button>
+            <input type="text" id="userVisitSearchInput" class="sc-app-input" placeholder="Search visited stores..." style="width: 180px; padding: 0.35rem 0.7rem; font-size: 0.8rem;" oninput="renderUserDashboard(this.value)">
+            <button class="sc-app-btn-save" style="padding: 0.35rem 0.7rem; font-size: 0.8rem;" onclick="renderUserDashboard(document.getElementById('userVisitSearchInput').value)">🔍 Search</button>
           </div>
         </div>
         <div id="userVisitsList" style="display: flex; flex-direction: column; gap: 0.6rem; max-height: 380px; overflow-y: auto;">
@@ -521,37 +521,37 @@
         <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.5rem; margin-bottom: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
           <h4 style="font-size: 1rem; font-weight: 800; color: var(--sc-neon-green); margin-bottom: 1rem;">👤 User Profile Information</h4>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-            <div class="sc-admin-form-group">
+            <div class="sc-app-form-group">
               <label>Full Name / Username</label>
-              <input type="text" id="userProfileNameInput" class="sc-admin-input" placeholder="Your Name">
+              <input type="text" id="userProfileNameInput" class="sc-app-input" placeholder="Your Name">
             </div>
-            <div class="sc-admin-form-group">
+            <div class="sc-app-form-group">
               <label>Email Address</label>
-              <input type="email" id="userProfileEmailInput" class="sc-admin-input" placeholder="Your Email" readonly style="opacity: 0.7;">
+              <input type="email" id="userProfileEmailInput" class="sc-app-input" placeholder="Your Email" readonly style="opacity: 0.7;">
             </div>
           </div>
-          <button class="sc-admin-btn-save" style="margin-top: 0.8rem;" onclick="saveUserProfileDetails()">💾 Save Profile Updates</button>
+          <button class="sc-app-btn-save" style="margin-top: 0.8rem;" onclick="saveUserProfileDetails()">💾 Save Profile Updates</button>
         </div>
 
         <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.5rem; margin-bottom: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
           <h4 style="font-size: 1rem; font-weight: 800; color: #F59E0B; margin-bottom: 1rem;">🔒 Password & Security</h4>
           <form onsubmit="handleUserPasswordChange(event)">
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
-              <div class="sc-admin-form-group">
+              <div class="sc-app-form-group">
                 <label>New Password</label>
-                <input type="password" id="userNewPassInput" class="sc-admin-input" placeholder="••••••••" required>
+                <input type="password" id="userNewPassInput" class="sc-app-input" placeholder="••••••••" required>
               </div>
-              <div class="sc-admin-form-group">
+              <div class="sc-app-form-group">
                 <label>Confirm New Password</label>
-                <input type="password" id="userConfirmPassInput" class="sc-admin-input" placeholder="••••••••" required>
+                <input type="password" id="userConfirmPassInput" class="sc-app-input" placeholder="••••••••" required>
               </div>
             </div>
-            <button type="submit" class="sc-admin-btn-save" style="background: linear-gradient(135deg, #F59E0B, #D97706); color: #FFF; margin-top: 0.8rem;">Update Password</button>
+            <button type="submit" class="sc-app-btn-save" style="background: linear-gradient(135deg, #F59E0B, #D97706); color: #FFF; margin-top: 0.8rem;">Update Password</button>
           </form>
         </div>
 
         <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--sc-border); padding-top: 1rem;">
-          <button class="sc-admin-btn-delete" style="padding: 0.6rem 1.4rem;" onclick="logoutUserFromDashboard()">🚪 Log Out of Account</button>
+          <button class="sc-app-btn-delete" style="padding: 0.6rem 1.4rem;" onclick="logoutUserFromDashboard()">🚪 Log Out of Account</button>
           <button class="sc-tab-btn active" style="padding: 0.5rem 1.2rem;" onclick="closeUserDashboardModal()">Close Dashboard</button>
         </div>
       </main>
@@ -561,8 +561,8 @@
 
   <!-- ALL MERCHANT STORES & COUPONS DIRECTORY MODAL (simplycodes.com/stores) -->
   <div class="sc-modal-overlay" id="allStoresModal">
-    <div class="sc-superadmin-dashboard">
-      <div class="sc-superadmin-header">
+    <div class="sc-modal-directory-card">
+      <div class="sc-app-modal-header">
         <div>
           <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.3rem;">
             <span style="font-size: 1.5rem;">🏬</span>
@@ -610,8 +610,8 @@
 
   <!-- PAGE 2: LIVE VERIFICATION LAB & PROOF PACKETS MODAL -->
   <div class="sc-modal-overlay" id="proofLabModal">
-    <div class="sc-superadmin-dashboard">
-      <div class="sc-superadmin-header">
+    <div class="sc-modal-directory-card">
+      <div class="sc-app-modal-header">
         <div>
           <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.3rem;">
             <span style="font-size: 1.5rem;">⚡</span>
@@ -627,9 +627,9 @@
       <div style="background: #FFFFFF; border: 1px solid var(--sc-border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
         <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--sc-neon-cyan); margin-bottom: 0.8rem;">🤖 Run Live AI Cart Checkout Simulation</h3>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
-          <div class="sc-admin-form-group">
+          <div class="sc-app-form-group">
             <label style="color: var(--sc-text-sub);">Select Merchant Store</label>
-            <select id="simStoreSelect" class="sc-admin-input" style="border-color: var(--sc-neon-cyan); font-weight: 700; background: #FFFFFF; color: #0F172A;">
+            <select id="simStoreSelect" class="sc-app-input" style="border-color: var(--sc-neon-cyan); font-weight: 700; background: #FFFFFF; color: #0F172A;">
               <option value="Nike">Nike (nike.com)</option>
               <option value="Amazon">Amazon (amazon.com)</option>
               <option value="Sephora">Sephora (sephora.com)</option>
@@ -637,16 +637,16 @@
               <option value="Harbor Freight">Harbor Freight (harborfreight.com)</option>
             </select>
           </div>
-          <div class="sc-admin-form-group">
+          <div class="sc-app-form-group">
             <label style="color: var(--sc-text-sub);">Promo Code to Test</label>
-            <input type="text" id="simCodeInput" class="sc-admin-input" value="SWISH30" style="font-family: monospace; color: var(--sc-neon-green); font-weight: 800; background: #FFFFFF;">
+            <input type="text" id="simCodeInput" class="sc-app-input" value="SWISH30" style="font-family: monospace; color: var(--sc-neon-green); font-weight: 800; background: #FFFFFF;">
           </div>
-          <div class="sc-admin-form-group">
+          <div class="sc-app-form-group">
             <label style="color: var(--sc-text-sub);">Simulated Cart Value</label>
-            <input type="text" id="simCartValue" class="sc-admin-input" value="$150.00" style="background: #FFFFFF; color: #0F172A;">
+            <input type="text" id="simCartValue" class="sc-app-input" value="$150.00" style="background: #FFFFFF; color: #0F172A;">
           </div>
         </div>
-        <button class="sc-admin-btn-save" style="background: var(--sc-gradient-accent); color: #FFFFFF; font-weight: 900; padding: 0.65rem 1.4rem; font-size: 0.9rem;" onclick="runLiveCheckoutSimulation()">
+        <button class="sc-app-btn-save" style="background: var(--sc-gradient-accent); color: #FFFFFF; font-weight: 900; padding: 0.65rem 1.4rem; font-size: 0.9rem;" onclick="runLiveCheckoutSimulation()">
           ⚡ Run AI Checkout Simulation Test
         </button>
 
@@ -689,8 +689,8 @@
 
   <!-- PAGE 3: REWARDS & CASH BACK HUB MODAL -->
   <div class="sc-modal-overlay" id="rewardsHubModal">
-    <div class="sc-superadmin-dashboard">
-      <div class="sc-superadmin-header">
+    <div class="sc-modal-directory-card">
+      <div class="sc-app-modal-header">
         <div>
           <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.3rem;">
             <span style="font-size: 1.5rem;">💰</span>
@@ -713,7 +713,7 @@
         <div style="background: #FFFFFF; border: 1px solid var(--sc-border); border-radius: 16px; padding: 1.2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
           <div style="font-size: 0.8rem; font-weight: 800; color: var(--sc-neon-green);">💎 TOTAL COIN BALANCE</div>
           <div style="font-size: 1.4rem; font-weight: 900; color: #0F172A; margin-top: 0.3rem;" id="userRewardCoins">2,450 Coins ($24.50)</div>
-          <button class="sc-admin-btn-save" style="margin-top: 0.6rem; font-size: 0.78rem; padding: 0.3rem 0.8rem;" onclick="claimDailyStreakBonus()">
+          <button class="sc-app-btn-save" style="margin-top: 0.6rem; font-size: 0.78rem; padding: 0.3rem 0.8rem;" onclick="claimDailyStreakBonus()">
             🎁 Claim 50 Daily Coins Bonus
           </button>
         </div>
@@ -725,7 +725,7 @@
         <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
           <div style="flex: 1; min-width: 200px;">
             <label style="font-size: 0.8rem; color: var(--sc-text-sub);">Your Monthly Shopping Spend ($)</label>
-            <input type="number" id="calcSpendInput" class="sc-admin-input" value="400" oninput="calculateAnnualSavings()" style="background: #FFFFFF; color: #0F172A;">
+            <input type="number" id="calcSpendInput" class="sc-app-input" value="400" oninput="calculateAnnualSavings()" style="background: #FFFFFF; color: #0F172A;">
           </div>
           <div style="background: #F8FAFC; border: 1px solid var(--sc-border); padding: 0.8rem 1.2rem; border-radius: 10px;">
             <div style="font-size: 0.75rem; color: var(--sc-text-sub);">Est. Annual Savings</div>
@@ -741,19 +741,19 @@
           <div style="font-size: 1.5rem; margin-bottom: 0.3rem;">📦</div>
           <strong style="color: #0F172A; display: block; font-size: 0.95rem;">$10 Amazon Gift Card</strong>
           <span style="font-size: 0.8rem; color: var(--sc-gold); font-weight: 800; display: block; margin: 0.3rem 0;">1,000 Coins</span>
-          <button class="sc-admin-btn-save" style="font-size: 0.78rem; width: 100%;" onclick="alert('🎉 $10 Amazon Gift Card Code claimed! Sent to your registered email.')">Redeem Now</button>
+          <button class="sc-app-btn-save" style="font-size: 0.78rem; width: 100%;" onclick="alert('🎉 $10 Amazon Gift Card Code claimed! Sent to your registered email.')">Redeem Now</button>
         </div>
         <div style="background: #FFFFFF; border: 1px solid var(--sc-border); border-radius: 12px; padding: 1rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
           <div style="font-size: 1.5rem; margin-bottom: 0.3rem;">👟</div>
           <strong style="color: #0F172A; display: block; font-size: 0.95rem;">$25 Nike Gift Card</strong>
           <span style="font-size: 0.8rem; color: var(--sc-gold); font-weight: 800; display: block; margin: 0.3rem 0;">2,500 Coins</span>
-          <button class="sc-admin-btn-save" style="font-size: 0.78rem; width: 100%;" onclick="alert('🎉 $25 Nike Gift Card Code claimed!')">Redeem Now</button>
+          <button class="sc-app-btn-save" style="font-size: 0.78rem; width: 100%;" onclick="alert('🎉 $25 Nike Gift Card Code claimed!')">Redeem Now</button>
         </div>
         <div style="background: #FFFFFF; border: 1px solid var(--sc-border); border-radius: 12px; padding: 1rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
           <div style="font-size: 1.5rem; margin-bottom: 0.3rem;">🎯</div>
           <strong style="color: #0F172A; display: block; font-size: 0.95rem;">$15 Target Gift Card</strong>
           <span style="font-size: 0.8rem; color: var(--sc-gold); font-weight: 800; display: block; margin: 0.3rem 0;">1,500 Coins</span>
-          <button class="sc-admin-btn-save" style="font-size: 0.78rem; width: 100%;" onclick="alert('🎉 $15 Target Gift Card Code claimed!')">Redeem Now</button>
+          <button class="sc-app-btn-save" style="font-size: 0.78rem; width: 100%;" onclick="alert('🎉 $15 Target Gift Card Code claimed!')">Redeem Now</button>
         </div>
       </div>
     </div>
@@ -761,8 +761,8 @@
 
   <!-- PAGE 4: SHOPPER EXTENSION & TOOLS PORTAL MODAL -->
   <div class="sc-modal-overlay" id="toolsHubModal">
-    <div class="sc-superadmin-dashboard">
-      <div class="sc-superadmin-header">
+    <div class="sc-modal-directory-card">
+      <div class="sc-app-modal-header">
         <div>
           <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.3rem;">
             <span style="font-size: 1.5rem;">🛠️</span>
@@ -779,12 +779,12 @@
         <div style="background: #FFFFFF; border: 1px solid var(--sc-border); padding: 1.2rem; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);" onclick="openExtLink('chrome')">
           <strong style="font-size: 1.05rem; color: #0F172A; display: block; margin-bottom: 0.3rem;">🌐 Chrome Web Store</strong>
           <p style="font-size: 0.78rem; color: var(--sc-text-sub);">Lightweight 1-click extension for Google Chrome & Brave.</p>
-          <button class="sc-admin-btn-save" style="margin-top: 0.8rem; font-size: 0.8rem;">Install Chrome Extension ↗</button>
+          <button class="sc-app-btn-save" style="margin-top: 0.8rem; font-size: 0.8rem;">Install Chrome Extension ↗</button>
         </div>
         <div style="background: #FFFFFF; border: 1px solid var(--sc-border); padding: 1.2rem; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);" onclick="openExtLink('appstore')">
           <strong style="font-size: 1.05rem; color: #0F172A; display: block; margin-bottom: 0.3rem;">🍎 Safari iOS & macOS</strong>
           <p style="font-size: 0.78rem; color: var(--sc-text-sub);">Native extension for iPhone, iPad, and Safari Mac.</p>
-          <button class="sc-admin-btn-save" style="margin-top: 0.8rem; font-size: 0.8rem;">Install Safari Extension ↗</button>
+          <button class="sc-app-btn-save" style="margin-top: 0.8rem; font-size: 0.8rem;">Install Safari Extension ↗</button>
         </div>
       </div>
 
@@ -792,16 +792,16 @@
       <div style="background: #FFFFFF; border: 1px solid var(--sc-border); border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
         <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--sc-neon-green); margin-bottom: 0.6rem;">💡 Found a Working Code? Submit & Earn 100 Reward Coins!</h3>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 0.8rem;">
-          <input type="text" id="subStoreName" class="sc-admin-input" placeholder="Store Name (e.g. Nike)" style="background: #FFFFFF; color: #0F172A;">
-          <input type="text" id="subCodeString" class="sc-admin-input" placeholder="Promo Code String (e.g. SAVE20)" style="font-family: monospace; background: #FFFFFF; color: #0F172A;">
+          <input type="text" id="subStoreName" class="sc-app-input" placeholder="Store Name (e.g. Nike)" style="background: #FFFFFF; color: #0F172A;">
+          <input type="text" id="subCodeString" class="sc-app-input" placeholder="Promo Code String (e.g. SAVE20)" style="font-family: monospace; background: #FFFFFF; color: #0F172A;">
         </div>
-        <button class="sc-admin-btn-save" style="background: var(--sc-gradient-accent); color: #FFFFFF; font-weight: 900;" onclick="submitCommunityCode()">🚀 Submit Code & Claim Coins</button>
+        <button class="sc-app-btn-save" style="background: var(--sc-gradient-accent); color: #FFFFFF; font-weight: 900;" onclick="submitCommunityCode()">🚀 Submit Code & Claim Coins</button>
       </div>
     </div>
   </div>
 
-  <!-- PROTECTED DYNAMIC SUPER ADMIN DASHBOARD CONTAINER (Fetched from server ONLY after authenticating) -->
-  <div id="adminDashboardContainer"></div>
+  <!-- DYNAMIC APP CONTAINER -->
+  <div id="appDashboardContainer"></div>
 
   <!-- HEADER QUICK NAVIGATION MENU MODAL / DRAWER -->
   <div class="sc-modal-overlay" id="navMenuModal">

@@ -950,8 +950,8 @@ button {
   box-shadow: 0 12px 30px rgba(5, 150, 105, 0.4);
 }
 
-/* SUPER ADMIN & DASHBOARD FULL SCREEN STYLES (CLEAN LIGHT THEME) */
-.sc-superadmin-dashboard {
+/* APP MODAL & FORM STYLES (CLEAN LIGHT THEME) */
+.sc-modal-directory-card, .sc-superadmin-dashboard {
   background: #FAFAFC;
   border: none;
   border-radius: 0;
@@ -970,7 +970,7 @@ button {
   margin: 0 !important;
 }
 
-.sc-superadmin-header {
+.sc-app-modal-header, .sc-superadmin-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -989,7 +989,7 @@ button {
   margin-bottom: 2rem;
 }
 
-.sc-admin-card {
+.sc-app-card, .sc-admin-card {
   background: #FFFFFF;
   border: 1px solid #E2E8F0;
   border-radius: 14px;
@@ -1020,7 +1020,7 @@ button {
   font-weight: 700;
 }
 
-.sc-admin-tabs {
+.sc-app-tabs, .sc-admin-tabs {
   display: flex;
   align-items: center;
   gap: 0.8rem;
@@ -1029,7 +1029,7 @@ button {
   margin-bottom: 1.5rem;
 }
 
-.sc-admin-tab-btn {
+.sc-app-tab-btn, .sc-admin-tab-btn {
   padding: 0.55rem 1.2rem;
   border-radius: 8px;
   font-size: 0.88rem;
@@ -1040,13 +1040,13 @@ button {
   transition: all 0.2s;
 }
 
-.sc-admin-tab-btn.active {
+.sc-app-tab-btn.active, .sc-admin-tab-btn.active {
   background: linear-gradient(135deg, #059669, #0284C7);
   color: #FFFFFF;
   border-color: #059669;
 }
 
-.sc-admin-input {
+.sc-app-input, .sc-admin-input {
   background: #FFFFFF;
   border: 1px solid #CBD5E1;
   color: #0F172A;
@@ -1058,25 +1058,25 @@ button {
   width: 100%;
 }
 
-.sc-admin-input:focus {
+.sc-app-input:focus, .sc-admin-input:focus {
   border-color: #059669;
   box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
 }
 
-.sc-admin-form-group {
+.sc-app-form-group, .sc-admin-form-group {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
   margin-bottom: 1rem;
 }
 
-.sc-admin-form-group label {
+.sc-app-form-group label, .sc-admin-form-group label {
   font-size: 0.85rem;
   color: #0F172A;
   font-weight: 700;
 }
 
-.sc-admin-btn-save {
+.sc-app-btn-save, .sc-admin-btn-save {
   background: linear-gradient(135deg, #059669, #0284C7);
   color: #FFFFFF;
   font-weight: 800;
@@ -1086,11 +1086,11 @@ button {
   transition: opacity 0.2s;
 }
 
-.sc-admin-btn-save:hover {
+.sc-app-btn-save:hover, .sc-admin-btn-save:hover {
   opacity: 0.9;
 }
 
-.sc-admin-btn-delete {
+.sc-app-btn-delete, .sc-admin-btn-delete {
   background: #FEF2F2;
   color: #DC2626;
   border: 1px solid #FCA5A5;
@@ -1100,7 +1100,7 @@ button {
   font-size: 0.85rem;
 }
 
-.sc-admin-btn-block {
+.sc-app-btn-block, .sc-admin-btn-block {
   background: #FFF7ED;
   color: #EA580C;
   border: 1px solid #FFEDD5;

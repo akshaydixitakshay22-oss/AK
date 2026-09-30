@@ -167,14 +167,37 @@ module.exports = (req, res) => {
       return res.status(201).json({ success: true, token, user: { id: newUser.id, name: newUser.name, fullName: newUser.fullName } });
     }
 
-    // 3. Protected Admin Template Endpoint
-    if (pathname.includes('/admin/template') && req.method === 'GET') {
+    // 3. Protected Admin Template & Dedicated /admin Page Endpoint
+    if ((pathname === '/admin' || pathname === '/admin/' || pathname.includes('/admin/template')) && req.method === 'GET') {
       const authHeader = req.headers['authorization'];
       const payload = verifyToken(authHeader);
       if (!payload || payload.role !== 'admin') {
-        return res.status(401).json({ success: false, message: 'Unauthorized: Valid Admin session required.' });
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        return res.status(401).send(`
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <title>401 Unauthorized - Admin Access Required</title>
+            <style>
+              body { background-color: #0F172A; color: #F8FAFC; font-family: system-ui, -apple-system, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; text-align: center; }
+              .card { background: #1E293B; border: 1px solid #334155; padding: 2.5rem; border-radius: 12px; max-width: 420px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5); }
+              h1 { color: #EF4444; font-size: 1.5rem; margin-top: 0; }
+              p { color: #94A3B8; font-size: 0.95rem; line-height: 1.5; }
+              a { display: inline-block; margin-top: 1.2rem; background: #00E676; color: #000; padding: 0.75rem 1.5rem; text-decoration: none; font-weight: 800; border-radius: 8px; }
+            </style>
+          </head>
+          <body>
+            <div class="card">
+              <h1>🔒 401 - Unauthorized Access</h1>
+              <p>Access to the Super Admin Dashboard requires an active, authenticated Super Admin session token.</p>
+              <a href="/">← Return to Main Site</a>
+            </div>
+          </body>
+          </html>
+        `);
       }
-      res.setHeader('Content-Type', 'text/html');
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
       return res.status(200).send(getAdminTemplateHTML());
     }
 

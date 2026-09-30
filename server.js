@@ -301,17 +301,39 @@ const server = http.createServer(async (req, res) => {
   }
 
   // ------------------------------------------
-  // 3. PROTECTED ADMIN DASHBOARD TEMPLATE ENDPOINT
+  // 3. DEDICATED PROTECTED /admin PAGE & TEMPLATE ROUTE
   // ------------------------------------------
-  if (pathname === '/api/admin/template' && method === 'GET') {
+  if ((pathname === '/admin' || pathname === '/admin/' || pathname === '/api/admin/template') && method === 'GET') {
     const authHeader = req.headers['authorization'];
     const payload = verifyToken(authHeader);
     if (!payload || payload.role !== 'admin') {
-      res.writeHead(401, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: false, message: 'Unauthorized: Valid Admin session required.' }));
+      res.writeHead(401, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.end(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <title>401 Unauthorized - Admin Access Required</title>
+          <style>
+            body { background-color: #0F172A; color: #F8FAFC; font-family: system-ui, -apple-system, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; text-align: center; }
+            .card { background: #1E293B; border: 1px solid #334155; padding: 2.5rem; border-radius: 12px; max-width: 420px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5); }
+            h1 { color: #EF4444; font-size: 1.5rem; margin-top: 0; }
+            p { color: #94A3B8; font-size: 0.95rem; line-height: 1.5; }
+            a { display: inline-block; margin-top: 1.2rem; background: #00E676; color: #000; padding: 0.75rem 1.5rem; text-decoration: none; font-weight: 800; border-radius: 8px; }
+          </style>
+        </head>
+        <body>
+          <div class="card">
+            <h1>🔒 401 - Unauthorized Access</h1>
+            <p>Access to the Super Admin Dashboard requires an active, authenticated Super Admin session token.</p>
+            <a href="/">← Return to Main Site</a>
+          </div>
+        </body>
+        </html>
+      `);
       return;
     }
-    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.end(getAdminTemplateHTML());
     return;
   }
@@ -430,6 +452,26 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ success: true }));
     return;
+  }
+
+  // Static File Serving Handler for local development
+  if (method === 'GET') {
+    let filePath = pathname === '/' ? path.join(__dirname, 'index.html') : path.join(__dirname, pathname);
+    if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+      const ext = path.extname(filePath);
+      const mimeTypes = {
+        '.html': 'text/html; charset=utf-8',
+        '.js': 'text/javascript; charset=utf-8',
+        '.css': 'text/css; charset=utf-8',
+        '.json': 'application/json',
+        '.png': 'image/png',
+        '.svg': 'image/svg+xml'
+      };
+      const contentType = mimeTypes[ext] || 'text/plain';
+      res.writeHead(200, { 'Content-Type': contentType });
+      fs.createReadStream(filePath).pipe(res);
+      return;
+    }
   }
 
   // Default Fallback Response

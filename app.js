@@ -695,7 +695,7 @@ function getAdminAuthHeader() {
 }
 
 async function fetchAdminDashboardTemplate() {
-  const container = document.getElementById('adminDashboardContainer');
+  const container = document.getElementById('appDashboardContainer');
   if (!container) return false;
   try {
     const res = await fetch(`${API_BASE}/api/admin/template`, {
@@ -2107,7 +2107,7 @@ function logoutUser() {
   localStorage.removeItem('simplycodes_user_session');
   localStorage.removeItem('simplycodes_superadmin_session');
   localStorage.removeItem('simplycodes_admin_token');
-  const adminContainer = document.getElementById('adminDashboardContainer');
+  const adminContainer = document.getElementById('appDashboardContainer');
   if (adminContainer) adminContainer.innerHTML = '';
   updateUserAuthNavBtn();
   alert('🚪 You have logged out successfully.');
