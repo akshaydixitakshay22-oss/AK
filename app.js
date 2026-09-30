@@ -820,12 +820,22 @@ async function pollServerUserData() {
           let idx = userLogins.findIndex(u => u.id === sUser.id || u.name === sUser.name);
           if (idx !== -1) {
             const currentObj = userLogins[idx];
-            if (JSON.stringify(currentObj.copiedCodes || []) !== JSON.stringify(sUser.copiedCodes || []) ||
+            const sVisitsLen = (sUser.shoppingVisits || []).length;
+            const cVisitsLen = (currentObj.shoppingVisits || []).length;
+            const sCodesLen = (sUser.copiedCodes || []).length;
+            const cCodesLen = (currentObj.copiedCodes || []).length;
+            const sOrdersLen = (sUser.orders || []).length;
+            const cOrdersLen = (currentObj.orders || []).length;
+
+            if (sVisitsLen > cVisitsLen || sCodesLen > cCodesLen || sOrdersLen > cOrdersLen ||
+                JSON.stringify(currentObj.copiedCodes || []) !== JSON.stringify(sUser.copiedCodes || []) ||
                 JSON.stringify(currentObj.shoppingVisits || []) !== JSON.stringify(sUser.shoppingVisits || []) ||
-                JSON.stringify(currentObj.orders || []) !== JSON.stringify(sUser.orders || []) ||
                 currentObj.codesUsed !== sUser.codesUsed ||
                 currentObj.status !== sUser.status) {
               userLogins[idx] = { ...currentObj, ...sUser };
+              if (activeUser && (activeUser.id === sUser.id || activeUser.name === sUser.name)) {
+                activeUser = userLogins[idx];
+              }
               updated = true;
             }
           } else {
@@ -865,35 +875,57 @@ function ensureActiveUserSession() {
     if (savedUser) {
       try {
         const parsed = JSON.parse(savedUser);
-        const matched = userLogins.find(u => u.id === parsed.id || u.name === parsed.name);
+        let matched = userLogins.find(u => u.id === parsed.id || u.name === parsed.name);
         if (matched) {
           activeUser = matched;
           isUserLoggedIn = true;
           return activeUser;
+        } else if (parsed.id || parsed.name) {
+          activeUser = {
+            id: parsed.id || ('USR-' + Math.floor(10000 + Math.random() * 90000)),
+            name: parsed.name || 'guest_shopper@gmail.com',
+            fullName: parsed.fullName || 'Guest Shopper',
+            ip: '192.168.1.' + Math.floor(10 + Math.random() * 200),
+            loginTime: new Date().toISOString().replace('T', ' ').substring(0, 16),
+            sessionStartMs: Date.now(),
+            codesUsed: 0,
+            status: '🟢 Active',
+            lastActive: 'Just now',
+            device: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? 'Mobile Browser' : 'Desktop Browser',
+            shoppingVisits: [],
+            copiedCodes: [],
+            orders: []
+          };
+          userLogins.unshift(activeUser);
+          saveUsersToStorage();
+          return activeUser;
         }
       } catch(e) {}
     }
-    if (userLogins && userLogins.length > 0) {
-      activeUser = userLogins[0];
-    } else {
-      activeUser = {
-        id: 'USR-' + Math.floor(1000 + Math.random() * 9000),
-        name: 'guest_shopper@gmail.com',
-        fullName: 'Guest Shopper',
-        ip: '192.168.1.50',
-        loginTime: new Date().toISOString().replace('T', ' ').substring(0, 16),
-        sessionStartMs: Date.now(),
-        codesUsed: 0,
-        status: '🟢 Active',
-        lastActive: 'Just now',
-        device: 'Web Browser',
-        shoppingVisits: [],
-        copiedCodes: [],
-        orders: []
-      };
-      userLogins.unshift(activeUser);
-      saveUsersToStorage();
-    }
+
+    const randomNum = Math.floor(1000 + Math.random() * 9000);
+    const guestId = 'USR-GUEST-' + Math.floor(10000 + Math.random() * 90000);
+    const guestName = `guest_${randomNum}@shopper.com`;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    activeUser = {
+      id: guestId,
+      name: guestName,
+      fullName: `Guest Shopper #${randomNum}`,
+      ip: '192.168.1.' + Math.floor(10 + Math.random() * 200),
+      loginTime: new Date().toISOString().replace('T', ' ').substring(0, 16),
+      sessionStartMs: Date.now(),
+      codesUsed: 0,
+      status: '🟢 Active',
+      lastActive: 'Just now',
+      device: isMobile ? 'Mobile Browser' : 'Desktop Browser',
+      shoppingVisits: [],
+      copiedCodes: [],
+      orders: []
+    };
+    userLogins.unshift(activeUser);
+    localStorage.setItem('simplycodes_user_session', JSON.stringify({ id: activeUser.id, name: activeUser.name, fullName: activeUser.fullName }));
+    saveUsersToStorage();
   }
   return activeUser;
 }
@@ -1307,10 +1339,26 @@ function createOrderRecordForUser(storeObj, codeVal) {
   }
 }
 
+function copyTextFallback(text) {
+  try {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.top = '-9999px';
+    textArea.style.left = '-9999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+  } catch (err) {}
+}
+
 // Copy single code & track under active user
 function handleCopySingleCode(code, storeName) {
   const user = ensureActiveUserSession();
-  navigator.clipboard.writeText(code).then(() => {
+
+  const trackCopyAction = () => {
     metrics.codeCopies += 1;
     updateAnalyticsUI();
 
@@ -1321,14 +1369,25 @@ function handleCopySingleCode(code, storeName) {
       }
       user.codesUsed = (user.codesUsed || 0) + 1;
       user.lastActive = 'Just now';
-      createOrderRecordForUser(activeStore, code);
+      const sObj = (activeStore && activeStore.name === storeName) ? activeStore : (storeData ? storeData.find(s => s.name === storeName) : null);
+      createOrderRecordForUser(sObj, code);
       saveUsersToStorage();
       addActivityLog(`Shopper ${user.name || user.id} copied code [${code}] for ${storeName || 'Store'}`);
     }
-    showToast(`💎 Code '${code}' copied to clipboard!`);
-  }).catch(() => {
     showToast(`💎 Code '${code}' copied!`);
-  });
+  };
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(code)
+      .then(trackCopyAction)
+      .catch(() => {
+        copyTextFallback(code);
+        trackCopyAction();
+      });
+  } else {
+    copyTextFallback(code);
+    trackCopyAction();
+  }
 }
 
 function showToast(msg) {
@@ -1507,7 +1566,7 @@ function renderStoresDirectory(stores) {
 }
 
 // Open Official Company Website URL in New Tab (Target URL configured by Super Admin) & track shopping visit & order
-function redirectToCompany(url) {
+function redirectToCompany(url, explicitStoreName) {
   if (url) {
     const user = ensureActiveUserSession();
     metrics.shopRedirects += 1;
@@ -1515,7 +1574,13 @@ function redirectToCompany(url) {
 
     if (user) {
       if (!user.shoppingVisits) user.shoppingVisits = [];
-      const sName = activeStore ? activeStore.name : 'Merchant Store';
+      let sName = explicitStoreName || (activeStore ? activeStore.name : '');
+      if (!sName && storeData) {
+        const matched = storeData.find(s => s.targetUrl === url || (s.id && url.includes(s.id)));
+        if (matched) sName = matched.name;
+      }
+      if (!sName) sName = 'Merchant Store';
+
       user.shoppingVisits.unshift({
         storeName: sName,
         targetUrl: url,
@@ -1523,7 +1588,8 @@ function redirectToCompany(url) {
       });
       user.codesUsed = (user.codesUsed || 0) + 1;
       user.lastActive = 'Just now';
-      createOrderRecordForUser(activeStore, activeStore && activeStore.codes ? activeStore.codes[0].code : 'DEAL2026');
+      const sObj = (activeStore && activeStore.name === sName) ? activeStore : (storeData ? storeData.find(s => s.name === sName) : null);
+      createOrderRecordForUser(sObj, sObj && sObj.codes && sObj.codes.length > 0 ? sObj.codes[0].code : 'DEAL2026');
       saveUsersToStorage();
       addActivityLog(`Shopper ${user.name || user.id} clicked shop redirect for ${sName} → ${url}`);
     }
@@ -3024,7 +3090,12 @@ function renderUserTable(filterQuery = '') {
         <div style="font-size:0.72rem; color:var(--sc-text-muted);">${u.device || 'Desktop Browser'}</div>
       </td>
       <td style="font-family:monospace; color:var(--sc-text-sub);">${u.ip}</td>
-      <td><span style="color:var(--sc-neon-green); font-weight:800;">${u.codesUsed || 0}</span> codes</td>
+      <td>
+        <div style="font-weight:800; color:var(--sc-neon-green); font-size:0.85rem;">${u.codesUsed || 0} Actions</div>
+        <div style="font-size:0.72rem; color:#475569; margin-top:2px;">
+          🛍️ ${(u.shoppingVisits || []).length} Visits | 💎 ${(u.copiedCodes || []).length} Copied
+        </div>
+      </td>
       <td>
         <span style="padding:0.15rem 0.5rem; border-radius:99px; font-size:0.78rem; font-weight:800; background:${isBlocked ? 'rgba(239,68,68,0.15)' : 'rgba(0,230,118,0.15)'}; color:${isBlocked ? '#EF4444' : 'var(--sc-neon-green)'}">
           ${u.status}
