@@ -704,13 +704,20 @@ async function fetchAdminDashboardTemplate() {
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
       alert(err.error || 'Failed to load Admin UI. Please log in as Admin.');
+      container.innerHTML = '';
       return false;
     }
     const html = await res.text();
+    if (!html || !html.trim().startsWith('<') || html.includes('/* Codes4U')) {
+      console.warn('Invalid HTML returned for admin template');
+      container.innerHTML = '';
+      return false;
+    }
     container.innerHTML = html;
     return true;
   } catch (err) {
     console.error('Error fetching admin template:', err);
+    container.innerHTML = '';
     alert('Failed to connect to server for Admin UI.');
     return false;
   }
@@ -2030,13 +2037,7 @@ function updateUserAuthNavBtn() {
   const btn = document.getElementById('userAuthNavBtn');
   if (!btn) return;
 
-  if (isAdminLoggedIn) {
-    btn.innerHTML = `👑 Super Admin Panel`;
-    btn.style.background = 'linear-gradient(135deg, #1D61E7, #0284C7)';
-    btn.style.color = '#FFFFFF';
-    btn.style.border = '1px solid #1D61E7';
-    btn.onclick = () => openAdminDashboard();
-  } else if (isUserLoggedIn && activeUser) {
+  if (isUserLoggedIn && activeUser && !isAdminLoggedIn) {
     const displayName = activeUser.fullName || activeUser.name.split('@')[0];
     btn.innerHTML = `👤 ${displayName}`;
     btn.style.background = 'rgba(0, 230, 118, 0.15)';
@@ -2048,7 +2049,13 @@ function updateUserAuthNavBtn() {
     btn.style.background = 'linear-gradient(135deg, #00E676, #00C853)';
     btn.style.color = '#000000';
     btn.style.border = '1px solid #00E676';
-    btn.onclick = () => openAuthModal();
+    btn.onclick = () => {
+      if (isAdminLoggedIn) {
+        openAdminDashboard();
+      } else {
+        openAuthModal();
+      }
+    };
   }
 }
 
