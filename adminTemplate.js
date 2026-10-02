@@ -263,13 +263,156 @@ function getAdminTemplateHTML() {
                 <p style="font-size: 0.85rem; color: #64748B; margin-top: 0.15rem;">One-click bulk download entire database or bulk upload merchant stores, promo codes, and user accounts.</p>
               </div>
             </div>
-            <div style="display: flex; gap: 0.6rem;">
+            <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
               <button class="sc-admin-btn-primary" style="background: linear-gradient(135deg, #059669, #047857);" onclick="exportStoresToCSV()">
                 📥 Export Merchants CSV
               </button>
               <button class="sc-admin-btn-primary" style="background: linear-gradient(135deg, #2563EB, #1D4ED8);" onclick="exportCodesToCSV()">
                 💎 Export Codes CSV
               </button>
+              <button class="sc-admin-btn-primary" style="background: linear-gradient(135deg, #9333EA, #7E22CE);" onclick="exportUsersToCSV()">
+                👥 Export Users CSV
+              </button>
+            </div>
+          </div>
+
+          <!-- SECTION 1: DOWNLOAD PRE-FORMATTED SAMPLE CSV TEMPLATES -->
+          <div style="background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 16px; padding: 1.4rem; margin-bottom: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.8rem;">
+              <div>
+                <h4 style="font-size: 1.05rem; font-weight: 800; color: #0F172A; margin: 0; display: flex; align-items: center; gap: 0.4rem;">
+                  📄 Pre-Formatted Sample CSV Templates & Direct Downloads
+                </h4>
+                <p style="font-size: 0.78rem; color: #64748B; margin-top: 0.2rem;">Download these sample CSV files to see the correct columns and headers before importing your data.</p>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+              <!-- Sample 1: Merchants -->
+              <div style="background: #F8FAFC; border: 1px dashed #CBD5E1; padding: 1rem; border-radius: 12px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="font-weight: 800; font-size: 0.9rem; color: #0F172A; display: flex; align-items: center; gap: 0.4rem;">
+                    🏪 Merchant Stores Sample
+                  </div>
+                  <div style="font-size: 0.75rem; color: #64748B; margin-top: 0.3rem; line-height: 1.4;">
+                    Columns: Company Name, Domain, Category, Target URL, Discount Title, Logo URL
+                  </div>
+                </div>
+                <button class="sc-tab-btn" style="margin-top: 0.8rem; background: #ECFDF5; color: #059669; border: 1px solid #A7F3D0; font-weight: 800; font-size: 0.78rem; padding: 0.45rem 0.8rem; border-radius: 8px; cursor: pointer;" onclick="downloadCSVTemplate('stores')">
+                  📄 Download Sample Merchants CSV
+                </button>
+              </div>
+
+              <!-- Sample 2: Promo Codes -->
+              <div style="background: #F8FAFC; border: 1px dashed #CBD5E1; padding: 1rem; border-radius: 12px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="font-weight: 800; font-size: 0.9rem; color: #0F172A; display: flex; align-items: center; gap: 0.4rem;">
+                    💎 Promo Codes & Deals Sample
+                  </div>
+                  <div style="font-size: 0.75rem; color: #64748B; margin-top: 0.3rem; line-height: 1.4;">
+                    Columns: Company Name, Promo Code String, Discount Title, Description Terms
+                  </div>
+                </div>
+                <button class="sc-tab-btn" style="margin-top: 0.8rem; background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; font-weight: 800; font-size: 0.78rem; padding: 0.45rem 0.8rem; border-radius: 8px; cursor: pointer;" onclick="downloadCSVTemplate('codes')">
+                  📄 Download Sample Promo Codes CSV
+                </button>
+              </div>
+
+              <!-- Sample 3: User Accounts -->
+              <div style="background: #F8FAFC; border: 1px dashed #CBD5E1; padding: 1rem; border-radius: 12px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="font-weight: 800; font-size: 0.9rem; color: #0F172A; display: flex; align-items: center; gap: 0.4rem;">
+                    👥 User Accounts Sample
+                  </div>
+                  <div style="font-size: 0.75rem; color: #64748B; margin-top: 0.3rem; line-height: 1.4;">
+                    Columns: Username Email, Full Name, Login Password, Role, Status
+                  </div>
+                </div>
+                <button class="sc-tab-btn" style="margin-top: 0.8rem; background: #F3E8FF; color: #7E22CE; border: 1px solid #E9D5FF; font-weight: 800; font-size: 0.78rem; padding: 0.45rem 0.8rem; border-radius: 8px; cursor: pointer;" onclick="downloadCSVTemplate('users')">
+                  📄 Download Sample User Accounts CSV
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 2: BULK CSV UPLOAD & IMPORT ENGINE -->
+          <div style="background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 16px; padding: 1.4rem; margin-bottom: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.8rem;">
+              <div>
+                <h4 style="font-size: 1.05rem; font-weight: 800; color: #0F172A; margin: 0; display: flex; align-items: center; gap: 0.4rem;">
+                  📤 Bulk Upload & Import CSV File into Database
+                </h4>
+                <p style="font-size: 0.78rem; color: #64748B; margin-top: 0.2rem;">Select the database table, pick your CSV file, preview rows, and import with 1-click.</p>
+              </div>
+
+              <!-- Import Category Selector -->
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <label style="font-size: 0.8rem; font-weight: 700; color: #0F172A;">Import Into:</label>
+                <select id="csvImportCategory" style="background: #F8FAFC; border: 1px solid #CBD5E1; padding: 0.45rem 0.8rem; border-radius: 8px; font-weight: 800; font-size: 0.82rem; color: #0F172A; cursor: pointer;">
+                  <option value="stores">🏪 Merchant Companies</option>
+                  <option value="codes">💎 Promo Codes & Deals</option>
+                  <option value="users">👥 User Accounts / Bulk Users</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Upload Dropzone -->
+            <input type="file" id="csvFileInput" accept=".csv" onchange="handleCSVFileSelected(event)" style="display: none;">
+            <div onclick="document.getElementById('csvFileInput').click()" style="background: #F8FAFC; border: 2px dashed #94A3B8; border-radius: 14px; padding: 2.2rem; text-align: center; cursor: pointer; transition: all 0.2s;" ondragover="event.preventDefault(); this.style.borderColor='#1D61E7'; this.style.background='#EFF6FF';" ondragleave="this.style.borderColor='#94A3B8'; this.style.background='#F8FAFC';" ondrop="event.preventDefault(); this.style.borderColor='#94A3B8'; this.style.background='#F8FAFC'; if (event.dataTransfer.files.length) { document.getElementById('csvFileInput').files = event.dataTransfer.files; handleCSVFileSelected({ target: document.getElementById('csvFileInput') }); }">
+              <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">📁</div>
+              <div style="font-weight: 800; font-size: 1rem; color: #0F172A;">Click here to Browse CSV File or Drag & Drop File</div>
+              <div style="font-size: 0.78rem; color: #64748B; margin-top: 0.3rem;">Supports standard .csv files with headers. Auto-parses commas and quotes.</div>
+            </div>
+
+            <!-- CSV Preview & Confirmation Container (Hidden until file selected) -->
+            <div id="csvPreviewContainer" style="display: none; margin-top: 1.4rem; background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 12px; padding: 1.2rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.8rem;">
+                <div>
+                  <span style="font-weight: 800; font-size: 0.95rem; color: #0F172A;" id="csvFileName">uploaded_file.csv</span>
+                  <div style="font-size: 0.78rem; color: #059669; font-weight: 700; margin-top: 0.1rem;" id="csvRecordCount">0 rows found</div>
+                </div>
+                <div style="display: flex; gap: 0.6rem;">
+                  <button class="sc-admin-btn-primary" style="background: linear-gradient(135deg, #059669, #047857);" onclick="confirmBulkImportToDatabase()">
+                    🚀 Confirm & Import to Database
+                  </button>
+                  <button class="sc-admin-btn-delete" style="padding: 0.45rem 0.8rem; font-size: 0.8rem;" onclick="cancelCSVUpload()">
+                    ❌ Cancel
+                  </button>
+                </div>
+              </div>
+
+              <!-- Preview Table -->
+              <div style="max-height: 250px; overflow-x: auto; overflow-y: auto; background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 8px;">
+                <table class="sc-user-table" style="margin: 0; font-size: 0.8rem;">
+                  <thead id="csvPreviewThead" style="background: #F1F5F9; position: sticky; top: 0;"></thead>
+                  <tbody id="csvPreviewTbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 3: DIRECT QUICK BULK USER CREATION CARD -->
+          <div style="background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 16px; padding: 1.4rem; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.8rem;">
+              <div>
+                <h4 style="font-size: 1.05rem; font-weight: 800; color: #0F172A; margin: 0; display: flex; align-items: center; gap: 0.4rem;">
+                  👥 Quick Bulk User Creator (Multi-Line / Copy-Paste)
+                </h4>
+                <p style="font-size: 0.78rem; color: #64748B; margin-top: 0.2rem;">Quickly paste multiple email addresses or usernames (one per line) to instantly generate user accounts.</p>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+              <textarea id="bulkUserPasteInput" rows="4" style="width: 100%; border: 1px solid #CBD5E1; border-radius: 10px; padding: 0.8rem; font-family: monospace; font-size: 0.85rem; outline: none; background: #F8FAFC;" placeholder="Enter multiple users line-by-line, e.g.:
+rahul@gmail.com, Rahul Sharma, pass123
+priya@yahoo.com, Priya Verma, pass456
+amit@codes4u.com, Amit Patel, pass789"></textarea>
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.8rem;">
+                <span style="font-size: 0.75rem; color: #64748B;">Format: <code>email, Full Name, password</code> (or simply enter email per line)</span>
+                <button class="sc-admin-btn-primary" style="background: linear-gradient(135deg, #7C3AED, #6D28D9);" onclick="quickCreateBulkUsers()">
+                  ✨ Create Bulk User Accounts Now
+                </button>
+              </div>
             </div>
           </div>
         </div>

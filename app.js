@@ -4102,6 +4102,52 @@ function cancelCSVUpload() {
   if (input) input.value = '';
 }
 
+// 9. Quick Bulk User Creation from Paste Area
+function quickCreateBulkUsers() {
+  const textInput = document.getElementById('bulkUserPasteInput');
+  if (!textInput || !textInput.value.trim()) {
+    alert('Please enter at least one user email or name in the box!');
+    return;
+  }
+  const lines = textInput.value.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+  let count = 0;
+  lines.forEach(line => {
+    const parts = line.split(',').map(p => p.trim());
+    const email = parts[0];
+    if (!email) return;
+    const fullName = parts[1] || email.split('@')[0];
+    const password = parts[2] || 'pass123';
+
+    let existing = userLogins.find(u => u.name.toLowerCase() === email.toLowerCase());
+    if (existing) {
+      existing.fullName = fullName;
+    } else {
+      userLogins.unshift({
+        id: `USR-${Math.floor(1000 + Math.random() * 9000)}`,
+        name: email,
+        fullName: fullName,
+        password: password,
+        ip: '192.168.1.' + Math.floor(Math.random() * 200 + 10),
+        loginTime: new Date().toISOString().replace('T', ' ').substring(0, 16),
+        sessionStartMs: Date.now(),
+        codesUsed: 0,
+        status: '🟢 Active',
+        lastActive: 'Just created',
+        device: 'Bulk Admin Import',
+        shoppingVisits: [],
+        copiedCodes: [],
+        orders: []
+      });
+    }
+    count++;
+  });
+
+  saveUsersToStorage();
+  renderUserTable();
+  textInput.value = '';
+  showToastNotification(`🎉 Successfully created ${count} user accounts!`);
+}
+
 // ========================================================
 // 24-HOUR UNIVERSAL UNDO & ACTION HISTORY ENGINE
 // ========================================================
