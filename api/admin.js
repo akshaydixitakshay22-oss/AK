@@ -48,20 +48,19 @@ module.exports = (req, res) => {
           .card { background: #1E293B; border: 1px solid #334155; padding: 2.5rem; border-radius: 12px; max-width: 420px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5); }
           h1 { color: #EF4444; font-size: 1.5rem; margin-top: 0; }
           p { color: #94A3B8; font-size: 0.95rem; line-height: 1.5; }
-          a { display: inline-block; margin-top: 1.2rem; background: #00A676; color: #000; padding: 0.75rem 1.5rem; text-decoration: none; font-weight: 800; border-radius: 8px; }
+          a { display: inline-block; margin-top: 1.2rem; background: #00E676; color: #000; padding: 0.75rem 1.5rem; text-decoration: none; font-weight: 800; border-radius: 8px; }
         </style>
       </head>
       <body>
         <div class="card">
           <h1>🔒 401 - Unauthorized Access</h1>
           <p>Access to the Super Admin Dashboard requires an active, authenticated Super Admin session token.</p>
-          <a href="/"> Return to Main Site</a>
-      </div>
+          <a href="/">← Return to Main Site</a>
+        </div>
       </body>
       </html>
     `);
   }
-
 
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   return res.status(200).send(getAdminTemplateHTML());
